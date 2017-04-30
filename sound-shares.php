@@ -71,22 +71,25 @@ function sosa_check_postmeta() {
  *
  * Callback for filter: language_attributes.
  *
+ * <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+ * website: http://ogp.me/ns/website# video: http://ogp.me/ns/video#
+ * xmlns:fb="http://ogp.me/ns/fb#"
+ *
  * @since   0.1.0
  */
 function sosa_add_xml_namespaces( $output ) {
     $og_url    = 'http://ogp.me/ns#';
-    $fb_url    = 'http://www.facebook.com/2008/fbml';
+    $fb_url    = 'http://ogp.me/ns/fb#';
     $lang_attr = get_language_attributes( 'xhtml' );
-    if ( $og_url === false ) {
-        $output .= ' xmlns:og="http://ogp.me/ns#"';
+    if ( strpos( $lang_attr, $og_url ) === false ) {
+        $output .= ' prefix="og: http://ogp.me/ns#"';
     }
-    if ( $fb_url === false ) {
-        $output .= ' xmlns:fb="http://www.facebook.com/2008/fbml"';
+    if ( strpos( $lang_attr, $fb_url ) === false )  {
+        $output .= ' xmlns:fb="http://ogp.me/ns/fb#"';
     }
 
     return $output;
 }
-
 
 function sosa_change_og_type() {
     // Check for Jetpack og:type tag:
@@ -146,12 +149,35 @@ function sosa_add_og_meta_tags( $type ) {
     <meta property="og:video:height" content="50" />
     <meta property="og:video:width" content="480" />
     <meta property="og:video:type" content="video/mp4"/>
-    <meta property='og:video'content='<?php echo esc_url_raw( $sse_url ); ?>'>
+    <meta property='og:video'content='<?php echo esc_url( $sse_url ); ?>'>
     <?php
 }
 
 
 /*
+
+<a href="https://developers.facebook.com/docs/platforminsights/domains">Insights</a>
+
+User ID from <a href="https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname">Graph Explorer</a> (use Submit button)
+{
+  "id": "100000387685599",
+  "name": "Barrett Golding"
+}
+
+User ID (which can be found by viewing the Graph Explorer, and copying the ID value):
+
+<meta property="fb:admins" content="USER_ID">
+
+<a href="https://developers.facebook.com/tools/debug/og/object?q=<?php echo esc_url( get_permalink( get_the_ID()) ); ?>">Facebook Debugger</a>
+
+https://developers.facebook.com/tools/debug
+
+global $my_var;
+$my_var = 'val';
+
+global $post;
+echo $post->ID;
+
 $tags['fb:app_id'] = '189645238915';
 <html lang="en-US" prefix="og: http://ogp.me/ns#">
 OG URL 301: 'http://opengraphprotocol.org/schema/';
