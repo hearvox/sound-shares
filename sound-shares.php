@@ -156,7 +156,30 @@ function sosa_add_og_meta_tags( $type ) {
 
 /*
 
+Facebook Domain Insights
 <a href="https://developers.facebook.com/docs/platforminsights/domains">Insights</a>
+
+App Dashboard.
+https://developers.facebook.com/apps/redirect/dashboard
+
+https://developers.facebook.com/docs/sharing/best-practices#images
+* Don’t forget the fb:app_id, article:author and article:publisher tags!
+* 1200 x 630 pixels for the best display on high resolution devices. At the minimum, you should use images that are 600 x 315. 
+* Try to keep your images as close to 1.91:1 aspect ratio as possible to display the full image in News Feed without any cropping.
+* The minimum image size is 200 x 200 pixels. If you try to use an image smaller than this you will see an error in the Sharing Debugger.
+* Pre-cache the image with the Sharing Debugger
+* Use og:image:width and og:image:height Open Graph tags
+Using these tags will specify the image dimensions to the crawler so that it can render the image immediately without having to asynchronously download and process it.
+
+
+
+https://developers.facebook.com/docs/sharing/webmasters
+https://developers.facebook.com/docs/sharing/webmasters#video
+https://developers.facebook.com/docs/sharing/webmasters#media
+A Guide to Sharing for Webmasters
+Open Graph Markup
+https://developers.facebook.com/docs/sharing/webmasters#markup
+
 
 User ID from <a href="https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname">Graph Explorer</a> (use Submit button)
 {
@@ -172,6 +195,8 @@ User ID (which can be found by viewing the Graph Explorer, and copying the ID va
 
 https://developers.facebook.com/tools/debug
 
+
+
 global $my_var;
 $my_var = 'val';
 
@@ -182,7 +207,20 @@ $tags['fb:app_id'] = '189645238915';
 <html lang="en-US" prefix="og: http://ogp.me/ns#">
 OG URL 301: 'http://opengraphprotocol.org/schema/';
 https://developer.wordpress.org/reference/functions/get_language_attributes/
- */
+
+
+Twitter:
+
+https://dev.twitter.com/cards/types/summary
+
+https://dev.twitter.com/cards/types/summary-large-image
+A URL to a unique image representing the content of the page. You should not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images for this Card support an aspect ratio of 2:1 with minimum dimensions of 300x157 or maximum of 4096x4096 pixels. Images must be less than 5MB in size. JPG, PNG, WEBP and GIF formats are supported. Only the first frame of an animated GIF will be used. SVG is not supported.
+
+https://github.com/twitterdev/cards-player-samples
+https://dev.twitter.com/cards/types/player
+
+<meta name="twitter:player:stream:content_type" content="audio/mpeg"/>
+*/
 
 /**
  * Execute uninstall tasks (uninstall hook callback)
