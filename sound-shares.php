@@ -2,24 +2,18 @@
 /*
 Plugin Name:       Sound Shares
 Plugin URI:        http://hearingvoices.com/tools/social-multimedia
-Description:       Embed audio and video in your social posts (using the Open Graph protocol for Facebook). To use: In the Edit Post's Custom Field box, Add New Custom Field with the Name: <code>sss_url</code> and value of the audio or video URL (must be .mp3 or mp4). Then click Add Custom Filed button.
+Description:       NOT READY. DO NOT USE YET. Embed audio and video in your social posts (using the Open Graph protocol for Facebook). To use: In the Edit Post's Custom Field box, Add New Custom Field with the Name: <code>sss_url</code> and value of the audio or video URL (must be .mp3 or mp4). Then click Add Custom Filed button.
 Version:           0.1.0
 Author:            Barrett Golding
 Author URI:        http://hearingvoices.com/bg/
 License:           GPL-2.0+
 License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
 Text Domain:       soundshares
-Plugin Prefix:     sosa
+Prefix:            soundshares
 */
 
-/**
- * @todo Add settings page: FB App ID, FB Admins, User roles, post types.
- * @todo Add metabox for selected user roles and post types.
- * @todo Use WP Inline Link Checker in metabox. 
- * @todo Use Preview media to metabox.
- * @since   0.1.0
- */
- 
+
+
 /* ------------------------------------------------------------------------ *
  * Plugin init and uninstall
  * ------------------------------------------------------------------------ */
@@ -29,40 +23,44 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( defined( 'SOSA_VERSION' ) ) {
+if ( defined( 'SOUNDSHARES_VERSION' ) ) {
     return;
 }
 
-define( 'SOSA_VERSION', '0.1.0' );
+define( 'SOUNDSHARES_VERSION', '0.1.0' );
+
 
 /**
- * Register uninstall function upon activation
+ * Variables for Open Graph tags.
+ *
+ * These are saved (as an WP Option) so will not be lost in plugin updates.
+ *
  *
  * @since   0.1.0
  */
-function sosa_activate(){
-    register_uninstall_hook( __FILE__, 'sosa_uninstall' );
-}
-register_activation_hook( __FILE__, 'sosa_activate' );
-
-$fb_app_id = '';
-$sse_url   = '';
+/* Add OG title, description Only set to 1 if your site deo */
+$soundshares_og        = 0; //
+$soundshares_fb_app_id = ''; // ID of App that monitors use in Facebook Insights.
+$soundshares_fb_admins = ''; // Facebook User IDs allowed to view Insights.
+$soundshares_video_h   = '50';
+$soundshares_video_w   = '480';
+$soundshares_embed     = '';
 
 /**
  * Check for plugin post meta.
  *
  * @since   0.1.0
  */
-function sosa_check_postmeta() {
+function soundshares_check_postmeta() {
 	if ( is_singular() && metadata_exists( 'post', get_the_ID(), 'sse_url' ) ) {
 
         $sse_url = get_post_meta( get_the_ID(), 'sse_url', true );
 
         // Print XML Namespaces as attributes of post's <html> tag.
-        add_filter( 'language_attributes', 'sosa_xml_namespaces' );
+        add_filter( 'language_attributes', 'soundshares_xml_namespaces' );
 
         // Print Open Graph video (HTML <meta>) tags in post's <head>.
-        add_action( 'wp_head', 'sosa_add_og_meta_tags', 9 );
+        add_action( 'wp_head', 'soundshares_add_og_meta_tags', 9 );
 	}
 }
 
@@ -77,7 +75,7 @@ function sosa_check_postmeta() {
  *
  * @since   0.1.0
  */
-function sosa_add_xml_namespaces( $output ) {
+function soundshares_add_xml_namespaces( $output ) {
     $og_url    = 'http://ogp.me/ns#';
     $fb_url    = 'http://ogp.me/ns/fb#';
     $lang_attr = get_language_attributes( 'xhtml' );
@@ -91,27 +89,27 @@ function sosa_add_xml_namespaces( $output ) {
     return $output;
 }
 
-function sosa_change_og_type() {
+function soundshares_change_og_type() {
     // Check for Jetpack og:type tag:
     if ( has_filter( 'jetpack_open_graph_tags' ) ) {
-        add_filter( 'jetpack_open_graph_tags', 'sosa_change_jetpack_og_type' );
+        add_filter( 'jetpack_open_graph_tags', 'soundshares_change_jetpack_og_type' );
     }
 
     // Check for Jetpack og:type tag:
     if ( has_filter( 'wpseo_opengraph_type' ) ) {
         add_filter( 'wpseo_opengraph_type', '__return_false' );
-        // add_filter( 'wpseo_opengraph_type', 'sosa_change_yoast_og_type', 10, 1 );
+        // add_filter( 'wpseo_opengraph_type', 'soundshares_change_yoast_og_type', 10, 1 );
     }
 }
 
 /**
  * Change OG type tag value set by Jetpack plugin.
  *
- * Called by: sosa_change_og_type.
+ * Called by: soundshares_change_og_type.
  *
  * @since   0.1.0
  */
-function sosa_change_jetpack_og_type( $type ) {
+function soundshares_change_jetpack_og_type( $type ) {
     // Remove the default tag added by Jetpack
     unset( $tags['og:type'] );
 
@@ -122,11 +120,11 @@ function sosa_change_jetpack_og_type( $type ) {
 /**
  * Change OG type tag value  set by Yoast SEO plugin..
  *
- * Called by: sosa_change_og_type.
+ * Called by: soundshares_change_og_type.
  *
  * @since   0.1.0
  */
-function sosa_change_yoast_og_type( $type ) {
+function soundshares_change_yoast_og_type( $type ) {
     return 'video';
 }
 
@@ -142,9 +140,10 @@ function sosa_change_yoast_og_type( $type ) {
  *
  * @since   0.1.0
  */
-function sosa_add_og_meta_tags( $type ) {
+function soundshares_add_og_meta_tags( $type ) {
     ?>
     <meta property="fb:app_id" content="<?php echo esc_attr( $fb_app_id ); ?>" />
+    <meta property="fb:admins" content="<?php echo esc_attr( $fb_admins ); ?>"/>
     <meta property="og:type" content="video.movie"/>
     <meta property="og:video:height" content="50" />
     <meta property="og:video:width" content="480" />
@@ -156,79 +155,25 @@ function sosa_add_og_meta_tags( $type ) {
 
 /*
 
-Facebook Domain Insights
-<a href="https://developers.facebook.com/docs/platforminsights/domains">Insights</a>
 
-App Dashboard.
-https://developers.facebook.com/apps/redirect/dashboard
-
-https://developers.facebook.com/docs/sharing/best-practices#images
-* Don’t forget the fb:app_id, article:author and article:publisher tags!
-* 1200 x 630 pixels for the best display on high resolution devices. At the minimum, you should use images that are 600 x 315. 
-* Try to keep your images as close to 1.91:1 aspect ratio as possible to display the full image in News Feed without any cropping.
-* The minimum image size is 200 x 200 pixels. If you try to use an image smaller than this you will see an error in the Sharing Debugger.
-* Pre-cache the image with the Sharing Debugger
-* Use og:image:width and og:image:height Open Graph tags
-Using these tags will specify the image dimensions to the crawler so that it can render the image immediately without having to asynchronously download and process it.
-
-
-
-https://developers.facebook.com/docs/sharing/webmasters
-https://developers.facebook.com/docs/sharing/webmasters#video
-https://developers.facebook.com/docs/sharing/webmasters#media
-A Guide to Sharing for Webmasters
-Open Graph Markup
-https://developers.facebook.com/docs/sharing/webmasters#markup
-
-
-User ID from <a href="https://developers.facebook.com/tools/explorer/?method=GET&path=me%3Ffields%3Did%2Cname">Graph Explorer</a> (use Submit button)
-{
-  "id": "100000387685599",
-  "name": "Barrett Golding"
+Jetpack:
+if ( class_exists( 'Jetpack' ) ) {
+	if ( in_array( 'publicize', Jetpack::get_active_modules() ) || in_array( 'sharedaddy', Jetpack::get_active_modules() ) ) {
+		echo 'yo';
+	} else {
+		echo 'no';
+	}
 }
 
-User ID (which can be found by viewing the Graph Explorer, and copying the ID value):
+if ( class_exists( 'WPSEO_Options' ) ) {
+	if ( WPSEO_Options::get_option( 'wpseo_social' ); ) {
+		echo 'yo';
+	} else {
+		echo 'no';
+	}
+}
 
-<meta property="fb:admins" content="USER_ID">
-
-<a href="https://developers.facebook.com/tools/debug/og/object?q=<?php echo esc_url( get_permalink( get_the_ID()) ); ?>">Facebook Debugger</a>
-
-https://developers.facebook.com/tools/debug
-
-
-
-global $my_var;
-$my_var = 'val';
-
-global $post;
-echo $post->ID;
-
-$tags['fb:app_id'] = '189645238915';
-<html lang="en-US" prefix="og: http://ogp.me/ns#">
-OG URL 301: 'http://opengraphprotocol.org/schema/';
-https://developer.wordpress.org/reference/functions/get_language_attributes/
-
-
-Twitter:
-
-https://dev.twitter.com/cards/types/summary
-
-https://dev.twitter.com/cards/types/summary-large-image
-A URL to a unique image representing the content of the page. You should not use a generic image such as your website logo, author photo, or other image that spans multiple pages. Images for this Card support an aspect ratio of 2:1 with minimum dimensions of 300x157 or maximum of 4096x4096 pixels. Images must be less than 5MB in size. JPG, PNG, WEBP and GIF formats are supported. Only the first frame of an animated GIF will be used. SVG is not supported.
-
-https://github.com/twitterdev/cards-player-samples
-https://dev.twitter.com/cards/types/player
-
-<meta name="twitter:player:stream:content_type" content="audio/mpeg"/>
 */
-
-/**
- * Execute uninstall tasks (uninstall hook callback)
- *
- * Remove plugin post meta and option from database.
- *
- * @since   0.1.0
- */
 
 /**
  * Validate URL.
@@ -238,7 +183,7 @@ https://dev.twitter.com/cards/types/player
  * @since   0.1.0
  */
 // Validate URL.
-function sosa_check_url() {
+function soundshares_check_url() {
     if ( filter_var( $sse_url, FILTER_VALIDATE_URL ) === false ) {
         $sse_url  = "URL Not Valid: $sse_url";
         update_post_meta( get_the_ID(), 'sse_url', $meta_value, $prev_value );
@@ -247,7 +192,32 @@ function sosa_check_url() {
     }
 }
 
-function sosa_uninstall() {
+/**
+ * @todo Add settings page: FB App ID, FB Admins, User roles, post types.
+ * @todo Add metabox for selected user roles and post types.
+ * @todo Use WP Inline Link Checker in metabox.
+ * @todo Use Preview media to metabox.
+ * @since   0.1.0
+ */
+
+/**
+ * Register uninstall function upon activation
+ *
+ * @since   0.1.0
+ */
+function soundshares_activate(){
+    register_uninstall_hook( __FILE__, 'soundshares_uninstall' );
+}
+register_activation_hook( __FILE__, 'soundshares_activate' );
+
+/**
+ * Execute uninstall tasks (uninstall hook callback)
+ *
+ * Remove plugin post meta and option from database.
+ *
+ * @since   0.1.0
+ */
+function soundshares_uninstall() {
 	// Remove plugin post meta.
     delete_post_meta_by_key ( 'smm_audio' );
     delete_post_meta_by_key ( 'smm_video' );
