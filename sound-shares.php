@@ -30,10 +30,31 @@ if ( defined( 'SOUNDSHARES_VERSION' ) ) {
 define( 'SOUNDSHARES_VERSION', '0.1.0' );
 
 /*
-Set vars, inc. fb_app_id, fb_admins.
-Check xml namespace.
-Add xml
-
+~ Get option, check for vars.
+~ Set vars, inc. fb_app_id, fb_admins.
+~ Save vars to option.
+~ If singular and metadata:
+    Check xml namespace.
+    Add ns to lang_attr hook.
+    Build basic og (if option enabled).
+    Change og type to video.movie, via filters, in:
+        Yoast, Jetpack, Allin1, Facebook, FB Google+
+    Build HTML meta tags for og video, type: video.movie,
+        url: plugin post meta, w&h: pligin vars.
+    IF video URL is HTTPS:
+         Add od:video:secure_url.
+    Surround meta tags w/ HTML comment identifying plugin?
+    Add meta tags via wp_head hook.
+~ Docs
+    Lists debug URLs: FB and Twit.
+    List OG, FB-OG, and Twitter Card doc URLs.
+    Print example OG output, basic and video.
+    List TODOs: Twitter, different image, filters.
+    List filters in Sound Shares, with examples.
+    List other plugins that Sound Shares filters og:type.
+    Link to Jetpack list of plugins that manage OG.
+    Detail FB and Twit image specs.
+    Link to current article.
 */
 
 /**
