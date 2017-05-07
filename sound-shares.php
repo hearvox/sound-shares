@@ -45,7 +45,7 @@ define( 'SOUNDSHARES_VERSION', '0.1.0' );
          Add od:video:secure_url.
     Surround meta tags w/ HTML comment identifying plugin?
     Add meta tags via wp_head hook.
-~ Docs
+~ Docs (ReadMe.md and inline docs):
     Lists debug URLs: FB and Twit.
     List OG, FB-OG, and Twitter Card doc URLs.
     Print example OG output, basic and video.
@@ -55,6 +55,7 @@ define( 'SOUNDSHARES_VERSION', '0.1.0' );
     Link to Jetpack list of plugins that manage OG.
     Detail FB and Twit image specs.
     Link to current article.
+    Link to an FB post using Sound Shares audio embed.
 */
 
 /**
