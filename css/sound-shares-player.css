@@ -1,0 +1,351 @@
+
+@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@-moz-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@-ms-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@-o-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+body {
+  background-color:#000;
+}
+#container {
+  margin:20px auto;
+  width:480px;
+  height:75px;
+}
+#player {
+  background-color:#000;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size:0;
+  background-color:#111;
+  position:relative;
+  width:100%;
+  height:100%;
+}
+#info {
+  position:absolute;
+  bottom:50px;
+  left:10px;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  text-shadow:
+   -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
+#info h1 {
+  font-size:15px;
+  line-height:15px;
+  color:#FFF;
+  display:inline;
+  margin-right:6px;
+}
+#info h2 {
+  font-size:11px;
+  line-height:11px;
+  color:#7D7575;
+  display:inline;
+}
+#player a {
+  text-decoration:none;
+}
+#controls {
+  padding:0 10px;
+     -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position:absolute;
+  display:table;
+  bottom:10px;
+  width:100%;
+  height:35px;
+  color:#FFF;
+  border-spacing:0;
+}
+td, tr {
+  padding:0;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+.last {
+  -webkit-border-radius: 0px 5px 5px 0px;
+  border-radius: 0px 5px 5px 0px;
+  margin-right:0;
+}
+.buttonGroup {
+  height:30px;
+  border-bottom:5px solid rgba(0, 0,0,0.6);
+  margin-right:1px;
+  padding:0;
+  position:relative;
+  top:0;
+}
+.static {
+  margin-bottom:0;
+  margin-top:6px;
+  height:23px;
+  line-height:23px;
+  background-color:rgba(0,0,0,0.6);
+  text-align:center;
+  position:relative;
+  bottom:0;
+  margin-right:1px;
+  font-size:0;
+  padding:0;
+}
+.static span {
+  font-size:10px;
+}
+a {
+  font-size:15px;
+  display:inline-block;
+  color:#EEB211;
+  margin-bottom:0;
+  margin-top:6px;
+  height:23px;
+  line-height:23px;
+  position:relative;
+  background-color:rgba(0,0,0,0.6);
+  text-align:center;
+  margin-right:1px;
+  padding:0;
+}
+a:hover {
+  color:#000;
+  background-color:#EEB211;
+}
+a.big {
+  height:35px;
+  line-height:35px;
+  font-size:20px;
+  margin-top:0;
+  margin-bottom:0;
+  display:block;
+}
+label {
+  display:block;
+  position:absolute;
+  top:-6px;
+  left:0;
+  right:0;
+  height:0;
+  line-height:20px;
+  font-size:10px;
+  color:#FFF;
+  width:100%;
+  padding-top:5px;
+  padding-bottom:0;
+  background-color:rgba(0,0,0,0.6);
+  overflow:hidden;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+a:hover label.expandable, label.expandable:hover {
+  -webkit-border-radius: 5px 5px 0px 0px;
+border-radius: 5px 5px 0px 0px;
+  margin-top:-20px;
+  padding-bottom:5px;
+  height:15px;
+}
+.rangeContainer {
+  padding:0 7px 0 5px;
+}
+.rangeHorizontal {
+  display:block;
+  height:10px;
+  position:relative;
+  top:6px;
+  padding:0;
+  background-color: rgba(185, 111, 16, 0.5);
+  border: 1px solid rgba(185, 111, 16, 0.5);
+  cursor:pointer;
+}
+#seekFill {
+  height:10px;
+  background-color:#EEB211;
+  border:1px solid #FFE544;
+  position:absolute;
+  top:6px;
+  cursor:pointer;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(255, 255, 150, 0.3);
+  box-shadow: 0px 0px 5px 1px rgba(255, 255, 150, 0.3);
+}
+#seekDrag {
+  height:14px;
+  width:4px;
+  background-color:#999;
+  position:absolute;
+  top:4px;
+  margin-left:2px;
+  border:1px solid #000;
+  cursor:pointer;
+  opacity:0;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  cursor:pointer;
+}
+#seekHolder:hover #seekDrag {
+  opacity:1;
+}
+#timeLabel {
+  height:0;
+  top:-6px;
+  margin-top:6px;
+  text-align:center;
+  width:50px;
+  line-height:15px;
+  padding-top:0;
+  color:#FFF;
+  font-size:10px;
+  overflow:hidden;
+  background-color:rgba(0, 0, 0, 0.6);
+  -webkit-border-radius: 5px 5px 0px 0px;
+  border-radius: 5px 5px 0px 0px;
+  position:absolute;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#seekHolder:hover #timeLabel {
+  height:15px;
+  top:-26px;
+  padding-top:5px;
+}
+.stripes {
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(0, 0, 0, 0.1)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.1)), color-stop(0.75, rgba(0, 0, 0, 0.1)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  -webkit-animation: progress-bar-stripes 3s linear infinite;
+     -moz-animation: progress-bar-stripes 3s linear infinite;
+      -ms-animation: progress-bar-stripes 3s linear infinite;
+       -o-animation: progress-bar-stripes 3s linear infinite;
+          animation: progress-bar-stripes 3s linear infinite;
+  -webkit-background-size: 40px 40px;
+     -moz-background-size: 40px 40px;
+       -o-background-size: 40px 40px;
+          background-size: 40px 40px;
+}
+.group {
+  display:table-cell;
+  position:relative;
+  vertical-align:top;
+}
+.group:after {
+  content:" ";
+  display:block;
+  height:5px;
+  background-color:rgba(0, 0,0,0.6);
+  margin-top:1px;
+  margin-right:1px;
+}
+.group:first-child:after {
+  display:none;
+}
+.group:last-child:after {
+  -webkit-border-radius: 0 0 5px 0;
+  border-radius: 0 0 5px 0;
+}
+.group:last-child a:last-child {
+  margin-right:0;
+}
+.group:first-child > * {
+  -webkit-border-radius: 5px 0px 0px 5px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+
+
+#play, #r1 {
+  width:50px;
+}
+#time {
+  font-size:10px;
+  width:90px;
+}
+#r2 {
+  width:90px;
+}
+#currentTime {
+  border-right:2px solid #7D7575;
+  padding-right:4px;
+}
+#totalTime {
+  color:#B96F10;
+  padding-left:4px;
+}
+#seekHolder {
+  width:auto;
+  position:relative;
+}
+#seek {
+  width:100%;;
+}
+#mute, #loop {
+  width:40px;
+}
+#mute:hover #volumeFill, #mute:hover #volumeOverlay {
+  bottom:7px;
+}
+#volumeFill {
+  height:70px
+}
+#volumeLabel {
+  font-size:0;
+}
+#volumeLabel span {
+  font-size:9px;
+}
+#right {
+  width:82px;
+}

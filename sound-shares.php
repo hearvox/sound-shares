@@ -381,17 +381,18 @@ function soundshares_get_url_html( $html ) {
 }
 
 
-
-
-
 /**
  * @todo Add settings page: FB App ID, FB Admins, User roles, post types.
  * @todo Add metabox for selected user roles and post types.
- * @todo Use WP Inline Link Checker in metabox.
- * @todo Use Preview media to metabox.
+ * @todo Use WP Inline Link Checker in meta-box.
+ * @todo Use Preview media to meta-box.
  * @since   0.1.0
  */
 
+
+/* ------------------------------------------------------------------------ *
+ * Uninstall functions.
+ * ------------------------------------------------------------------------ */
 /**
  * Register uninstall function upon activation
  *
