@@ -21,9 +21,9 @@
         <?php $title    = ( ! empty( $_GET['title'] ) ) ? $_GET['title'] : 'Audio'; ?>
         <?php $author   = ( ! empty( $_GET['author'] ) ) ? 'by ' . $_GET['author'] : ''; ?>
         <?php
-          if ( empty( $_GET['file'] ) ) {
-            $title = '<em>[NO AUDIOFILE]</em>';
-          }
+        if ( empty( $_GET['file'] ) ) {
+          $title = '<em>[NO AUDIOFILE]</em>';
+        }
         ?>
         <div id="info">
           <h1><?php echo filter_var( $title, FILTER_SANITIZE_STRING ); ?></h1>
@@ -92,6 +92,7 @@ $audiodata = array( 'http://hearingvoices.com/news/wp-content/uploads/2012/09/1S
  -->
 
 <!--
+Audio Player:
 Copyright (c) 2017 by Dave Pagurek (http://codepen.io/davepvm/pen/DgwlJ)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
