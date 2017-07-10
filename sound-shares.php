@@ -359,7 +359,7 @@ function soundshares_get_url_html( $url ) {
  *
  * @return  string       wp_head() HTML output
  */
-function soundshares_get_url_html( $html ) {
+function soundshares_get_html_meta( $html ) {
     $metatags = '';
 
     if ( class_exists( 'DOMDocument' ) ) {
@@ -372,7 +372,8 @@ function soundshares_get_url_html( $html ) {
             $content = $link->getAttribute('content');
 
             if ( $property ) {
-            $metatags .= "$property = $content<br>";
+                $metatags .= "$property = $content<br>";
+            }
         }
         return $metatags;
     } else {

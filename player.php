@@ -1,35 +1,71 @@
+<?php
+/**
+ * Audio player for the Sound Shares plugin
+ *
+ * Public HTML page used in Tweets as an embedded Player Card widget.
+ *
+ * Audio Player: Copyright (c) 2017 by Dave Pagurek (license below).
+ * @link https://codepen.io/davepvm/pen/DgwlJ
+
+ * @link    https://hearingvoices.com/tools/sound-shares
+ * @since   0.1.0
+ *
+ * @package    Sound Shares
+ * @subpackage sound-shares/includes
+ */
+
+/**
+ * Extract var values from URL query string
+ *
+ * This file does NOT load WordPress so uses no WP functions.
+ *
+ * @since   0.1.0
+ *
+ */
+if ( ! empty( $_GET['file'] ) ) {
+  $file   = ( $_GET['file'] );
+  $title  = ( ! empty( $_GET['title'] ) ) ? $_GET['title'] : '';
+  $author = ( ! empty( $_GET['author'] ) ) ? 'by ' . $_GET['author'] : '';
+} else {
+  $file   = '';
+  $title  = '<em>[NO AUDIOFILE]</em>';
+  $author = '';
+}
+
+// Uncomment these var values for testing:
+// $file   = 'https%3A%2F%2Fpubmedia.us%2Fwip%2Fcurrent%2Fembeds%2FKGLT-ID_Bass-Roberti.mp3';
+// $title  = 'Jazz+Bass';
+// $author = 'Kelly+Roberti';
+
+/*
+
+Player URL for testing (replace 'example.com' with the URL of your WordPress Directory):
+https://example.com/wp-content/plugins/sound-shares/player.php?file=https%3A%2F%2Fpubmedia.us%2Fwip%2Fcurrent%2Fembeds%2FKGLT-ID_Bass-Roberti.mp3&title=Jazz+Bass&author=Kelly+Roberti
+
+http://rji.local/wp-content/plugins/sound-shares/player.php?file=https%3A%2F%2Fpubmedia.us%2Fwip%2Fcurrent%2Fembeds%2FKGLT-ID_Bass-Roberti.mp3&title=Jazz+Bass&author=Kelly+Roberti
+
+*/
+?>
 <!DOCTYPE html>
 <html >
 <head>
-    <meta charset="UTF-8">
-    <title>Sound Shares: Audio</title>
-    <link rel="stylesheet" href="css/sound-shares-player.css">
+<meta charset="UTF-8">
+<title>Sound Shares: <?php echo filter_var( $title, FILTER_SANITIZE_STRING ); ?></title>
+<link rel="stylesheet" href="css/sound-shares-player.css">
 </head>
-
 <body>
-
 <div id="container">
 
     <div id="player">
 
-        <?php $file   = ( ! empty( $_GET['file'] ) ) ? $_GET['file'] : '' ; ?>
-        <audio id="song" class="song">
+        <audio id="song" class="song" preload="metadata">
           <source src="<?php echo filter_var( $file, FILTER_SANITIZE_URL ); ?>" type="audio/mp3" />
         </audio>
 
-        <?php if ( ! empty( $_GET['title'] ) || ! empty( $_GET['author'] ) ) { ?>
-        <?php $title    = ( ! empty( $_GET['title'] ) ) ? $_GET['title'] : 'Audio'; ?>
-        <?php $author   = ( ! empty( $_GET['author'] ) ) ? 'by ' . $_GET['author'] : ''; ?>
-        <?php
-        if ( empty( $_GET['file'] ) ) {
-          $title = '<em>[NO AUDIOFILE]</em>';
-        }
-        ?>
         <div id="info">
           <h1><?php echo filter_var( $title, FILTER_SANITIZE_STRING ); ?></h1>
           <h2><?php echo filter_var( $author, FILTER_SANITIZE_STRING ); ?></h2>
         </div>
-        <?php } ?>
 
         <div id="controls">
           <div class="group" id="r1">
@@ -93,7 +129,7 @@ $audiodata = array( 'http://hearingvoices.com/news/wp-content/uploads/2012/09/1S
 
 <!--
 Audio Player:
-Copyright (c) 2017 by Dave Pagurek (http://codepen.io/davepvm/pen/DgwlJ)
+Copyright (c) 2017 by Dave Pagurek (https://codepen.io/davepvm/pen/DgwlJ)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
