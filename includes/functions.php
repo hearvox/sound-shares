@@ -49,11 +49,14 @@ function soundshares_upgrade_options( $options ) {
     global $soundshares_video_h, $soundshares_video_w, $soundshares_clear;
 
     $defaults = array(
-        'fb_app_id' => '',
-        'fb_admins' => '',
-        'og_all'    => 0,
-        'video_h'   => 50,
-        'video_w'   => 480,
+        'fb_app_id'  => '',
+        'fb_admins'  => '',
+        'twit_user'  => '',
+        'meta_all'   => 0,
+        'video_h'    => 50,
+        'video_w'    => 480,
+        'user_roles' => array( 'administrator' ),
+        'post_types' => array( 'post' ),
     );
 
     if ( is_array( $options ) && ! empty( $options ) ) {

@@ -33,8 +33,9 @@ define( 'SOUNDSHARES_VERSION', '0.1.0' );
  * Required Plugin Files
  * ------------------------------------------------------------------------ */
 include_once( dirname( __FILE__ ) . '/includes/admin-options.php' );
-include_once( dirname( __FILE__ ) . '/includes/meta-box.php' );
 include_once( dirname( __FILE__ ) . '/includes/functions.php' );
+// include_once( dirname( __FILE__ ) . '/includes/meta-box.php' );
+
 
 /*
 ~ Get option, check for vars.
