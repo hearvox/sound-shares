@@ -54,10 +54,6 @@ function soundshares_settings_display() {
     <?php
 }
 
-
-
-
-
 /*
 
 Use Sound Shares to add Facebook OG title, description, image, and url HTML meta tags to audio pages.
@@ -137,6 +133,15 @@ function soundshares_options_init() {
     );
 
     add_settings_field(
+        'soundshares_fields_meta_tags',
+        __( 'HTML Meta Tags', 'soundshares' ),
+        'soundshares_fields_meta_tags_callback',
+        'soundshares',
+        'soundshares_settings_section',
+        $args = $options
+    );
+
+    add_settings_field(
         'soundshares_user_roles',
         __( 'User roles', 'postscript' ),
         'soundshares_user_roles_callback',
@@ -175,7 +180,7 @@ add_action('admin_init', 'soundshares_options_init');
 function soundshares_section_callback() {
     ?>
     <p><?php _e('Sound Shares embeds an audio (or video) player in the link preview of your socially shared posts.', 'soundshares' ); ?></p>
-    <p><?php _e('This plugin inserts <code>twitter:</code> and <code>og:</code> (for Facebook) HTML meta tags so social sites can embed a media player.', 'soundshares' ); ?></p>
+    <p><?php _e('This plugin inserts <code>twitter:</code> and <code>og:</code> HTML meta tags for Twitter and Facebook players.', 'soundshares' ); ?></p>
     <?php
 }
 
@@ -183,6 +188,8 @@ function soundshares_section_callback() {
  * Outputs HTML form text fields (default Facebook HTML meta tag values).
  *
  * @since   0.1.0
+ *
+ * @param   array   $options    Array of plugin settings
  */
 function soundshares_fields_facebook_callback( $options ) {
     ?>
@@ -193,11 +200,11 @@ function soundshares_fields_facebook_callback( $options ) {
                 <label><input type="text" id="soundshares-fb-app-id" name="soundshares[fb_app_id]" value="<?php if ( isset ( $options['fb_app_id'] ) ) { echo esc_attr( $options['fb_app_id'] ); } ?>" /> <?php _e( 'App ID', 'soundshares' ); ?></label></li>
             <li>
                 <label><input type="text" id="soundshares-fb-admins" name="soundshares[fb_admins]" value="<?php if ( isset ( $options['fb_admins'] ) ) { echo esc_attr( $options['fb_admins'] ); } ?>" /> <?php _e( 'Admin(s)', 'soundshares' ); ?></label>
-                <p class="wp-ui-text-icon"><?php _e( 'To track <a href="https://developers.facebook.com/docs/sharing/insights">Facebook Sharing Insights</a>, enter an App ID (from the the <a href="https://developers.facebook.com/apps/redirect/dashboard">App Dashboard</a>). Enter user IDs (separated by a comma; find IDs via the <a href="https://developers.facebook.com/tools/explorer/?method=GET&amp;path=me%3Ffields%3Did%2Cname">Graph Explorer</a> ) to allow those users access to Insights.', 'postscript' ); ?></p>
+                <p class="wp-ui-text-icon"><?php _e( 'To track <a href="https://developers.facebook.com/docs/sharing/insights">Facebook Sharing Insights</a>, enter an App ID (from your <a href="https://developers.facebook.com/apps/redirect/dashboard">Facebook App Dashboard</a>). To allow users access to Insights, enter their Facebook user IDs (separated by a comma; find IDs via the <a href="https://developers.facebook.com/tools/explorer/?method=GET&amp;path=me%3Ffields%3Did%2Cname">Graph Explorer</a>).', 'postscript' ); ?></p>
             </li>
         </ul>
     </fieldset>
-    <hr id="handles" />
+    <hr id="twitter" />
     <?php
 }
 
@@ -206,6 +213,8 @@ function soundshares_fields_facebook_callback( $options ) {
  * Outputs HTML form text fields (default Twitter HTML meta tag values).
  *
  * @since   0.1.0
+ *
+ * @param   array   $options    Array of plugin settings
  */
 function soundshares_fields_twitter_callback( $options ) {
     ?>
@@ -218,15 +227,40 @@ function soundshares_fields_twitter_callback( $options ) {
             </li>
         </ul>
     </fieldset>
-    <hr id="handles" />
+    <hr id="meta" />
     <?php
 }
 
+/**
+ * Outputs an HTML checkbox to add all meta tags.
+ *
+ * Default is off, assumes another plugin add social tags (title, URL, etc.)
+ * so plugin only adds tags for embedded player.
+ *
+ * @since   0.1.0
+ *
+ * @param   array   $options    Array of plugin settings
+ */
+function soundshares_fields_meta_tags_callback( $options ) {
+    ?>
+    <fieldset>
+        <legend><?php _e( 'Add all social meta tags (not just for the embedded player). Inspect your site\'s HTML source code. Check this box <em>only</em> if <em>no</em> <code>twitter:</code> and <code>og:</code> tags already there.', 'soundshares' ); ?></legend>
+        <ul class="inside">
+            <li>
+                <label><input type="checkbox" id="soundshares-meta-all" name="soundshares[meta_all]" value="on"<?php checked( 'on', isset( $options['meta_all'] ) ? $options['meta_all'] : 'off' ); ?>/> <?php _e( 'All all social tags', 'postscript' ); ?></label>
+            </li>
+        </ul>
+    </fieldset>
+    <hr id="roles" />
+    <?php
+}
 
 /**
  * Outputs HTML checkboxes of user roles (to choose which roles display Sound Shares meta box).
  *
  * @since   0.1.0
+ *
+ *  @param   array   $options    Array of plugin settings
  */
 function soundshares_user_roles_callback( $options ) {
     // Need WP_User class.
@@ -256,6 +290,8 @@ function soundshares_user_roles_callback( $options ) {
  * Outputs HTML checkboxes of post types (to choose which post-types display Sound Shares meta box).
  *
  * @since   0.1.0
+ *
+ *  @param   array   $options    Array of plugin settings
  */
 function soundshares_post_types_callback( $options ) {
     ?>
@@ -274,21 +310,23 @@ function soundshares_post_types_callback( $options ) {
         ?>
         </ul>
     </fieldset>
-    <hr id="urls" />
+    <pre>
+        <?php print_r( $options ) ?>
+    </pre>
+
     <?php
 }
 
-/* ------------------------------------------------------------------------ *
- * Field Callbacks (Get/Set Admin Option Array)
- * ------------------------------------------------------------------------ */
 /**
+ * References and notes.
+ *
  * soundshares_get_options() returns:
  * Array
  * (
  *     [fb_app_id] => 0
  *     [fb_admins] => 0
  *     [twit_user] => 0
- *     [meta_all] => 0
+ *     [meta_all] => off
  *     [video_h] => 50
  *     [video_w] => 480
  *     [version] => 0.1.0
