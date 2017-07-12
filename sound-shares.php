@@ -390,31 +390,3 @@ function soundshares_get_html_meta( $html ) {
  * @todo Use Preview media to meta-box.
  * @since   0.1.0
  */
-
-
-/* ------------------------------------------------------------------------ *
- * Uninstall functions.
- * ------------------------------------------------------------------------ */
-/**
- * Register uninstall function upon activation
- *
- * @since   0.1.0
- */
-function soundshares_activate(){
-    register_uninstall_hook( __FILE__, 'soundshares_uninstall' );
-}
-register_activation_hook( __FILE__, 'soundshares_activate' );
-
-/**
- * Execute uninstall tasks (uninstall hook callback)
- *
- * Remove plugin post meta and option from database.
- *
- * @since   0.1.0
- */
-function soundshares_uninstall() {
-	// Remove plugin post meta.
-    delete_post_meta_by_key ( 'soundshares_meta' );
-    // Remove plugin option.
-    delete_option( 'soundshares' );
-}
