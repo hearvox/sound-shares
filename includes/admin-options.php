@@ -292,5 +292,14 @@ function soundshares_post_types_callback( $options ) {
  *     [video_h] => 50
  *     [video_w] => 480
  *     [version] => 0.1.0
-)
+ *     [user_roles] => Array
+ *          (
+ *               [0] => administrator
+ *          )
+ *     [post_types] => Array
+ *          (
+ *               [0] => post
+ *          )
+ *     [version] => 0.1.0
+ * )
  */

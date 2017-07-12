@@ -414,7 +414,7 @@ register_activation_hook( __FILE__, 'soundshares_activate' );
  */
 function soundshares_uninstall() {
 	// Remove plugin post meta.
-    delete_post_meta_by_key ( 'soundshares' );
+    delete_post_meta_by_key ( 'soundshares_meta' );
     // Remove plugin option.
     delete_option( 'soundshares' );
 }
