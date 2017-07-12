@@ -57,6 +57,7 @@ function soundshares_upgrade_options( $options ) {
         'video_w'    => 480,
         'user_roles' => array( 'administrator' ),
         'post_types' => array( 'post' ),
+        'categories' => array( '0' ),
     );
 
     if ( is_array( $options ) && ! empty( $options ) ) {

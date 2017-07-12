@@ -159,6 +159,22 @@ function soundshares_options_init() {
         $args = $options
     );
 
+    add_settings_field(
+        'soundshares_categories',
+        __( 'Categories', 'postscript' ),
+        'soundshares_categories_callback',
+        'soundshares',
+        'soundshares_settings_section',
+        $args = $options
+    );
+
+    add_settings_section(
+        'soundshares_footer_section',
+        __( 'Sound Shares plugin information', 'soundshares' ),
+        'soundshares_footer_callback',
+        'soundshares'
+    );
+
     register_setting(
         'soundshares',
         'soundshares',
@@ -244,10 +260,10 @@ function soundshares_fields_twitter_callback( $options ) {
 function soundshares_fields_meta_tags_callback( $options ) {
     ?>
     <fieldset>
-        <legend><?php _e( 'Add all social meta tags (not just for the embedded player). Inspect your site\'s HTML source code. Check this box <em>only</em> if <em>no</em> <code>twitter:</code> and <code>og:</code> tags already there.', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Add all social meta tags to your posts (not just for the embedded player). Inspect your site\'s HTML source code. Check this box <strong>only if no</strong> <code>twitter:</code> and <code>og:</code> tags are already there (e.g., via an SEO plugin).', 'soundshares' ); ?></legend>
         <ul class="inside">
             <li>
-                <label><input type="checkbox" id="soundshares-meta-all" name="soundshares[meta_all]" value="on"<?php checked( 'on', isset( $options['meta_all'] ) ? $options['meta_all'] : 'off' ); ?>/> <?php _e( 'All all social tags', 'postscript' ); ?></label>
+                <label><input type="checkbox" id="soundshares-meta-all" name="soundshares[meta_all]" value="on"<?php checked( 'on', isset( $options['meta_all'] ) ? $options['meta_all'] : 'off' ); ?>/> <?php _e( 'Add all social tags', 'postscript' ); ?></label>
             </li>
         </ul>
     </fieldset>
@@ -287,11 +303,11 @@ function soundshares_user_roles_callback( $options ) {
 }
 
 /**
- * Outputs HTML checkboxes of post types (to choose which post-types display Sound Shares meta box).
+ * Outputs HTML checkboxes of post types (to choose which display Sound Shares meta box).
  *
  * @since   0.1.0
  *
- *  @param   array   $options    Array of plugin settings
+ * @param   array   $options    Array of plugin settings
  */
 function soundshares_post_types_callback( $options ) {
     ?>
@@ -310,13 +326,66 @@ function soundshares_post_types_callback( $options ) {
         ?>
         </ul>
     </fieldset>
-    <pre>
-        <?php print_r( $options ) ?>
-    </pre>
-
     <?php
 }
 
+/**
+ * Outputs HTML checkboxes of categories (to choose which display Sound Shares meta box).
+ *
+ * @since   0.1.0
+ *
+ * @param   array   $options    Array of plugin settings
+ */
+function soundshares_categories_callback( $options ) {
+    $cats         = $options['categories']; // Get checked cats.
+    $checked_cats = ( in_array( 0, $cats ) ) ? 'false' : $cats; // If "All Categories" checked, uncheck all cats.
+    ?>
+    <fieldset>
+        <legend><?php _e( 'Select which categories display Sound Shares box:', 'soundshares' ); ?></legend>
+        <div class="categorydiv">
+            <div class="tabs-panel">
+                <ul class="categorychecklist form no-clear">
+
+                    <li id="category-0" style="margin-bottom: 0.5em;"><label class="selectit"><input value="0" type="checkbox" name="soundshares[categories][]"<?php checked( in_array( 0, $cats ) ); ?>  id="in-category-0"><strong>All Categories</strong> (default)</label></li>
+                    <?php
+
+                    $args = array(
+                        'descendants_and_self'  => 0,
+                        'selected_cats'         => $checked_cats,
+                        'popular_cats'          => false,
+                        'walker'                => null,
+                        'taxonomy'              => 'category',
+                        'checked_ontop'         => true,
+                        'echo'                  => false
+                    );
+
+                    $cats_checklist = wp_terms_checklist( 0, $args );
+                    $cats_checklist = str_replace( 'post_category[]', 'soundshares[categories][]', $cats_checklist );
+
+                    echo $cats_checklist;
+                    ?>
+                </ul>
+            </div>
+        </div>
+    </fieldset>
+    <?php
+}
+
+/**
+ * Outputs text for the footer of the Settings screen.
+ *
+ * @since   0.1.0
+ */
+function soundshares_footer_callback() {
+    ?>
+    <p><?php _e( 'This plugin created as part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship.', 'soundshares' ); ?></p>
+
+    <p class="clear wp-ui-text-icon"><small>(<?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript'); ?>.)</small></p>
+    <pre>
+        <?php print_r( soundshares_get_options() ) ?>
+    </pre>
+    <?php
+}
 /**
  * References and notes.
  *
@@ -337,6 +406,10 @@ function soundshares_post_types_callback( $options ) {
  *     [post_types] => Array
  *          (
  *               [0] => post
+ *          )
+ *     [categories] => Array
+ *          (
+ *               [0] => 0
  *          )
  *     [version] => 0.1.0
  * )

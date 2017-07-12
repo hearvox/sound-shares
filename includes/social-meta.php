@@ -2,11 +2,11 @@
 /**
  * Add HTML meta tags to posts for social sites
  *
- * @link    http://hearingvoices.com/tools/
+ * @link    http://hearingvoices.com/tools/sound-shares
  * @since   0.1.0
  *
- * @package    Postscript
- * @subpackage Postscript/includes
+ * @package    Sound Shares
+ * @subpackage sound-shares/includes
  */
 
 /* ------------------------------------------------------------------------ *
@@ -22,7 +22,7 @@
  * via the same 'wp_enqueue_scripts' action as this function is hooked.
  * So this action fires late by getting a large number as its priority param.
  */
-function postscript_enqueue_handles() {
+function soundshares_add_meta_tags() {
     if ( is_singular() && is_main_query() ) { // Run only on front-end post.
 
         // Custom tax term is the script/style handle.
@@ -44,7 +44,7 @@ function postscript_enqueue_handles() {
 
     }
 }
-add_action( 'wp_enqueue_scripts', 'postscript_enqueue_handles', 100000 );
+// add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
 
 /**
  * Enqueues script and style URLs entered in the meta box text fields.
@@ -63,39 +63,6 @@ add_action( 'wp_enqueue_scripts', 'postscript_enqueue_handles', 100000 );
  *
  * @uses postscript_get_options()   Safely gets option from database.
  */
-function postscript_enqueue_script_urls() {
-    if ( is_singular() && is_main_query() ) {
-        $post_id         = get_the_id();
-        $postscript_meta = get_post_meta( $post_id, 'postscript_meta', true );
-        $options         = postscript_get_options();
-
-        $url_style    = ( isset( $postscript_meta['url_style'] ) ) ? $postscript_meta['url_style'] : null;
-        $url_script   = ( isset( $postscript_meta['url_script'] ) ) ? $postscript_meta['url_script'] : null;
-        $url_script_2 = ( isset( $postscript_meta['url_script_2'] ) ) ? $postscript_meta['url_script_2'] : null;
-
-        $css = array( 'css' );
-        $js = array( 'js' );
-
-        // If the post has a Style/Script URL value,
-        // and the URL hostname/extension is in whitelist,
-        // and the user-settings allow enqueue by URL.
-        if ( $url_style && postscript_check_url( $url_style, $css ) && $options['allow']['urls_style'] ) {
-            // Style/script handles made from string: "postscript-style-{$post_id}".
-            wp_enqueue_style( "postscript-style-$post_id", esc_url_raw( $postscript_meta['url_style'] ), array() );
-        }
-
-        if ( $url_script && postscript_check_url( $url_script, $js )  && $options['allow']['urls_script'] ) {
-            wp_enqueue_script( "postscript-script-$post_id", esc_url_raw( $postscript_meta['url_script'] ), array(), false, true );
-        }
-
-        if ( $url_script_2 && postscript_check_url( $url_script_2, $js ) && $options['allow']['urls_script'] == '2' ) {
-            // Load second JS last (via dependency param).
-            $dep = ( isset( $postscript_meta['url_script_2'] ) ) ? "postscript-script-$post_id" : '';
-            wp_enqueue_script( "postscript-script-2-$post_id", esc_url_raw( $postscript_meta['url_script_2'] ), array( $dep ), false, true );
-        }
-    }
-}
-add_action( 'wp_enqueue_scripts', 'postscript_enqueue_script_urls', 100010 );
 
 /**
  * Adds user-entered class(es) to the body tag.
@@ -103,7 +70,7 @@ add_action( 'wp_enqueue_scripts', 'postscript_enqueue_script_urls', 100010 );
  * @uses postscript_get_options()   Safely gets option from database.
  * @return  array $classes  WordPress defaults and user-added classes
  */
-function postscript_class_body( $classes ) {
+function soundshares_player_url( $file, $title, $author ) {
     $post_id = get_the_ID();
     $options = postscript_get_options();
 
@@ -119,7 +86,7 @@ function postscript_class_body( $classes ) {
 
     return $classes;
 }
-add_filter( 'body_class', 'postscript_class_body' );
+// add_filter( 'wp_head', 'postscript_class_body' );
 
 
 /**
@@ -128,7 +95,7 @@ add_filter( 'body_class', 'postscript_class_body' );
  * @uses postscript_get_options()   Safely gets option from database.
  * @return  array $classes  WordPress defaults and user-added classes
  */
-function postscript_class_post( $classes ) {
+function soundshares_add_meta_tags_all( $classes ) {
     $post_id = get_the_ID();
     $options = postscript_get_options();
 
@@ -144,4 +111,3 @@ function postscript_class_post( $classes ) {
 
     return $classes;
 }
-add_filter( 'post_class', 'postscript_class_post' );
