@@ -39,7 +39,7 @@ function soundshares_metabox_admin_notice() {
     ?>
     <div class="error">
     <?php var_dump( $_POST ) ?>
-        <p><?php _e( 'Error!', 'postscript' ); ?></p>
+        <p><?php _e( 'Error!', 'soundshares' ); ?></p>
     </div>
     <?php
     // }
@@ -56,7 +56,7 @@ function soundshares_add_meta_box() {
     $options = soundshares_get_options();
 
     add_meta_box(
-        'postscript-meta',
+        'soundshares-meta',
         esc_html__( 'Sound Shares', 'soundshares' ),
         'soundshares_meta_box_callback',
         $options['post_types'],
@@ -106,8 +106,6 @@ function soundshares_meta_box_callback( $post, $box ) {
     ?>
     <?php wp_nonce_field( basename( __FILE__ ), 'soundshares_meta_nonce' ); ?>
     <?php
-    }
-
     // Display text fields for: URLs (style/script) and classes (body/post).
     $opt_meta_all     = $box['args']['meta_all'];
     $soundshares_meta = get_post_meta( $post_id, 'soundshares_meta', true );
@@ -118,50 +116,23 @@ function soundshares_meta_box_callback( $post, $box ) {
     $author = ( isset( $soundshares_meta['author'] ) ) ? $soundshares_meta['author'] : '';
     $image  = ( isset( $soundshares_meta['image'] ) ) ? $soundshares_meta['image'] : '';
     ?>
-    <?php
-    // Admin setting allows style URL text field.
-    if ( isset ( $opt_allow['urls_style'] ) && 1 === intval( $opt_allow['urls_style'] )  ) {
-        // Check for whitelisted extension and hostname.
-        $url_error = soundshares_url_error( $url_style, array( 'css' ) );
-    ?>
-    <p<?php echo soundshares_url_error_class( $url_error ) ?>>
-        <label for="soundshares-file"><?php _e( 'Media file URL:', 'soundshares' ); ?></label><?php echo $url_error; ?><br />
-        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(must be https://)', 'soundshares' ); ?>" />
-    </p>
-    <?php } ?>
-    <?php if ( isset ( $opt_allow['urls_script'] ) ) { // Admin setting allows script URL text field. ?>
-        <?php $urls_script = intval( $opt_allow['urls_script'] ); ?>
-        <?php if ( $urls_script ) { ?>
-            <?php $url_error = soundshares_url_error( $url_script, array( 'js' ) ); ?>
-    <p<?php echo soundshares_url_error_class( $url_error ) ?>>
-        <label for="postscript-url-script"><?php _e( 'JavaScript URL (.js):', 'postscript' ); ?></label><?php echo $url_error; ?><br />
-        <input class="widefat" type="url" name="soundshares_meta[url_script]" id="postscript-url-script" size="30" value="<?php if ( ! empty( $url_script ) ) { echo esc_url_raw( $url_script ); } ?>" placeholder="<?php _e( '.js files only', 'postscript' ); ?>" />
-    </p>
-        <?php } ?>
-        <?php if ( 2 === $urls_script ) { // Admin setting allows second script URL text field. ?>
-            <?php $url_error = soundshares_url_error( $url_script_2, array( 'js' ) ); ?>
-    <p<?php echo soundshares_url_error_class( $url_error ) ?>>
-        <label for="postscript-url-script-2"><?php _e( 'JavaScript URL 2 (.js):', 'postscript' ); ?></label><?php echo $url_error; ?><br />
-        <input class="widefat" type="url" name="soundshares_meta[url_script_2]" id="postscript-url-script-2" size="30" value="<?php if ( ! empty( $url_script_2 ) ) { echo esc_url_raw( $url_script_2 ); } ?>" placeholder="<?php _e( '.js files only', 'postscript' ); ?>" />
-    </p>
-        <?php } ?>
-    <?php } ?>
-    <?php if ( isset ( $opt_allow['class_body'] ) || isset ( $opt_allow['class_post'] ) ) { // Whether to print <hr>.?>
-    <hr />
-    <?php } ?>
-    <?php if ( isset ( $opt_allow['class_body'] ) ) { // Admin setting allows body_class() text field. ?>
     <p>
-        <label for="postscript-class-body"><?php _e( 'Body class:', 'postscript' ); ?></label><br />
-        <input class="widefat" type="text" name="soundshares_meta[class_body]" id="postscript-class-body" value="<?php if ( isset ( $soundshares_meta['class_body'] ) ) { echo sanitize_html_class( $soundshares_meta['class_body'] ); } ?>" size="30" />
+        <label for="soundshares-file"><?php _e( 'Audio URL:', 'soundshares' ); ?></label><br />
+        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Must be https://)', 'soundshares' ); ?>" />
     </p>
-    <?php } ?>
-    <?php if ( isset ( $opt_allow['class_post'] ) ) { // Admin setting allows post_class() text field. ?>
     <p>
-        <label for="postscript-class-post"><?php _e( 'Post class:', 'postscript' ); ?></label><br />
-        <input class="widefat" type="text" name="soundshares_meta[class_post]" id="postscript-class-post" value="<?php if ( isset ( $soundshares_meta['class_post'] ) ) { echo sanitize_html_class( $soundshares_meta['class_post'] ); } ?>" size="30" />
+        <label for="soundshares-title"><?php _e( 'Audio title:', 'soundshares' ); ?></label><br />
+        <input class="widefat" type="text" name="soundshares_meta[title]" id="soundshares-title" value="<?php if ( isset ( $soundshares_meta['title'] ) ) { echo sanitize_text_field( $soundshares_meta['title'] ); } ?>" size="30" />
+    </p>
+    <p>
+        <label for="soundshares-author"><?php _e( 'Audio author:', 'soundshares' ); ?></label><br />
+        <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_text_field( $soundshares_meta['author'] ); } ?>" size="30" />
+    </p>
+    <p>
+        <label for="soundshares-image"><?php _e( 'Image URL:', 'soundshares' ); ?></label><br />
+        <input class="widefat" type="url" name="soundshares_meta[image]" id="soundshares-image"  size="30" value="<?php if ( ! empty( $image ) ) { echo esc_url_raw( $image ); } ?>" placeholder="<?php _e( '(.jpg, .gif, or .png)', 'soundshares' ); ?>" />
     </p>
     <?php
-    }
 }
 
 

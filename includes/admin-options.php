@@ -287,7 +287,7 @@ function soundshares_user_roles_callback( $options ) {
     // Note: $options[0] below is array of user-selected roles, from 'soundshares' option.
     ?>
     <fieldset>
-        <legend><?php _e( 'Select the roles allowed to use Sound Shares box:', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Allow Sound Shares only for for these roles:', 'soundshares' ); ?></legend>
         <ul class="inside">
         <?php
         foreach ( get_editable_roles() as $role => $details ) {
@@ -312,7 +312,7 @@ function soundshares_user_roles_callback( $options ) {
 function soundshares_post_types_callback( $options ) {
     ?>
     <fieldset>
-        <legend><?php _e( 'Select which post types display Sound Shares box:', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Allow Sound Shares only for selected post types:', 'soundshares' ); ?></legend>
         <ul class="inside">
         <?php
         // Gets post types explicitly set 'public' (not those registered only with individual public options):
@@ -338,20 +338,20 @@ function soundshares_post_types_callback( $options ) {
  */
 function soundshares_categories_callback( $options ) {
     $cats         = $options['categories']; // Get checked cats.
-    $checked_cats = ( in_array( 0, $cats ) ) ? 'false' : $cats; // If "All Categories" checked, uncheck all cats.
+    // $checked_cats = ( in_array( 0, $cats ) ) ? 'false' : $cats; // If "All Cats" checked, uncheck all cats.
     ?>
     <fieldset>
-        <legend><?php _e( 'Select which categories display Sound Shares box:', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Allow Sound Shares for posts only in selected categories:', 'soundshares' ); ?></legend>
         <div class="categorydiv">
             <div class="tabs-panel">
-                <ul class="categorychecklist form no-clear">
+                <ul class="categorychecklist form">
 
-                    <li id="category-0" style="margin-bottom: 0.5em;"><label class="selectit"><input value="0" type="checkbox" name="soundshares[categories][]"<?php checked( in_array( 0, $cats ) ); ?>  id="in-category-0"><strong>All Categories</strong> (default)</label></li>
+                    <li id="category-0" style="margin-bottom: 0.5em;"><label class="selectit"><input value="0" type="checkbox" name="soundshares[categories][]"<?php checked( in_array( 0, $cats ) ); ?>  id="in-category-0"><strong>Any (or no) category</strong></label></li>
                     <?php
 
                     $args = array(
                         'descendants_and_self'  => 0,
-                        'selected_cats'         => $checked_cats,
+                        'selected_cats'         => $cats,
                         'popular_cats'          => false,
                         'walker'                => null,
                         'taxonomy'              => 'category',
@@ -380,7 +380,7 @@ function soundshares_footer_callback() {
     ?>
     <p><?php _e( 'This plugin created as part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship.', 'soundshares' ); ?></p>
 
-    <p class="clear wp-ui-text-icon"><small>(<?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript'); ?>.)</small></p>
+    <!-- <?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript'); ?>.) -->
     <pre>
         <?php print_r( soundshares_get_options() ) ?>
     </pre>
