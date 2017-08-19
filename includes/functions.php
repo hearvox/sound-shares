@@ -114,9 +114,10 @@ function soundshares_sanitize_data( $data = array() ) {
         // For one-dimensional array.
         if ( ! is_array( $value ) && ! is_object( $value ) ) {
             // Remove blank lines and whitespaces.
-            $value = preg_replace( '/^\h*\v+/m', '', trim( $value ) );
-            $value = str_replace( ' ', '', $value );
-            $data_clean[ $key ] = sanitize_text_field( $value );
+            // $value = preg_replace( '/^\h*\v+/m', '', trim( $value ) );
+            // $value = str_replace( ' ', '', $value );
+            // $data_clean[ $key ] = sanitize_text_field( $value );
+            $data_clean[ $key ] = sanitize_textarea_field( $value );
         }
 
         // For multidimensional array.

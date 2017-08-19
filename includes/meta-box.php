@@ -46,7 +46,7 @@ function soundshares_metabox_admin_notice() {
 }
 
 /**
- * Creates meta box for the post editor screen.
+ * Creates meta box for the post editor screen (for user-selected post types).
  *
  * Passes array of user-setting options to callback.
  *
@@ -55,15 +55,23 @@ function soundshares_metabox_admin_notice() {
 function soundshares_add_meta_box() {
     $options = soundshares_get_options();
 
-    add_meta_box(
-        'soundshares-meta',
-        esc_html__( 'Sound Shares', 'soundshares' ),
-        'soundshares_meta_box_callback',
-        $options['post_types'],
-        'side',
-        'default',
-        $options
-    );
+    global $post;
+
+    // Get array of post category IDs.
+    $cat_ids = wp_list_pluck( get_the_category( $post->ID ), 'cat_ID' );
+
+    // Add meta box for user-selected categories (on plugin Setting page).
+    if ( in_array( 0, $options['categories'] ) || ( (bool) array_intersect( $cat_ids, $options['categories'] ) ) ) {
+        add_meta_box(
+            'soundshares-meta',
+            esc_html__( 'Sound Shares', 'soundshares' ),
+            'soundshares_meta_box_callback',
+            $options['post_types'],
+            'side',
+            'default',
+            $options
+        );
+    }
 }
 
 /**
@@ -122,16 +130,19 @@ function soundshares_meta_box_callback( $post, $box ) {
     </p>
     <p>
         <label for="soundshares-title"><?php _e( 'Audio title:', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="text" name="soundshares_meta[title]" id="soundshares-title" value="<?php if ( isset ( $soundshares_meta['title'] ) ) { echo sanitize_text_field( $soundshares_meta['title'] ); } ?>" size="30" />
+        <input class="widefat" type="text" name="soundshares_meta[title]" id="soundshares-title" value="<?php if ( isset ( $soundshares_meta['title'] ) ) { echo sanitize_textarea_field( $soundshares_meta['title'] ); } ?>" size="30" />
     </p>
     <p>
         <label for="soundshares-author"><?php _e( 'Audio author:', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_text_field( $soundshares_meta['author'] ); } ?>" size="30" />
+        <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_textarea_field( $soundshares_meta['author'] ); } ?>" size="30" />
     </p>
     <p>
         <label for="soundshares-image"><?php _e( 'Image URL:', 'soundshares' ); ?></label><br />
         <input class="widefat" type="url" name="soundshares_meta[image]" id="soundshares-image"  size="30" value="<?php if ( ! empty( $image ) ) { echo esc_url_raw( $image ); } ?>" placeholder="<?php _e( '(.jpg, .gif, or .png)', 'soundshares' ); ?>" />
     </p>
+    <pre style="font-size: 0.7em;">
+        <?php print_r( $soundshares_meta ); ?>
+    </pre>
     <?php
 }
 

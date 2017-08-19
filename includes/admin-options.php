@@ -287,7 +287,7 @@ function soundshares_user_roles_callback( $options ) {
     // Note: $options[0] below is array of user-selected roles, from 'soundshares' option.
     ?>
     <fieldset>
-        <legend><?php _e( 'Allow Sound Shares only for for these roles:', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Allow Sound Shares only for these roles:', 'soundshares' ); ?></legend>
         <ul class="inside">
         <?php
         foreach ( get_editable_roles() as $role => $details ) {
