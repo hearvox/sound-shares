@@ -51,7 +51,7 @@ http://rji.local/wp-content/plugins/sound-shares/player.php?file=https%3A%2F%2Fp
 <head>
 <meta charset="UTF-8">
 <title>Sound Shares: <?php echo filter_var( $title, FILTER_SANITIZE_STRING ); ?></title>
-<link rel="stylesheet" href="../css/sound-shares-player.css">
+<link rel="stylesheet" href="css/sound-shares-player.css">
 </head>
 <body>
 <div id="container">
@@ -108,7 +108,7 @@ http://rji.local/wp-content/plugins/sound-shares/player.php?file=https%3A%2F%2Fp
 
 </div>
 
-<script src="../js/sound-shares-player.js"></script>
+<script src="js/sound-shares-player.js"></script>
 
 <script type="text/javascript">
 

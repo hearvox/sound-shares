@@ -96,12 +96,28 @@ function soundshares_add_meta_tags() {
         // $meta_tags['og:video:height'] = '100'; // Add new tag data.
         $meta_tags = apply_filters( 'soundshares_meta_tags', $meta_tags );
 
+        $meta_urls = array(
+            'og:url',
+            'og:image',
+            'og:video',
+            'og:video:secure_url',
+            'twitter:url',
+            'twitter:image',
+            'twitter:player'
+        );
+
         // Output meta tags.
         echo '<!-- Sound Shares social tags (embeds media player) -->' . "\n";
         foreach ($meta_tags as $property => $content ) {
+            if ( in_array( $property, $meta_urls ) ) {
+        ?>
+        <meta property="<?php echo esc_attr( $property ); ?>" content="<?php echo esc_url_raw( $content ); ?>">
+        <?php
+            } else {
         ?>
         <meta property="<?php echo esc_attr( $property ); ?>" content="<?php echo esc_attr( $content ); ?>">
         <?php
+            }
         }
         echo '<!-- End: Sound Shares tags -->' . "\n";
     }
@@ -250,9 +266,9 @@ function soundshares_twitter_tags() {
     }
 
     // Append player URL with query string of audio meta -- URL, title, and author; e.g.:
-    // /plugins/sound-shares/player.php?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
+    // .../player.php?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
     $file     = '?file=' . urlencode( $post_meta['file'] );
-    $title    = ( isset( $post_meta['title'] ) ) ? '$title=' . urlencode( $post_meta['title'] ) : '';
+    $title    = ( isset( $post_meta['title'] ) ) ? '&title=' . urlencode( $post_meta['title'] ) : '';
     $author   = ( isset( $post_meta['author'] ) ) ? '&author=' . urlencode( $post_meta['author'] ) : '';
     $meta_str = $file . $title . $author;
     $play_url = plugin_dir_url( __FILE__ ) . 'player.php' . $meta_str;
