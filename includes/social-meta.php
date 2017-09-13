@@ -255,7 +255,7 @@ function soundshares_twitter_tags() {
     $title    = ( isset( $post_meta['title'] ) ) ? '$title=' . urlencode( $post_meta['title'] ) : '';
     $author   = ( isset( $post_meta['author'] ) ) ? '&author=' . urlencode( $post_meta['author'] ) : '';
     $meta_str = $file . $title . $author;
-    $play_url = plugin_dir_url() . 'player.php' . $meta_str;
+    $play_url = plugin_dir_url( __FILE__ ) . 'player.php' . $meta_str;
 
     $twitter_meta['twitter:card']          = 'player';
     $twitter_meta['twitter:player']        = $play_url;
