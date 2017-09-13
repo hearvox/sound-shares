@@ -105,6 +105,15 @@ function soundshares_add_meta_box() {
  *     [version] => 0.1.0
  * )
  *
+ * get_post_meta( $post_id, 'soundshares_meta', true ) returns:
+ * Array
+ * (
+ *    [file] =>
+ *    [title] =>
+ *    [author] =>
+ *    [image] =>
+ * )
+ *
  * @param  Object $post Object containing the current post.
  * @param  array  $box  Array of meta box id, title, callback, and args elements.
  */

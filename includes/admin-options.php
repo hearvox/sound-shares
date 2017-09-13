@@ -260,10 +260,11 @@ function soundshares_fields_twitter_callback( $options ) {
 function soundshares_fields_meta_tags_callback( $options ) {
     ?>
     <fieldset>
-        <legend><?php _e( 'Add all social meta tags to your posts (not just for the embedded player). Inspect your site\'s HTML source code. Check this box <strong>only if no</strong> <code>twitter:</code> and <code>og:</code> tags are already there (e.g., via an SEO plugin).', 'soundshares' ); ?></legend>
+        <legend><?php _e( '<strong>Check this box only if you are not using anothetr plugin to add social tags</strong> (e.g., via an SEO plugin).', 'soundshares' ); ?></legend>
         <ul class="inside">
             <li>
-                <label><input type="checkbox" id="soundshares-meta-all" name="soundshares[meta_all]" value="on"<?php checked( 'on', isset( $options['meta_all'] ) ? $options['meta_all'] : 'off' ); ?>/> <?php _e( 'Add all social tags', 'postscript' ); ?></label>
+                <label><input type="checkbox" id="soundshares-meta-all" name="soundshares[meta_all]" value="on"<?php checked( 'on', isset( $options['meta_all'] ) ? $options['meta_all'] : 'off' ); ?>/> <?php _e( 'Add all social tags', 'soundshares' ); ?></label>
+                <p class="wp-ui-text-icon"><?php _e( 'Inspect your site\'s source code for <code>twitter:</code> and <code>og:</code> tags. If those are already there, do not check this box.', 'soundshares' ); ?></p>
             </li>
         </ul>
     </fieldset>
