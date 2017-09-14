@@ -297,13 +297,13 @@ function soundshares_categories_callback( $options ) {
     $cats         = $options['categories']; // Get checked cats.
     // $checked_cats = ( in_array( 0, $cats ) ) ? 'false' : $cats; // If "All Cats" checked, uncheck all cats.
     ?>
-    <fieldset>
+    <fieldset style="max-width: 30em;">
         <legend><?php _e( 'Allow Sound Shares for posts only in selected categories:', 'soundshares' ); ?></legend>
         <div class="categorydiv">
             <div class="tabs-panel">
                 <ul class="categorychecklist form">
 
-                    <li id="category-0" style="margin-bottom: 0.5em;"><label class="selectit"><input value="0" type="checkbox" name="soundshares[categories][]"<?php checked( in_array( 0, $cats ) ); ?>  id="in-category-0"><strong>Any (or no) category</strong></label></li>
+                    <li id="category-0" style="margin-bottom: 0.5em;"><label class="selectit"><input value="0" type="checkbox" name="soundshares[categories][]"<?php checked( in_array( 0, $cats ) ); ?>  id="in-category-0"><strong>All categories</strong></label><hr></li>
                     <?php
 
                     $args = array(
@@ -315,7 +315,6 @@ function soundshares_categories_callback( $options ) {
                         'checked_ontop'         => true,
                         'echo'                  => false
                     );
-
                     $cats_checklist = wp_terms_checklist( 0, $args );
                     $cats_checklist = str_replace( 'post_category[]', 'soundshares[categories][]', $cats_checklist );
 
@@ -345,7 +344,9 @@ function soundshares_settings_footer() {
         <ul style="list-style: disc; list-style-position: inside; margin-left: 1em;">
             <li><?php _e('User-roles: ', 'soundshares' ); ?><?php echo implode( $options['user_roles'], ', ' ); ?></li>
             <li><?php _e('Post-types: ', 'soundshares' ); ?><?php echo implode( $options['post_types'], ', ' ); ?></li>
-            <?php if ( $options['categories'][0] ) { ?>
+            <?php if ( in_array( 0, $options['categories'] ) ) { ?>
+            <li><?php _e('Categories: (all)', 'soundshares' ); ?></li>
+            <?php } else { ?>
             <li><?php _e('Categories: ', 'soundshares' ); ?><?php echo implode( soundshares_get_cat_names( $options['categories'] ), ', ' ); ?></li>
             <?php } ?>
         </ul>
