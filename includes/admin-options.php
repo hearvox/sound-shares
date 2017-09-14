@@ -43,54 +43,17 @@ add_action('admin_menu', 'soundshares_settings_menu');
 function soundshares_settings_display() {
     ?>
     <div class="wrap">
-        <h2>Sound Shares (v <?php echo SOUNDSHARES_VERSION; ?>) <?php _e('Settings', 'soundshares' ); ?></h2>
+        <h2>Sound Shares <?php _e('Settings', 'soundshares' ); ?></h2>
         <!-- Create the form that will be used to render our options. -->
         <form method="post" action="options.php">
             <?php settings_fields( 'soundshares' ); ?>
             <?php do_settings_sections( 'soundshares' ); ?>
             <?php submit_button(); ?>
         </form>
+        <?php soundshares_settings_footer(); ?>
     </div><!-- .wrap -->
     <?php
 }
-
-/*
-
-Use Sound Shares to add Facebook OG title, description, image, and url HTML meta tags to audio pages.
-
-fb:app_id" content="1234567890987654321">
-<meta property="fb:admins
-
-FB app ID3
-FB user IDs
-Twitter User name
-
-
-<meta property="og:title" content="Program Title">
-<meta property="og:description" content="Program description for the link preview.">
-<meta property="og:image" content="https://example.org/program-image.jpg">
-<meta property="og:url" content="https://example.org/program-page/">
-<meta property="og:site_name" content="WNYC" />
-<meta property="og:type" content="video.movie">
-<meta property="og:video" content="https://example.org/program-audio.mp3">
-<meta property="og:video:secure_url" content="https://example.org/program-audio.mp3">
-<meta property="og:video:type" content="video/mp4">
-<meta property="og:video:width" content="480">
-<meta property="og:video:height" content="50">
-<meta property="fb:app_id" content="1234567890987654321">
-<meta property="fb:admins" content="9876543210,1234567">
-<meta property="twitter:card" content="player" />
-<meta property="twitter:player" content="https://www.wnyc.org/widgets/ondemand_player/#file=https%3A%2F%2Faudio3.wnyc.org%2Fbl%2Fbl040213cpod.mp3&amp;containerClass=wnyc" />
-<meta property="twitter:player:width" content="280" />
-<meta property="twitter:player:height" content="54" />
-<meta property="twitter:image:src" content = "http://www.wnyc.org/i/200/200/80/1/wnyc-logo200.png" />
-<meta name="twitter:image" content="https://media2.wnyc.org/i/1200/627/c/80/1/Maya.JPG" />
-<meta name="twitter:image:alt" content="Alternative test describing image for non-visual users" />
-<meta name="twitter:site" content="@twitter_username">
-
-<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-
-*/
 
 
 /* ------------------------------------------------------------------------ *
@@ -166,13 +129,6 @@ function soundshares_options_init() {
         'soundshares',
         'soundshares_settings_section',
         $args = $options
-    );
-
-    add_settings_section(
-        'soundshares_footer_section',
-        __( 'Sound Shares plugin information', 'soundshares' ),
-        'soundshares_footer_callback',
-        'soundshares'
     );
 
     register_setting(
@@ -260,7 +216,7 @@ function soundshares_fields_twitter_callback( $options ) {
 function soundshares_fields_meta_tags_callback( $options ) {
     ?>
     <fieldset>
-        <legend><?php _e( '<strong>Check this box only if you are not using anothetr plugin to add social tags</strong> (e.g., via an SEO plugin).', 'soundshares' ); ?></legend>
+        <legend><?php _e( '<strong>Check this box only if you are not using another plugin to add social tags</strong> (e.g., via an SEO plugin).', 'soundshares' ); ?></legend>
         <ul class="inside">
             <li>
                 <label><input type="checkbox" id="soundshares-meta-all" name="soundshares[meta_all]" value="on"<?php checked( 'on', isset( $options['meta_all'] ) ? $options['meta_all'] : 'off' ); ?>/> <?php _e( 'Add all social tags', 'soundshares' ); ?></label>
@@ -277,7 +233,7 @@ function soundshares_fields_meta_tags_callback( $options ) {
  *
  * @since   0.1.0
  *
- *  @param   array   $options    Array of plugin settings
+ * @param   array   $options    Array of plugin settings
  */
 function soundshares_user_roles_callback( $options ) {
     // Need WP_User class.
@@ -373,12 +329,28 @@ function soundshares_categories_callback( $options ) {
 }
 
 /**
- * Outputs text for the footer of the Settings screen.
+ * Outputs HTML for the footer of the Settings screen.
  *
  * @since   0.1.0
+ *
+ * @uses soundshares_get_cat_names()
  */
-function soundshares_footer_callback() {
+function soundshares_settings_footer() {
+    $options = soundshares_get_options();
     ?>
+    <hr />
+    <h2 id="metabox"><?php _e('Sound Shares information', 'postscript' ); ?> (v <?php echo SOUNDSHARES_VERSION; ?>)</h2>
+    <p>
+        <?php _e('Your settings above display the meta box on the Edit screen <em>only</em> for:', 'soundshares' ); ?>
+        <ul style="list-style: disc; list-style-position: inside; margin-left: 1em;">
+            <li><?php _e('User-roles: ', 'soundshares' ); ?><?php echo implode( $options['user_roles'], ', ' ); ?></li>
+            <li><?php _e('Post-types: ', 'soundshares' ); ?><?php echo implode( $options['post_types'], ', ' ); ?></li>
+            <?php if ( $options['categories'][0] ) { ?>
+            <li><?php _e('Categories: ', 'soundshares' ); ?><?php echo implode( soundshares_get_cat_names( $options['categories'] ), ', ' ); ?></li>
+            <?php } ?>
+        </ul>
+    <p>
+
     <p><?php _e( 'This plugin created as part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship.', 'soundshares' ); ?></p>
 
     <!-- <?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript'); ?>.) -->
@@ -386,6 +358,23 @@ function soundshares_footer_callback() {
         <?php print_r( soundshares_get_options() ) ?>
     </pre>
     <?php
+}
+
+/**
+ * Get category names from term IDs.
+ *
+ * @since   0.1.0
+ *
+ * @param   array  $cat_ids    Array of category term IDs
+ * @return  array  $cat_names  Array of category names
+ */
+function soundshares_get_cat_names( $cat_ids ) {
+    $cat_names = array();
+    foreach ( $cat_ids as $cat_id ) {
+        $cat_names[] = get_cat_name( $cat_id );
+    }
+
+    return $cat_names;
 }
 /**
  * References and notes.
@@ -397,7 +386,7 @@ function soundshares_footer_callback() {
  *     [fb_admins] => 0
  *     [twit_user] => 0
  *     [meta_all] => off
- *     [video_h] => 50
+ *     [video_h] => 75
  *     [video_w] => 480
  *     [version] => 0.1.0
  *     [user_roles] => Array
@@ -415,3 +404,42 @@ function soundshares_footer_callback() {
  *     [version] => 0.1.0
  * )
  */
+
+/*
+
+Use Sound Shares to add Facebook OG title, description, image, and url HTML meta tags to audio pages.
+
+fb:app_id" content="1234567890987654321">
+<meta property="fb:admins
+
+FB app ID3
+FB user IDs
+Twitter User name
+
+
+<meta property="og:title" content="Program Title">
+<meta property="og:description" content="Program description for the link preview.">
+<meta property="og:image" content="https://example.org/program-image.jpg">
+<meta property="og:url" content="https://example.org/program-page/">
+<meta property="og:site_name" content="WNYC" />
+<meta property="og:type" content="video.movie">
+<meta property="og:video" content="https://example.org/program-audio.mp3">
+<meta property="og:video:secure_url" content="https://example.org/program-audio.mp3">
+<meta property="og:video:type" content="video/mp4">
+<meta property="og:video:width" content="480">
+<meta property="og:video:height" content="50">
+<meta property="fb:app_id" content="1234567890987654321">
+<meta property="fb:admins" content="9876543210,1234567">
+<meta property="twitter:card" content="player" />
+<meta property="twitter:player" content="https://www.wnyc.org/widgets/ondemand_player/#file=https%3A%2F%2Faudio3.wnyc.org%2Fbl%2Fbl040213cpod.mp3&amp;containerClass=wnyc" />
+<meta property="twitter:player:width" content="280" />
+<meta property="twitter:player:height" content="54" />
+<meta property="twitter:image:src" content = "http://www.wnyc.org/i/200/200/80/1/wnyc-logo200.png" />
+<meta name="twitter:image" content="https://media2.wnyc.org/i/1200/627/c/80/1/Maya.JPG" />
+<meta name="twitter:image:alt" content="Alternative test describing image for non-visual users" />
+<meta name="twitter:site" content="@twitter_username">
+
+<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+
+*/
+

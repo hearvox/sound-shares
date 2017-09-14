@@ -53,7 +53,7 @@ function soundshares_upgrade_options( $options ) {
         'fb_admins'  => '',
         'twit_user'  => '',
         'meta_all'   => 'off',
-        'video_h'    => 50,
+        'video_h'    => 75,
         'video_w'    => 480,
         'user_roles' => array( 'administrator' ),
         'post_types' => array( 'post' ),

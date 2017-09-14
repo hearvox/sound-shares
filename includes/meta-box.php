@@ -60,7 +60,7 @@ function soundshares_add_meta_box() {
     // Get array of post category IDs.
     $cat_ids = wp_list_pluck( get_the_category( $post->ID ), 'cat_ID' );
 
-    // Add meta box for user-selected categories (on plugin Setting page).
+    // Add meta box for user-selected categories and post types (from Settings).
     if ( in_array( 0, $options['categories'] ) || ( (bool) array_intersect( $cat_ids, $options['categories'] ) ) ) {
         add_meta_box(
             'soundshares-meta',
@@ -82,37 +82,6 @@ function soundshares_add_meta_box() {
  *
  * Form elements are printed only if allowed on Setting page.
  * Callback function passes array of settings-options in args ($box):
- *
-/**
- * soundshares_get_options() returns:
- * Array
- * (
- *     [fb_app_id] => 0
- *     [fb_admins] => 0
- *     [twit_user] => 0
- *     [meta_all] => 0
- *     [video_h] => 50
- *     [video_w] => 480
- *     [version] => 0.1.0
- *     [user_roles] => Array
- *          (
- *               [0] => administrator
- *          )
- *     [post_types] => Array
- *          (
- *               [0] => post
- *          )
- *     [version] => 0.1.0
- * )
- *
- * get_post_meta( $post_id, 'soundshares_meta', true ) returns:
- * Array
- * (
- *    [file] =>
- *    [title] =>
- *    [author] =>
- *    [image] =>
- * )
  *
  * @param  Object $post Object containing the current post.
  * @param  array  $box  Array of meta box id, title, callback, and args elements.
@@ -154,7 +123,6 @@ function soundshares_meta_box_callback( $post, $box ) {
     </pre>
     <?php
 }
-
 
 /**
  * Returns class name for HTML form input.
@@ -232,3 +200,36 @@ function soundshares_save_post_meta( $post_id, $post ) {
     }
 
 }
+/**
+ * References and notes.
+ *
+ * soundshares_get_options() returns:
+ * Array
+ * (
+ *     [fb_app_id] => 0
+ *     [fb_admins] => 0
+ *     [twit_user] => 0
+ *     [meta_all] => 0
+ *     [video_h] => 50
+ *     [video_w] => 480
+ *     [version] => 0.1.0
+ *     [user_roles] => Array
+ *          (
+ *               [0] => administrator
+ *          )
+ *     [post_types] => Array
+ *          (
+ *               [0] => post
+ *          )
+ *     [version] => 0.1.0
+ * )
+ *
+ * get_post_meta( $post_id, 'soundshares_meta', true ) returns:
+ * Array
+ * (
+ *    [file] =>
+ *    [title] =>
+ *    [author] =>
+ *    [image] =>
+ * )
+ * /

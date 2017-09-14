@@ -132,7 +132,7 @@ add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
  *     [fb_app_id] => 0
  *     [fb_admins] => 0
  *     [twit_user] => 0
- *     [meta_all] => 0
+ *     [meta_all] => 'off'
  *     [video_h] => 50
  *     [video_w] => 480
  *     [version] => 0.1.0
@@ -194,7 +194,7 @@ function soundshares_facebook_tags() {
         $image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);
     }
 
-    if ( isset( $options['meta_all'] ) ) {
+    if ( $options['meta_all'] === 'on' ) {
         $og_meta['og:title']       = get_the_title();
         $og_meta['og:description'] = $excerpt;
         $og_meta['og:url']         = get_permalink();
@@ -257,7 +257,7 @@ function soundshares_twitter_tags() {
         $image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);
     }
 
-    if ( isset( $options['meta_all'] ) ) {
+    if ( $options['meta_all'] === 'on' ) {
         $twitter_meta['twitter:title']       = get_the_title();
         $twitter_meta['twitter:description'] = $excerpt;
         $twitter_meta['twitter:url']         = get_permalink();
