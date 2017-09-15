@@ -16,11 +16,9 @@ For each post, you can also enqueue unregistered files, by entering in the meta 
 * A stylesheet URL.
 * Two JavaScript URLs, e.g, one JSON data file and one script file.
 
-### Add post and body classes
+###  Settings and Security
 
-And for each post, you can add:
-* Body class(es), to the HTML `&lt;body&lt;` tag (requires `body_class()` in theme).
-* Post class(es), to `class="post"` list (inserted by WordPress, requires `post_class()` in theme).
+The Settings screen lets you control which user-roles, post-types, and categories display the Sound Shares meta box.
 
 See [the screenshots](https://wordpress.org/plugins/postscript/screenshots/).
 
@@ -28,7 +26,7 @@ See [the screenshots](https://wordpress.org/plugins/postscript/screenshots/).
 
 To install the use the Postscript plugin:
 
-1. Upload the `postscript` directory and content to the `/wp-content/plugins/` directory
+1. Upload the `sound-shares` directory and content to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to the Setting: Postscript options screen.
 
@@ -40,7 +38,7 @@ This plugin was developed as part of a [Reynolds Journalism Institute](https://w
 
 ### What might be some future features?
 
-Tell us in the [support fourm](https://wordpress.org/support/plugin/postscript) about new features you'd like in future releases. For instance:
+Tell us in the [support fourm](https://wordpress.org/support/plugin/sound-shares) about new features you'd like in future releases. For instance:
 
 * Custom descriptions for embedded link preview (rather than default post excerpt).
 * Custom size for embedded player.

@@ -87,15 +87,24 @@ function soundshares_add_meta_tags() {
             unset( $meta_tags['og:image'] );
             unset( $meta_tags['twitter:image'] );
 
-            $meta_tags['og:title'] = $post_meta['image'];
-            $meta_tags['twitter:title'] = $post_meta['image'];
+            $meta_tags['og:image'] = $post_meta['image'];
+            $meta_tags['twitter:image'] = $post_meta['image'];
         }
 
-        // Filter for users to edit array of meta tag data, e.g.:
-        // unset( $meta_tags['og:video:height'] ); // Remove array item with tag data, then:
-        // $meta_tags['og:video:height'] = '100'; // Add new tag data.
+        /**
+         * Filter the array of data for HTML meta tags.
+         *
+         * Example:
+         * unset( $meta_tags['og:video:height'] ); // Remove item with data.
+         * $meta_tags['og:video:height'] = '100'; // Add new tag data.
+         *
+         * @since   0.1.0
+         *
+         * @param   array  $meta_tags  Array of data for mata tags
+         */
         $meta_tags = apply_filters( 'soundshares_meta_tags', $meta_tags );
 
+        // Meta tag property with URLs as content.
         $meta_urls = array(
             'og:url',
             'og:image',
@@ -106,7 +115,7 @@ function soundshares_add_meta_tags() {
             'twitter:player'
         );
 
-        // Output meta tags.
+        // Output meta tags, sanitize URLs and atributes.
         echo '<!-- Sound Shares social tags (embeds media player) -->' . "\n";
         foreach ($meta_tags as $property => $content ) {
             if ( in_array( $property, $meta_urls ) ) {
@@ -123,40 +132,6 @@ function soundshares_add_meta_tags() {
     }
 }
 add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
-
-/**
- * Plugin options (settings page):
- * soundshares_get_options() returns:
- * Array
- * (
- *     [fb_app_id] => 0
- *     [fb_admins] => 0
- *     [twit_user] => 0
- *     [meta_all] => 'off'
- *     [video_h] => 50
- *     [video_w] => 480
- *     [version] => 0.1.0
- *     [user_roles] => Array
- *          (
- *               [0] => administrator
- *          )
- *     [post_types] => Array
- *          (
- *               [0] => post
- *          )
- *     [version] => 0.1.0
- * )
- *
- * Post settings (meta box):
- * get_post_meta( $post_id, 'soundshares_meta', true ) returns:
- * Array
- * (
- *    [file] => {media URL}
- *    [title] => {text}
- *    [author] => {name}
- *    [image] => {media URL}
- * )
- */
 
 /**
  * Add Facebook Open Graph meta tags data.
@@ -202,12 +177,28 @@ function soundshares_facebook_tags() {
         $og_meta['og:image']       = $image_src;
     }
 
+    // Replace default meta with Sound Shares meta box values.
+    if ( isset( $post_meta['title'] ) ) {
+        unset( $meta_tags['og:title'] );
+        $meta_tags['og:title'] = $post_meta['title'];
+    }
+
+    if ( isset( $post_meta['image'] ) ) {
+        unset( $meta_tags['og:image'] );
+        $meta_tags['og:image'] = $post_meta['image'];
+    }
+
+    if ( isset( $post_meta['image'] ) ) {
+        unset( $meta_tags['og:image'] );
+        $meta_tags['og:image'] = $post_meta['image'];
+    }
+
     $og_meta['og:type']             = 'video.movie';
     $og_meta['og:video']            = $post_meta['file'];
     $og_meta['og:video:secure_url'] = $post_meta['file'];
     $og_meta['og:video:type']       = 'video/mp4';
     $og_meta['og:video:width']      = ( isset( $options['video_w'] ) ) ? $options['video_w'] : '480';
-    $og_meta['og:video:height']     = ( isset( $options['video_h'] ) ) ? $options['video_w'] : '50';
+    $og_meta['og:video:height']     = ( isset( $options['video_h'] ) ) ? $options['video_h'] : '50';
     if ( isset( $options['fb_app_id'] ) ) {
         $og_meta['fb:app_id']       = $options['fb_app_id'];
     }
@@ -265,6 +256,16 @@ function soundshares_twitter_tags() {
         $twitter_meta['twitter:image:alt']   = $image_alt;
     }
 
+    // Replace default meta with Sound Shares meta box values.
+    if ( isset( $post_meta['title'] ) ) {
+        unset( $meta_tags['twitter:title'] );
+        $meta_tags['twitter:title'] = $post_meta['title'];
+    }
+
+    if ( isset( $post_meta['image'] ) ) {
+        unset( $meta_tags['twitter:image'] );
+        $meta_tags['og:image'] = $post_meta['image'];
+    }
     // Append player URL with query string of audio meta -- URL, title, and author; e.g.:
     // .../player.php?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
     $file     = '?file=' . urlencode( $post_meta['file'] );
@@ -276,7 +277,7 @@ function soundshares_twitter_tags() {
     $twitter_meta['twitter:card']          = 'player';
     $twitter_meta['twitter:player']        = $play_url;
     $twitter_meta['twitter:player:width']  = ( isset( $options['video_w'] ) ) ? $options['video_w'] : '480';
-    $twitter_meta['twitter:player:height'] = ( isset( $options['video_h'] ) ) ? $options['video_w'] : '75';
+    $twitter_meta['twitter:player:height'] = ( isset( $options['video_h'] ) ) ? $options['video_h'] : '75';
     $twitter_meta['twitter:site']          = $options['twit_user'];
 
     return $twitter_meta;
@@ -372,6 +373,40 @@ function soundshares_add_og_meta_tags( $type ) {
     <?php
 }
 // add_filter( 'wp_head', 'soundshares_add_og_meta_tags' );
+
+/**
+ * References and notes.
+ *
+ * soundshares_get_options() returns:
+ * Array
+ * (
+ *     [fb_app_id] => 0
+ *     [fb_admins] => 0
+ *     [twit_user] => 0
+ *     [meta_all] => 0
+ *     [video_h] => 50
+ *     [video_w] => 480
+ *     [version] => 0.1.0
+ *     [user_roles] => Array
+ *          (
+ *               [0] => administrator
+ *          )
+ *     [post_types] => Array
+ *          (
+ *               [0] => post
+ *          )
+ *     [version] => 0.1.0
+ * )
+ *
+ * get_post_meta( $post_id, 'soundshares_meta', true ) returns:
+ * Array
+ * (
+ *    [file] =>
+ *    [title] =>
+ *    [author] =>
+ *    [image] =>
+ * )
+ * /
 
 /*
 Facebook Open Graph, Google+ and Twitter Card Tags

@@ -377,6 +377,7 @@ function soundshares_get_cat_names( $cat_ids ) {
 
     return $cat_names;
 }
+
 /**
  * References and notes.
  *
@@ -386,8 +387,8 @@ function soundshares_get_cat_names( $cat_ids ) {
  *     [fb_app_id] => 0
  *     [fb_admins] => 0
  *     [twit_user] => 0
- *     [meta_all] => off
- *     [video_h] => 75
+ *     [meta_all] => 0
+ *     [video_h] => 50
  *     [video_w] => 480
  *     [version] => 0.1.0
  *     [user_roles] => Array
@@ -398,16 +399,20 @@ function soundshares_get_cat_names( $cat_ids ) {
  *          (
  *               [0] => post
  *          )
- *     [categories] => Array
- *          (
- *               [0] => 0
- *          )
  *     [version] => 0.1.0
  * )
- */
+ *
+ * get_post_meta( $post_id, 'soundshares_meta', true ) returns:
+ * Array
+ * (
+ *    [file] =>
+ *    [title] =>
+ *    [author] =>
+ *    [image] =>
+ * )
+ * /
 
 /*
-
 Use Sound Shares to add Facebook OG title, description, image, and url HTML meta tags to audio pages.
 
 fb:app_id" content="1234567890987654321">

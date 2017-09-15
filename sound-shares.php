@@ -37,40 +37,6 @@ include_once( dirname( __FILE__ ) . '/includes/functions.php' );
 include_once( dirname( __FILE__ ) . '/includes/meta-box.php' );
 include_once( dirname( __FILE__ ) . '/includes/social-meta.php' );
 
-
-/*
-~ Get option, check for vars.
-~ Define setting vars, inc. fb_app_id, fb_admins.
-~ Save setting vars to option.
-    If plugin file  vars are empty, check option:
-    if option vars empty, use file vars;
-    if option vars not empty, use option vars;
-    if file vars and option vars  don't match, save file vars to option.
-~ If singular and metadata:
-    Check xml namespace.
-    Add ns to lang_attr hook.
-    Build basic og (if option enabled).
-    Change og type to video.movie, via filters, in:
-        Yoast, Jetpack, Allin1, Facebook, FB Google+
-    Build HTML meta tags for og video, type: video.movie,
-        url: plugin post meta, w&h: pligin vars.
-    IF video URL is HTTPS:
-         Add od:video:secure_url.
-    Surround meta tags w/ HTML comment identifying plugin?
-    Add meta tags via wp_head hook.
-~ Docs (ReadMe.md and inline docs):
-    Lists debug URLs: FB and Twit.
-    List OG, FB-OG, and Twitter Card doc URLs.
-    Print example OG output, basic and video.
-    List TODOs: Twitter, different image, filters.
-    List filters in Sound Shares, with examples.
-    List other plugins that Sound Shares filters og:type.
-    Link to Jetpack list of plugins that manage OG.
-    Detail FB and Twit image specs.
-    Link to current article.
-    Link to an FB post using Sound Shares audio embed.
-*/
-
 /**
  * Validate URL.
  *
@@ -178,11 +144,48 @@ function soundshares_get_html_meta( $html ) {
     }
 }
 
+/*
+~ Get option, check for vars.
+~ Define setting vars, inc. fb_app_id, fb_admins.
+~ Save setting vars to option.
+    If plugin file  vars are empty, check option:
+    if option vars empty, use file vars;
+    if option vars not empty, use option vars;
+    if file vars and option vars  don't match, save file vars to option.
+~ If singular and metadata:
+    Check xml namespace.
+    Add ns to lang_attr hook.
+    Build basic og (if option enabled).
+    Change og type to video.movie, via filters, in:
+        Yoast, Jetpack, Allin1, Facebook, FB Google+
+    Build HTML meta tags for og video, type: video.movie,
+        url: plugin post meta, w&h: pligin vars.
+    IF video URL is HTTPS:
+         Add od:video:secure_url.
+    Surround meta tags w/ HTML comment identifying plugin?
+    Add meta tags via wp_head hook.
+~ Docs (ReadMe.md and inline docs):
+    Lists debug URLs: FB and Twit.
+    List OG, FB-OG, and Twitter Card doc URLs.
+    Print example OG output, basic and video.
+    List TODOs: Twitter, different image, filters.
+    List filters in Sound Shares, with examples.
+    List other plugins that Sound Shares filters og:type.
+    Link to Jetpack list of plugins that manage OG.
+    Detail FB and Twit image specs.
+    Link to current article.
+    Link to an FB post using Sound Shares audio embed.
+*/
 
 /**
- * @todo Add settings page: FB App ID, FB Admins, User roles, post types.
- * @todo Add metabox for selected user roles and post types.
+ * @todo Add og:image.
+ * @todo Fix twitter:image.
+ * @todo  og:image:alt.
+ * @todo Twitter player URL must be HTTPS.
+ * @todo Fix Jetpack replaced meta tags.
+ * @todo Default author is site name.
+ * @todo Default title is post title (shortened for player).
+ * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
  * @todo Use Preview media to meta-box.
- * @since   0.1.0
  */

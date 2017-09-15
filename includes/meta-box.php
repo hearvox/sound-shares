@@ -114,15 +114,133 @@ function soundshares_meta_box_callback( $post, $box ) {
         <label for="soundshares-author"><?php _e( 'Audio author:', 'soundshares' ); ?></label><br />
         <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_textarea_field( $soundshares_meta['author'] ); } ?>" size="30" />
     </p>
+
+
     <p>
-        <label for="soundshares-image"><?php _e( 'Image URL:', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="url" name="soundshares_meta[image]" id="soundshares-image"  size="30" value="<?php if ( ! empty( $image ) ) { echo esc_url_raw( $image ); } ?>" placeholder="<?php _e( '(.jpg, .gif, or .png)', 'soundshares' ); ?>" />
+        <label for="soundshares-image"><?php _e( 'Image:', 'soundshares' ); ?></label><br />
     </p>
-    <pre style="font-size: 0.7em;">
+
+    <?php soundshares_image_metabox( $post, $soundshares_meta ) ?>
+
+     <pre style="font-size: 0.7em;">
         <?php print_r( $soundshares_meta ); ?>
     </pre>
+
     <?php
 }
+
+
+
+/**
+ * Select image for social site link previews (default: post featured image).
+ *
+ * @link https://hugh.blog/2015/12/18/create-a-custom-featured-image-box/
+ *
+ * @since 0.1.0
+ *
+ * @param $post
+ * @param $soundshares_meta
+ */
+function soundshares_image_metabox() {
+    global $content_width, $_wp_additional_image_sizes, $post;
+    $post_meta = get_post_meta( $post->ID, 'soundshares_meta', true );
+    // $image_id = get_post_meta( $post->ID, '_soundshares_image_id', true );
+
+    $image_id = ( isset( $post_meta['image'] ) ) ? $post_meta['image'] : NULL;
+    $old_content_width = $content_width;
+    $content_width = 254;
+    if ( $image_id && get_post( $image_id ) ) {
+        if ( ! isset( $_wp_additional_image_sizes['post-thumbnail'] ) ) {
+            $thumbnail_html = wp_get_attachment_image( $image_id, array( $content_width, $content_width ) );
+        } else {
+            $thumbnail_html = wp_get_attachment_image( $image_id, 'post-thumbnail' );
+        }
+        if ( ! empty( $thumbnail_html ) ) {
+            $content = $thumbnail_html;
+            $content .= '<p id="soundsharesimagediv" class="hide-if-no-js"><a href="javascript:;" id="remove_soundshares_image_button" >' . esc_html__( 'Remove social-site image', 'soundshares' ) . '</a></p>';
+            $content .= '<input type="hidden" id="upload_soundshares_image" name="soundshares_meta[image]" value="' . esc_attr( $image_id ) . '" />';
+        }
+        $content_width = $old_content_width;
+    } else {
+        $content = '<img src="" style="width:' . esc_attr( $content_width ) . 'px;height:auto;border:0;display:none;" />';
+        $content .= '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set social-site image', 'soundshares' ) . '" href="javascript:;" id="upload_soundshares_image_button" id="set-soundshares-image" data-uploader_title="' . esc_attr__( 'Select image for social sites', 'soundshares' ) . '" data-uploader_button_text="' . esc_attr__( 'Use image', 'soundshares' ) . '">' . esc_html__( 'Set social-site image', 'soundshares' ) . '</a></p>';
+        $content .= '<input type="hidden" id="upload_soundshares_image" name="soundshares_meta[image]" value="" />';
+    }
+    echo '<div id="soundsharesimagediv">' . $content . '</div>';
+    ?>
+    <script type="text/javascript">
+    /* Social site image */
+        jQuery(document).ready(function($) {
+
+            // Uploading files
+            var file_frame;
+
+            jQuery.fn.upload_soundshares_image = function( button ) {
+                var button_id = button.attr( 'id' );
+                var field_id = button_id.replace( '_button', '' );
+
+                // If the media frame already exists, reopen it.
+                if ( file_frame ) {
+                    file_frame.open();
+                    return;
+                }
+
+                // Create the media frame.
+                file_frame = wp.media.frames.file_frame = wp.media({
+                    title: jQuery( '#upload_soundshares_image_button' ).data( 'uploader_title' ),
+                    library: {type: 'image'},
+                    button: {
+                    text: jQuery( '#upload_soundshares_image_button' ).data( 'uploader_button_text' ),
+                    },
+                    multiple: false
+                });
+
+                // When an image is selected, run a callback.
+                file_frame.on( 'select', function() {
+                    var attachment = file_frame.state().get( 'selection' ).first().toJSON();
+                    jQuery( "#"+field_id ).val( attachment.id );
+                    jQuery( '#soundsharesimagediv img' ).attr( 'src',attachment.url );
+                    jQuery( '#soundsharesimagediv img' ).show();
+                    jQuery( '#' + button_id ).attr( 'id', 'remove_soundshares_image_button' );
+                    jQuery( '#remove_soundshares_image_button' ).text( 'Remove social-site image' );
+                });
+
+                // Finally, open the modal
+                file_frame.open();
+            };
+
+            jQuery( '#soundsharesimagediv' ).on( 'click', '#upload_soundshares_image_button', function( event ) {
+                event.preventDefault();
+                jQuery.fn.upload_soundshares_image( jQuery(this) );
+                console.log( jQuery(this).data( 'uploader_button_text' ) );
+            });
+
+            jQuery( '#soundsharesimagediv' ).on( 'click', '#remove_soundshares_image_button', function( event ) {
+                event.preventDefault();
+                jQuery( '#upload_soundshares_image' ).val( '' );
+                jQuery( '#soundsharesimagediv img' ).attr( 'src', '' );
+                jQuery( '#soundsharesimagediv img' ).hide();
+                jQuery( this ).attr( 'id', 'upload_soundshares_image_button' );
+                jQuery( '#upload_soundshares_image_button' ).text( 'Set social-site image' );
+            });
+
+        });
+    </script>
+    <?php
+}
+
+// rm:
+function soundshares_image_add_metabox () {
+    add_meta_box( 'soundsharesimagediv', __( 'Social-site Image', 'text-domain' ), 'soundshares_image_metabox', 'post', 'side', 'low');
+}
+// add_action( 'add_meta_boxes', 'soundshares_image_add_metabox' );
+function soundshares_image_save ( $post_id ) {
+    if( isset( $_POST['_soundshares_cover_image'] ) ) {
+        $image_id = (int) $_POST['_soundshares_cover_image'];
+        update_post_meta( $post_id, '_soundshares_image_id', $image_id );
+    }
+}
+// add_action( 'save_post', 'soundshares_image_save', 10, 1 );
 
 /**
  * Returns class name for HTML form input.
@@ -168,7 +286,13 @@ function soundshares_save_post_meta( $post_id, $post ) {
 
     $meta_key   = 'soundshares_meta';
     $meta_value = get_post_meta( $post_id, $meta_key, true );
-
+/*
+    // Image selection.
+    if( isset( $_POST['_soundshares_cover_image'] ) ) {
+        $image_id = (int) $_POST['_soundshares_cover_image'];
+        update_post_meta( $post_id, '_soundshares_image_id', $image_id );
+    }
+*/
     // $form_data = $_POST['soundshares_meta'];
     // update_post_meta( $post_id, $meta_key, $form_data );
 
@@ -200,6 +324,13 @@ function soundshares_save_post_meta( $post_id, $post ) {
     }
 
 }
+
+/*
+http://rji.local/wp-content/plugins/sound-shares/js/media-button.js?ver=1.0
+http://rji.local/wp-content/plugins/sound-shares/js/media_button.js?ver=1.0
+
+*/
+
 /**
  * References and notes.
  *
@@ -232,4 +363,6 @@ function soundshares_save_post_meta( $post_id, $post ) {
  *    [author] =>
  *    [image] =>
  * )
- * /
+ */
+
+
