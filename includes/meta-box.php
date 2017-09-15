@@ -115,11 +115,6 @@ function soundshares_meta_box_callback( $post, $box ) {
         <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_textarea_field( $soundshares_meta['author'] ); } ?>" size="30" />
     </p>
 
-
-    <p>
-        <label for="soundshares-image"><?php _e( 'Image:', 'soundshares' ); ?></label><br />
-    </p>
-
     <?php soundshares_image_metabox( $post, $soundshares_meta ) ?>
 
      <pre style="font-size: 0.7em;">
@@ -132,14 +127,15 @@ function soundshares_meta_box_callback( $post, $box ) {
 
 
 /**
- * Select image for social site link previews (default: post featured image).
+ * Prints button to choose image for social site link previews
+ *
+ * Based on Featured Image button.
+ * If no image chosen, plugin uses featured image.
  *
  * @link https://hugh.blog/2015/12/18/create-a-custom-featured-image-box/
  *
  * @since 0.1.0
  *
- * @param $post
- * @param $soundshares_meta
  */
 function soundshares_image_metabox() {
     global $content_width, $_wp_additional_image_sizes, $post;
@@ -163,8 +159,10 @@ function soundshares_image_metabox() {
         $content_width = $old_content_width;
     } else {
         $content = '<img src="" style="width:' . esc_attr( $content_width ) . 'px;height:auto;border:0;display:none;" />';
-        $content .= '<p class="hide-if-no-js"><a title="' . esc_attr__( 'Set social-site image', 'soundshares' ) . '" href="javascript:;" id="upload_soundshares_image_button" id="set-soundshares-image" data-uploader_title="' . esc_attr__( 'Select image for social sites', 'soundshares' ) . '" data-uploader_button_text="' . esc_attr__( 'Use image', 'soundshares' ) . '">' . esc_html__( 'Set social-site image', 'soundshares' ) . '</a></p>';
+        $content .= '<p class="hide-if-no-js">' . __( 'Image:', 'soundshares' ) . '<br>';
+        $content .= '<a title="' . esc_attr__( 'Set social-site image', 'soundshares' ) . '" href="javascript:;" id="upload_soundshares_image_button" id="set-soundshares-image" data-uploader_title="' . esc_attr__( 'Select image for social sites', 'soundshares' ) . '" data-uploader_button_text="' . esc_attr__( 'Use image', 'soundshares' ) . '">' . esc_html__( 'Set social-site image', 'soundshares' ) . '</a></p>';
         $content .= '<input type="hidden" id="upload_soundshares_image" name="soundshares_meta[image]" value="" />';
+        $content .= '<p class="wp-ui-text-icon">' . __( 'If none selected, uses featured image.', 'soundshares' ) . '</p>';
     }
     echo '<div id="soundsharesimagediv">' . $content . '</div>';
     ?>
@@ -201,6 +199,7 @@ function soundshares_image_metabox() {
                     jQuery( "#"+field_id ).val( attachment.id );
                     jQuery( '#soundsharesimagediv img' ).attr( 'src',attachment.url );
                     jQuery( '#soundsharesimagediv img' ).show();
+                    jQuery( '#soundsharesimagediv .wp-ui-text-icon' ).hide();
                     jQuery( '#' + button_id ).attr( 'id', 'remove_soundshares_image_button' );
                     jQuery( '#remove_soundshares_image_button' ).text( 'Remove social-site image' );
                 });
@@ -212,7 +211,6 @@ function soundshares_image_metabox() {
             jQuery( '#soundsharesimagediv' ).on( 'click', '#upload_soundshares_image_button', function( event ) {
                 event.preventDefault();
                 jQuery.fn.upload_soundshares_image( jQuery(this) );
-                console.log( jQuery(this).data( 'uploader_button_text' ) );
             });
 
             jQuery( '#soundsharesimagediv' ).on( 'click', '#remove_soundshares_image_button', function( event ) {
@@ -222,25 +220,13 @@ function soundshares_image_metabox() {
                 jQuery( '#soundsharesimagediv img' ).hide();
                 jQuery( this ).attr( 'id', 'upload_soundshares_image_button' );
                 jQuery( '#upload_soundshares_image_button' ).text( 'Set social-site image' );
+                jQuery( '#soundsharesimagediv .wp-ui-text-icon' ).show();
             });
 
         });
     </script>
     <?php
 }
-
-// rm:
-function soundshares_image_add_metabox () {
-    add_meta_box( 'soundsharesimagediv', __( 'Social-site Image', 'text-domain' ), 'soundshares_image_metabox', 'post', 'side', 'low');
-}
-// add_action( 'add_meta_boxes', 'soundshares_image_add_metabox' );
-function soundshares_image_save ( $post_id ) {
-    if( isset( $_POST['_soundshares_cover_image'] ) ) {
-        $image_id = (int) $_POST['_soundshares_cover_image'];
-        update_post_meta( $post_id, '_soundshares_image_id', $image_id );
-    }
-}
-// add_action( 'save_post', 'soundshares_image_save', 10, 1 );
 
 /**
  * Returns class name for HTML form input.
@@ -286,13 +272,7 @@ function soundshares_save_post_meta( $post_id, $post ) {
 
     $meta_key   = 'soundshares_meta';
     $meta_value = get_post_meta( $post_id, $meta_key, true );
-/*
-    // Image selection.
-    if( isset( $_POST['_soundshares_cover_image'] ) ) {
-        $image_id = (int) $_POST['_soundshares_cover_image'];
-        update_post_meta( $post_id, '_soundshares_image_id', $image_id );
-    }
-*/
+
     // $form_data = $_POST['soundshares_meta'];
     // update_post_meta( $post_id, $meta_key, $form_data );
 
@@ -355,7 +335,7 @@ http://rji.local/wp-content/plugins/sound-shares/js/media_button.js?ver=1.0
  *     [version] => 0.1.0
  * )
  *
- * get_post_meta( $post_id, 'soundshares_meta', true ) returns:
+ * get_post_meta( $post->ID, 'soundshares_meta', true ) returns:
  * Array
  * (
  *    [file] =>
@@ -364,5 +344,19 @@ http://rji.local/wp-content/plugins/sound-shares/js/media_button.js?ver=1.0
  *    [image] =>
  * )
  */
+
+// rm:
+function soundshares_image_add_metabox () {
+    add_meta_box( 'soundsharesimagediv', __( 'Social-site Image', 'text-domain' ), 'soundshares_image_metabox', 'post', 'side', 'low');
+}
+// add_action( 'add_meta_boxes', 'soundshares_image_add_metabox' );
+function soundshares_image_save ( $post_id ) {
+    if( isset( $_POST['_soundshares_cover_image'] ) ) {
+        $image_id = (int) $_POST['_soundshares_cover_image'];
+        update_post_meta( $post_id, '_soundshares_image_id', $image_id );
+    }
+}
+// add_action( 'save_post', 'soundshares_image_save', 10, 1 );
+
 
 

@@ -161,36 +161,31 @@ function soundshares_facebook_tags() {
         $excerpt = get_bloginfo( 'description' );
     }
 
-    // Get post featured image URL for og:image value.
+    // Get post featured image URL for image meta tag.
     if ( has_post_thumbnail( $post_id ) ) {
         $image_id  = get_post_thumbnail_id( $post_id );
-        $image_arr = wp_get_attachment_image_src( $image_id, 'large' );
-        $image_src = $image_arr[0];
-        $image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);
     }
 
     if ( $options['meta_all'] === 'on' ) {
         $og_meta['og:title']       = get_the_title();
         $og_meta['og:description'] = $excerpt;
         $og_meta['og:url']         = get_permalink();
-        $og_meta['og:site_name']   = get_bloginfo('name');
-        $og_meta['og:image']       = $image_src;
+        $og_meta['og:site_name']   = get_bloginfo( 'name' );
+        $og_meta['og:image']       = soundshares_get_image_src( $image_id );
+        $og_meta['og:image:alt']   = soundshares_get_image_alt( $image_id );
     }
 
-    // Replace default meta with Sound Shares meta box values.
+   // Replace default meta with Sound Shares meta box values.
     if ( isset( $post_meta['title'] ) ) {
-        unset( $meta_tags['og:title'] );
-        $meta_tags['og:title'] = $post_meta['title'];
+        unset( $og_meta['og:title'] );
+        $og_meta['og:title'] = $post_meta['title'];
     }
 
     if ( isset( $post_meta['image'] ) ) {
-        unset( $meta_tags['og:image'] );
-        $meta_tags['og:image'] = $post_meta['image'];
-    }
-
-    if ( isset( $post_meta['image'] ) ) {
-        unset( $meta_tags['og:image'] );
-        $meta_tags['og:image'] = $post_meta['image'];
+        unset( $og_meta['og:image'] );
+        unset( $og_meta['og:image:alt'] );
+        $og_meta['og:image']     = soundshares_get_image_src( $post_meta['image'] );
+        $og_meta['og:image:alt'] = soundshares_get_image_alt( $post_meta['image'] );
     }
 
     $og_meta['og:type']             = 'video.movie';
@@ -240,32 +235,32 @@ function soundshares_twitter_tags() {
         $excerpt = get_bloginfo( 'description' );
     }
 
-    // Get post featured image URL for og:image value.
+    // Get post featured image URL for image meta tag.
     if ( has_post_thumbnail( $post_id ) ) {
         $image_id  = get_post_thumbnail_id( $post_id );
-        $image_arr = wp_get_attachment_image_src( $image_id, 'large' );
-        $image_src = $image_arr[0];
-        $image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);
     }
 
     if ( $options['meta_all'] === 'on' ) {
         $twitter_meta['twitter:title']       = get_the_title();
         $twitter_meta['twitter:description'] = $excerpt;
         $twitter_meta['twitter:url']         = get_permalink();
-        $twitter_meta['twitter:image']       = $image_src;
-        $twitter_meta['twitter:image:alt']   = $image_alt;
+        $twitter_meta['twitter:image']       = soundshares_get_image_src( $image_id );
+        $twitter_meta['twitter:image:alt']   = soundshares_get_image_alt( $image_id );
     }
 
     // Replace default meta with Sound Shares meta box values.
     if ( isset( $post_meta['title'] ) ) {
-        unset( $meta_tags['twitter:title'] );
-        $meta_tags['twitter:title'] = $post_meta['title'];
+        unset( $twitter_meta['twitter:title'] );
+        $twitter_meta['twitter:title'] = $post_meta['title'];
     }
 
     if ( isset( $post_meta['image'] ) ) {
-        unset( $meta_tags['twitter:image'] );
-        $meta_tags['og:image'] = $post_meta['image'];
+        unset( $twitter_meta['twitter:image'] );
+        unset( $twitter_meta['twitter:image:alt'] );
+        $twitter_meta['twitter:image']     = soundshares_get_image_src( $post_meta['image'] );
+        $twitter_meta['twitter:image:alt'] = soundshares_get_image_alt( $post_meta['image'] );
     }
+
     // Append player URL with query string of audio meta -- URL, title, and author; e.g.:
     // .../player.php?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
     $file     = '?file=' . urlencode( $post_meta['file'] );
@@ -284,13 +279,35 @@ function soundshares_twitter_tags() {
 }
 
 /**
- * Add Facebook Open Graph meta tags data.
- *
- * Called by soundshares_add_meta_tags().
+ * Get image source URL.
  *
  * @since   0.1.0
  *
+ * @param  int           $image_id   Attachment ID
+ * @return false|string  $image_src  Attachment URL, or false if  no image available
+ *
  */
+function soundshares_get_image_src( $image_id ) {
+    $image_arr = wp_get_attachment_image_src( $image_id, 'large' );
+    $image_src = $image_arr[0];
+
+    return $image_src;
+}
+
+/**
+ * Get alt text of image from attachment meta data.
+ *
+ * @since   0.1.0
+ *
+ * @param  int           $image_id   Attachment ID
+ * @return false|string  $image_alt  Attachment alt text, or false is no meta
+ *
+ */
+function soundshares_get_image_alt( $image_id ) {
+    $image_alt = get_post_meta( $image_id, '_wp_attachment_image_alt', true);
+
+    return $image_alt;
+}
 
 
 /**
