@@ -188,4 +188,10 @@ function soundshares_get_html_meta( $html ) {
  * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
  * @todo Use Preview media to meta-box.
+ * @todo Add video duration tag using WP functions to read ID3.
+ *
+ * Duration info:
+ * <meta property="video:duration" content="120"/>
+ * @link https://codex.wordpress.org/Function_Reference/wp_read_audio_metadata
+ * @link https://codex.wordpress.org/Function_Reference/wp_read_video_metadata
  */

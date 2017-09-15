@@ -74,23 +74,6 @@ function soundshares_add_meta_tags() {
         $twitter_tags = soundshares_twitter_tags();
         $meta_tags    = array_merge( $meta_tags, $og_tags,  $twitter_tags );
 
-        // Replace default meta with Sound Shares meta box values.
-        if ( isset( $post_meta['title'] ) ) {
-            unset( $meta_tags['og:title'] );
-            unset( $meta_tags['twitter:title'] );
-
-            $meta_tags['og:title'] = $post_meta['title'];
-            $meta_tags['twitter:title'] = $post_meta['title'];
-        }
-
-        if ( isset( $post_meta['image'] ) ) {
-            unset( $meta_tags['og:image'] );
-            unset( $meta_tags['twitter:image'] );
-
-            $meta_tags['og:image'] = $post_meta['image'];
-            $meta_tags['twitter:image'] = $post_meta['image'];
-        }
-
         /**
          * Filter the array of data for HTML meta tags.
          *
@@ -153,7 +136,7 @@ function soundshares_facebook_tags() {
     // Change meta tag set by other plugins.
     soundshares_change_og_type();
 
-    // Get post excerpt for og:description value.
+    // Get post excerpt for description value.
     if ( $excerpt = $post->post_excerpt ) {
         $excerpt = wp_strip_all_tags( $post->post_excerpt );
         $excerpt = str_replace( "", "'", $excerpt );
@@ -161,33 +144,28 @@ function soundshares_facebook_tags() {
         $excerpt = get_bloginfo( 'description' );
     }
 
-    // Get post featured image URL for image meta tag.
-    if ( has_post_thumbnail( $post_id ) ) {
-        $image_id  = get_post_thumbnail_id( $post_id );
+    // Set meta tag for title.
+    if ( $options['meta_all'] === 'on' || isset( $post_meta['title'] ) ) {
+        $og_meta['og:title'] = ( isset( $post_meta['title'] ) ) ? $post_meta['title'] : get_the_title();;
     }
 
+    // Set other non-media meta tags.
     if ( $options['meta_all'] === 'on' ) {
-        $og_meta['og:title']       = get_the_title();
         $og_meta['og:description'] = $excerpt;
         $og_meta['og:url']         = get_permalink();
         $og_meta['og:site_name']   = get_bloginfo( 'name' );
-        $og_meta['og:image']       = soundshares_get_image_src( $image_id );
-        $og_meta['og:image:alt']   = soundshares_get_image_alt( $image_id );
     }
 
-   // Replace default meta with Sound Shares meta box values.
-    if ( isset( $post_meta['title'] ) ) {
-        unset( $og_meta['og:title'] );
-        $og_meta['og:title'] = $post_meta['title'];
+    // Set meta tags for image, if either featured or meta box image is set.
+    if ( ( $options['meta_all'] === 'on' && has_post_thumbnail( $post_id ) ) || isset( $post_meta['image'] ) ) {
+        // Use post meta image ID; if none use thumb ID.
+        $image_id = ( isset( $post_meta['image'] ) ) ? $post_meta['image'] : get_post_thumbnail_id( $post_id );
+
+        $og_meta['og:image']     = soundshares_get_image_src( $image_id );
+        $og_meta['og:image:alt'] = soundshares_get_image_alt( $image_id );
     }
 
-    if ( isset( $post_meta['image'] ) ) {
-        unset( $og_meta['og:image'] );
-        unset( $og_meta['og:image:alt'] );
-        $og_meta['og:image']     = soundshares_get_image_src( $post_meta['image'] );
-        $og_meta['og:image:alt'] = soundshares_get_image_alt( $post_meta['image'] );
-    }
-
+    // Set media meta tags.
     $og_meta['og:type']             = 'video.movie';
     $og_meta['og:video']            = $post_meta['file'];
     $og_meta['og:video:secure_url'] = $post_meta['file'];
@@ -235,31 +213,26 @@ function soundshares_twitter_tags() {
         $excerpt = get_bloginfo( 'description' );
     }
 
-    // Get post featured image URL for image meta tag.
-    if ( has_post_thumbnail( $post_id ) ) {
-        $image_id  = get_post_thumbnail_id( $post_id );
+    // Set meta tag for title.
+    if ( $options['meta_all'] === 'on' || isset( $post_meta['title'] ) ) {
+        $twitter_meta['twitter:title'] = ( isset( $post_meta['title'] ) ) ? $post_meta['title'] : get_the_title();;
     }
 
+    // Set other non-media meta tags.
     if ( $options['meta_all'] === 'on' ) {
-        $twitter_meta['twitter:title']       = get_the_title();
         $twitter_meta['twitter:description'] = $excerpt;
         $twitter_meta['twitter:url']         = get_permalink();
-        $twitter_meta['twitter:image']       = soundshares_get_image_src( $image_id );
-        $twitter_meta['twitter:image:alt']   = soundshares_get_image_alt( $image_id );
     }
 
-    // Replace default meta with Sound Shares meta box values.
-    if ( isset( $post_meta['title'] ) ) {
-        unset( $twitter_meta['twitter:title'] );
-        $twitter_meta['twitter:title'] = $post_meta['title'];
+    // Set meta tags for image, if either featured or meta box image is set.
+    if ( ( $options['meta_all'] === 'on' && has_post_thumbnail( $post_id ) ) || isset( $post_meta['image'] ) ) {
+        // Use post meta image ID; if none use thumb ID.
+        $image_id = ( isset( $post_meta['image'] ) ) ? $post_meta['image'] : get_post_thumbnail_id( $post_id );
+
+        $twitter_meta['twitter:image']     = soundshares_get_image_src( $image_id );
+        $twitter_meta['twitter:image:alt'] = soundshares_get_image_alt( $image_id );
     }
 
-    if ( isset( $post_meta['image'] ) ) {
-        unset( $twitter_meta['twitter:image'] );
-        unset( $twitter_meta['twitter:image:alt'] );
-        $twitter_meta['twitter:image']     = soundshares_get_image_src( $post_meta['image'] );
-        $twitter_meta['twitter:image:alt'] = soundshares_get_image_alt( $post_meta['image'] );
-    }
 
     // Append player URL with query string of audio meta -- URL, title, and author; e.g.:
     // .../player.php?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
@@ -269,11 +242,14 @@ function soundshares_twitter_tags() {
     $meta_str = $file . $title . $author;
     $play_url = plugin_dir_url( __FILE__ ) . 'player.php' . $meta_str;
 
+    // Set media meta tags.
     $twitter_meta['twitter:card']          = 'player';
     $twitter_meta['twitter:player']        = $play_url;
     $twitter_meta['twitter:player:width']  = ( isset( $options['video_w'] ) ) ? $options['video_w'] : '480';
     $twitter_meta['twitter:player:height'] = ( isset( $options['video_h'] ) ) ? $options['video_h'] : '75';
-    $twitter_meta['twitter:site']          = $options['twit_user'];
+     if ( isset( $options['twit_user'] ) ) {
+        $twitter_meta['twitter:site'] = $options['twit_user'];
+    }
 
     return $twitter_meta;
 }
@@ -347,7 +323,7 @@ function soundshares_change_jetpack_og_type( $type ) {
 }
 
 /**
- * Change OG type tag value  set by Yoast SEO plugin..
+ * Change OG type tag value set by Yoast SEO plugin..
  *
  * Called by: soundshares_change_og_type.
  *
@@ -386,7 +362,7 @@ function soundshares_add_og_meta_tags( $type ) {
     <meta property="twitter:player:height" content="54" />
     <meta property="twitter:image:src" content = "http://www.wnyc.org/i/200/200/80/1/wnyc-logo200.png" />
     <meta property="twitter:image" content="https://media2.wnyc.org/i/1200/627/c/80/1/Maya.JPG" />
-    <meta name="twitter:site" content="<?php echo esc_attr( $options['twit_user'] ); ?>">
+    <meta property="twitter:site" content="<?php echo esc_attr( $options['twit_user'] ); ?>">
     <?php
 }
 // add_filter( 'wp_head', 'soundshares_add_og_meta_tags' );
