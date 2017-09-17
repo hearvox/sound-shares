@@ -1,16 +1,6 @@
 # Sound Shares #
-**Contributors:** [hearvox](https://profiles.wordpress.org/hearvox)  
-**Donate link:** https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3546QM2HAEKXW  
-**Tags:** social, facebook, twitter, embed, player, audio, video  
-**Author URI:** http://hearingvoices.com/tools/sound-shares/  
-**Plugin URI:** http://hearingvoices.com/  
-**Requires at least:** 4.5  
-**Tested up to:** 4.8  
-**Stable tag:** 0.1.0  
-**License:** GPLv2 or later  
-**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-**NOT READY YET:** SOON. Embed media player in social sites when users share your link in a social sites.  
+**NOT READY YET:** SOON. Embed media player in social sites when users share your link in a social sites.
 
 ## Description ##
 
