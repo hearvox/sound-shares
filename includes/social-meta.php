@@ -314,6 +314,8 @@ function soundshares_change_og_type() {
  * Called by: soundshares_change_og_type.
  *
  * @since   0.1.0
+ *
+ * @return void
  */
 function soundshares_change_jetpack_og_type( $type ) {
     // Remove the default tag added by Jetpack
@@ -329,6 +331,9 @@ function soundshares_change_jetpack_og_type( $type ) {
  * Called by: soundshares_change_og_type.
  *
  * @since   0.1.0
+ *
+ * @param  string $type OG meta tag property 'og:type'
+ * @return string       Content value for 'og:type'
  */
 function soundshares_change_yoast_og_type( $type ) {
     return 'video';
