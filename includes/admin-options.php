@@ -106,7 +106,7 @@ function soundshares_options_init() {
 
     add_settings_field(
         'soundshares_user_roles',
-        __( 'User roles', 'postscript' ),
+        __( 'User roles', 'postscript', 'soundshares' ),
         'soundshares_user_roles_callback',
         'soundshares',
         'soundshares_settings_section',
@@ -115,7 +115,7 @@ function soundshares_options_init() {
 
     add_settings_field(
         'soundshares_post_types',
-        __( 'Post types', 'postscript' ),
+        __( 'Post types', 'postscript', 'soundshares' ),
         'soundshares_post_types_callback',
         'soundshares',
         'soundshares_settings_section',
@@ -124,7 +124,7 @@ function soundshares_options_init() {
 
     add_settings_field(
         'soundshares_categories',
-        __( 'Categories', 'postscript' ),
+        __( 'Categories', 'postscript', 'soundshares' ),
         'soundshares_categories_callback',
         'soundshares',
         'soundshares_settings_section',
@@ -172,7 +172,7 @@ function soundshares_fields_facebook_callback( $options ) {
                 <label><input type="text" id="soundshares-fb-app-id" name="soundshares[fb_app_id]" value="<?php if ( isset ( $options['fb_app_id'] ) ) { echo esc_attr( $options['fb_app_id'] ); } ?>" /> <?php _e( 'App ID', 'soundshares' ); ?></label></li>
             <li>
                 <label><input type="text" id="soundshares-fb-admins" name="soundshares[fb_admins]" value="<?php if ( isset ( $options['fb_admins'] ) ) { echo esc_attr( $options['fb_admins'] ); } ?>" /> <?php _e( 'Admin(s)', 'soundshares' ); ?></label>
-                <p class="wp-ui-text-icon"><?php _e( 'To track <a href="https://developers.facebook.com/docs/sharing/insights">Facebook Sharing Insights</a>, enter an App ID (from your <a href="https://developers.facebook.com/apps/redirect/dashboard">Facebook App Dashboard</a>). To allow users access to Insights, enter their Facebook user IDs (separated by a comma; find IDs via the <a href="https://developers.facebook.com/tools/explorer/?method=GET&amp;path=me%3Ffields%3Did%2Cname">Graph Explorer</a>).', 'postscript' ); ?></p>
+                <p class="wp-ui-text-icon"><?php _e( 'To track <a href="https://developers.facebook.com/docs/sharing/insights">Facebook Sharing Insights</a>, enter an App ID (from your <a href="https://developers.facebook.com/apps/redirect/dashboard">Facebook App Dashboard</a>). To allow users access to Insights, enter their Facebook user IDs (separated by a comma; find IDs via the <a href="https://developers.facebook.com/tools/explorer/?method=GET&amp;path=me%3Ffields%3Did%2Cname">Graph Explorer</a>).', 'postscript', 'soundshares' ); ?></p>
             </li>
         </ul>
     </fieldset>
@@ -195,7 +195,7 @@ function soundshares_fields_twitter_callback( $options ) {
         <ul class="inside">
             <li>
                 <label><input type="text" id="soundshares-facebook-app-id" name="soundshares[twit_user]" value="<?php if ( isset ( $options['twit_user'] ) ) { echo esc_attr( $options['twit_user'] ); } ?>" /> <?php _e( 'Site name', 'soundshares' ); ?></label>
-                <p class="wp-ui-text-icon"><?php _e( 'Enter the username for the Twitter account associated with your site (e.g., @account_name).', 'postscript' ); ?></p>
+                <p class="wp-ui-text-icon"><?php _e( 'Enter the username for the Twitter account associated with your site (e.g., @account_name).', 'postscript', 'soundshares' ); ?></p>
             </li>
         </ul>
     </fieldset>
@@ -338,7 +338,7 @@ function soundshares_settings_footer() {
     $options = soundshares_get_options();
     ?>
     <hr />
-    <h2 id="metabox"><?php _e('Sound Shares information', 'postscript' ); ?> (v <?php echo SOUNDSHARES_VERSION; ?>)</h2>
+    <h2 id="metabox"><?php _e('Sound Shares information', 'postscript', 'soundshares' ); ?> (v <?php echo SOUNDSHARES_VERSION; ?>)</h2>
     <p>
         <?php _e('Your settings above display the meta box on the Edit screen <em>only</em> for:', 'soundshares' ); ?>
         <ul style="list-style: disc; list-style-position: inside; margin-left: 1em;">
@@ -354,7 +354,7 @@ function soundshares_settings_footer() {
 
     <p><?php _e( 'This plugin created as part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship.', 'soundshares' ); ?></p>
 
-    <!-- <?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript'); ?>.) -->
+    <!-- <?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript', 'soundshares'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript', 'soundshares'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript', 'soundshares'); ?>.) -->
     <pre>
         <?php print_r( soundshares_get_options() ) ?>
     </pre>

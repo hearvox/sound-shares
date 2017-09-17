@@ -347,7 +347,7 @@ http://rji.local/wp-content/plugins/sound-shares/js/media_button.js?ver=1.0
 
 // rm:
 function soundshares_image_add_metabox () {
-    add_meta_box( 'soundsharesimagediv', __( 'Social-site Image', 'text-domain' ), 'soundshares_image_metabox', 'post', 'side', 'low');
+    add_meta_box( 'soundsharesimagediv', __( 'Social-site Image', 'text-domain', 'soundshares' ), 'soundshares_image_metabox', 'post', 'side', 'low');
 }
 // add_action( 'add_meta_boxes', 'soundshares_image_add_metabox' );
 function soundshares_image_save ( $post_id ) {
