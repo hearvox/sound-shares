@@ -12,6 +12,9 @@ Text Domain:       soundshares
 Prefix:            soundshares
 */
 
+/**
+ *
+ */
 
 
 /* ------------------------------------------------------------------------ *
@@ -36,6 +39,17 @@ include_once( dirname( __FILE__ ) . '/includes/admin-options.php' );
 include_once( dirname( __FILE__ ) . '/includes/functions.php' );
 include_once( dirname( __FILE__ ) . '/includes/meta-box.php' );
 include_once( dirname( __FILE__ ) . '/includes/social-meta.php' );
+
+/**
+ * Load the plugin text domain for translation.
+ *
+ * @since   0.1.0
+ */
+function soundshares_load_textdomain() {
+    load_plugin_textdomain( 'soundshares', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'soundshares_load_textdomain' );
+
 
 /**
  * Validate URL.
