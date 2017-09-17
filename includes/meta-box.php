@@ -105,6 +105,12 @@ function soundshares_meta_box_callback( $post, $box ) {
     <p>
         <label for="soundshares-file"><?php _e( 'Audio URL:', 'soundshares' ); ?></label><br />
         <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Required: Must be https://)', 'soundshares' ); ?>" />
+        <?php if ( ! empty( $file ) ) { ?>
+            <audio controls preload="metadata">
+                <source src="<?php echo esc_url_raw( $file ); ?>" type="audio/mpeg">
+            </audio>
+        <div><?php echo wp_audio_shortcode( array( 'src' => esc_url_raw( $file ), 'preload' => 'metadata' ) ); ?></div>
+      <?php } ?>
     </p>
     <p>
         <label for="soundshares-title"><?php _e( 'Audio title:', 'soundshares' ); ?></label><br />
@@ -357,6 +363,3 @@ function soundshares_image_save ( $post_id ) {
     }
 }
 // add_action( 'save_post', 'soundshares_image_save', 10, 1 );
-
-
-
