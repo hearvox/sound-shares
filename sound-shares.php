@@ -178,9 +178,6 @@ function soundshares_get_html_meta( $html ) {
 */
 
 /**
- * @todo Add og:image.
- * @todo Fix twitter:image.
- * @todo  og:image:alt.
  * @todo Twitter player URL must be HTTPS.
  * @todo Fix Jetpack replaced meta tags.
  * @todo Default author is site name.

@@ -104,15 +104,15 @@ function soundshares_meta_box_callback( $post, $box ) {
     ?>
     <p>
         <label for="soundshares-file"><?php _e( 'Audio URL:', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Must be https://)', 'soundshares' ); ?>" />
+        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Required: Must be https://)', 'soundshares' ); ?>" />
     </p>
     <p>
         <label for="soundshares-title"><?php _e( 'Audio title:', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="text" name="soundshares_meta[title]" id="soundshares-title" value="<?php if ( isset ( $soundshares_meta['title'] ) ) { echo sanitize_textarea_field( $soundshares_meta['title'] ); } ?>" size="30" />
+        <input class="widefat" type="text" name="soundshares_meta[title]" id="soundshares-title" size="30" value="<?php if ( isset ( $soundshares_meta['title'] ) ) { echo sanitize_textarea_field( $soundshares_meta['title'] ); } ?>" placeholder="(<?php _e( 'default: post title', 'soundshares' ); ?>)" />
     </p>
     <p>
-        <label for="soundshares-author"><?php _e( 'Audio author:', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_textarea_field( $soundshares_meta['author'] ); } ?>" size="30" />
+        <label for="soundshares-author"><?php _e( 'Audio author:', 'soundshares' ); ?> <?php the_author( $post_id ); ?></label><br />
+        <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" size="30" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_textarea_field( $soundshares_meta['author'] ); } ?>" placeholder="(<?php _e( 'default: post author', 'soundshares' ); ?>)" />
     </p>
 
     <?php soundshares_image_metabox( $post, $soundshares_meta ) ?>
@@ -162,7 +162,7 @@ function soundshares_image_metabox() {
         $content .= '<p class="hide-if-no-js">' . __( 'Image:', 'soundshares' ) . '<br>';
         $content .= '<a title="' . esc_attr__( 'Set social-site image', 'soundshares' ) . '" href="javascript:;" id="upload_soundshares_image_button" id="set-soundshares-image" data-uploader_title="' . esc_attr__( 'Select image for social sites', 'soundshares' ) . '" data-uploader_button_text="' . esc_attr__( 'Use image', 'soundshares' ) . '">' . esc_html__( 'Set social-site image', 'soundshares' ) . '</a></p>';
         $content .= '<input type="hidden" id="upload_soundshares_image" name="soundshares_meta[image]" value="" />';
-        $content .= '<p class="wp-ui-text-icon">' . __( 'If none selected, uses featured image.', 'soundshares' ) . '</p>';
+        $content .= '<p class="wp-ui-text-icon">' . __( '(default: featured image)', 'soundshares' ) . '</p>';
     }
     echo '<div id="soundsharesimagediv">' . $content . '</div>';
     ?>

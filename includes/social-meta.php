@@ -236,6 +236,7 @@ function soundshares_twitter_tags() {
 
     // Append player URL with query string of audio meta -- URL, title, and author; e.g.:
     // .../player.php?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
+    // urlencode( wp_trim_words( get_the_title( $post_id ), 5 ) );
     $file     = '?file=' . urlencode( $post_meta['file'] );
     $title    = ( isset( $post_meta['title'] ) ) ? '&title=' . urlencode( $post_meta['title'] ) : '';
     $author   = ( isset( $post_meta['author'] ) ) ? '&author=' . urlencode( $post_meta['author'] ) : '';
