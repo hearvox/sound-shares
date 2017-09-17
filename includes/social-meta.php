@@ -215,7 +215,8 @@ function soundshares_twitter_tags() {
 
     // Set meta tag for title.
     if ( $options['meta_all'] === 'on' || isset( $post_meta['title'] ) ) {
-        $twitter_meta['twitter:title'] = ( isset( $post_meta['title'] ) ) ? $post_meta['title'] : get_the_title();;
+        $title = ( isset( $post_meta['title'] ) ) ? $post_meta['title'] : get_the_title();;
+        $twitter_meta['twitter:title'] = $title;
     }
 
     // Set other non-media meta tags.
