@@ -1,0 +1,255 @@
+# Copyright (C) 2017 Barrett Golding
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sound Shares 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sound-shares\n"
+"POT-Creation-Date: 2017-09-17 19:25:14+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: grunt-wp-i18n1.0.0\n"
+
+#: includes/admin-options.php:29
+msgid "Sound Shares: Embed audio in social posts"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Sound Shares"
+msgstr ""
+
+#: includes/admin-options.php:46
+msgid "Settings"
+msgstr ""
+
+#: includes/admin-options.php:75
+msgid "Sound Shares meta box"
+msgstr ""
+
+#: includes/admin-options.php:82
+msgid "Facebook"
+msgstr ""
+
+#: includes/admin-options.php:91
+msgid "Twitter"
+msgstr ""
+
+#: includes/admin-options.php:100
+msgid "HTML Meta Tags"
+msgstr ""
+
+#: includes/admin-options.php:109
+msgid "User roles"
+msgstr ""
+
+#: includes/admin-options.php:118
+msgid "Post types"
+msgstr ""
+
+#: includes/admin-options.php:127
+msgid "Categories"
+msgstr ""
+
+#: includes/admin-options.php:154
+msgid ""
+"Sound Shares embeds an audio (or video) player in the link preview of your "
+"socially shared posts."
+msgstr ""
+
+#: includes/admin-options.php:155
+msgid ""
+"This plugin inserts <code>twitter:</code> and <code>og:</code> HTML meta "
+"tags for Twitter and Facebook players."
+msgstr ""
+
+#: includes/admin-options.php:169
+msgid "Enter your Facebook settings:"
+msgstr ""
+
+#: includes/admin-options.php:172
+msgid "App ID"
+msgstr ""
+
+#: includes/admin-options.php:174
+msgid "Admin(s)"
+msgstr ""
+
+#: includes/admin-options.php:175
+msgid ""
+"To track <a "
+"href=\"https://developers.facebook.com/docs/sharing/insights\">Facebook "
+"Sharing Insights</a>, enter an App ID (from your <a "
+"href=\"https://developers.facebook.com/apps/redirect/dashboard\">Facebook "
+"App Dashboard</a>). To allow users access to Insights, enter their Facebook "
+"user IDs (separated by a comma; find IDs via the <a "
+"href=\"https://developers.facebook.com/tools/explorer/?method=GET&amp;path="
+"me%3Ffields%3Did%2Cname\">Graph Explorer</a>)."
+msgstr ""
+
+#: includes/admin-options.php:194
+msgid "Enter your twitter settings:"
+msgstr ""
+
+#: includes/admin-options.php:197
+msgid "Site name"
+msgstr ""
+
+#: includes/admin-options.php:198
+msgid ""
+"Enter the username for the Twitter account associated with your site (e.g., "
+"@account_name)."
+msgstr ""
+
+#: includes/admin-options.php:219
+msgid ""
+"<strong>Check this box only if you are not using another plugin to add "
+"social tags</strong> (e.g., via an SEO plugin)."
+msgstr ""
+
+#: includes/admin-options.php:222
+msgid "Add all social tags"
+msgstr ""
+
+#: includes/admin-options.php:223
+msgid ""
+"Inspect your site's source code for <code>twitter:</code> and "
+"<code>og:</code> tags. If those are already there, do not check this box."
+msgstr ""
+
+#: includes/admin-options.php:247
+msgid "Allow Sound Shares only for these roles:"
+msgstr ""
+
+#: includes/admin-options.php:272
+msgid "Allow Sound Shares only for selected post types:"
+msgstr ""
+
+#: includes/admin-options.php:301
+msgid "Allow Sound Shares for posts only in selected categories:"
+msgstr ""
+
+#: includes/admin-options.php:341
+msgid "Sound Shares information"
+msgstr ""
+
+#: includes/admin-options.php:343
+msgid ""
+"Your settings above display the meta box on the Edit screen <em>only</em> "
+"for:"
+msgstr ""
+
+#: includes/admin-options.php:345
+msgid "User-roles: "
+msgstr ""
+
+#: includes/admin-options.php:346
+msgid "Post-types: "
+msgstr ""
+
+#: includes/admin-options.php:348
+msgid "Categories: (all)"
+msgstr ""
+
+#: includes/admin-options.php:350
+msgid "Categories: "
+msgstr ""
+
+#: includes/admin-options.php:355
+msgid ""
+"This plugin created as part of a <a "
+"href=\"https://www.rjionline.org/stories/series/storytelling-tools/\">"
+"Reynold Journalism Institute</a> fellowship."
+msgstr ""
+
+#: includes/admin-options.php:357
+msgid " queries in "
+msgstr ""
+
+#: includes/admin-options.php:357
+msgid " seconds uses "
+msgstr ""
+
+#: includes/admin-options.php:357
+msgid " peak memory"
+msgstr ""
+
+#: includes/meta-box.php:42
+msgid "Error!"
+msgstr ""
+
+#: includes/meta-box.php:106
+msgid "Audio URL:"
+msgstr ""
+
+#: includes/meta-box.php:107
+msgid "(Required: Must be https://)"
+msgstr ""
+
+#: includes/meta-box.php:110
+msgid "Audio title:"
+msgstr ""
+
+#: includes/meta-box.php:111
+msgid "default: post title"
+msgstr ""
+
+#: includes/meta-box.php:114
+msgid "Audio author:"
+msgstr ""
+
+#: includes/meta-box.php:115
+msgid "default: post author"
+msgstr ""
+
+#: includes/meta-box.php:156
+msgid "Remove social-site image"
+msgstr ""
+
+#: includes/meta-box.php:162
+msgid "Image:"
+msgstr ""
+
+#: includes/meta-box.php:163
+msgid "Set social-site image"
+msgstr ""
+
+#: includes/meta-box.php:163
+msgid "Select image for social sites"
+msgstr ""
+
+#: includes/meta-box.php:163
+msgid "Use image"
+msgstr ""
+
+#: includes/meta-box.php:165
+msgid "(default: featured image)"
+msgstr ""
+
+#: includes/meta-box.php:350
+msgid "Social-site Image"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://hearingvoices.com/tools/sound-shares"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"NOT READY. DO NOT USE YET. Embed audio and video in your social posts "
+"(using Facebook's Open Graph protocol and Twitter's player card). To use: "
+"1) Go to Edit Post's box for Custom Fields. 2) Click the Add New Custom "
+"Field form's link labeled \"Enter New\", 3) Enter the name: \"soundshares\" "
+"in the Name field. 4) Enter the full URL of the audiofile (or video) in the "
+"Value field. 5) Click the form's Add Custom Field button. Done."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Barrett Golding"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://hearingvoices.com/bg/"
+msgstr ""
