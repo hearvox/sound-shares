@@ -123,7 +123,7 @@ add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
  *
  * @since   0.1.0
  *
- * @uses soundshares_change_og_type()
+ * @uses soundshares_tags_filters()
  *
  */
 function soundshares_facebook_tags() {
@@ -134,7 +134,7 @@ function soundshares_facebook_tags() {
     $og_meta   = array(); // Clear var.
 
     // Change meta tag set by other plugins.
-    soundshares_change_og_type();
+    soundshares_tags_filters();
 
     // Get post excerpt for description value.
     if ( $excerpt = $post->post_excerpt ) {
@@ -196,14 +196,6 @@ function soundshares_twitter_tags() {
     $options   = soundshares_get_options();
     $post_meta = get_post_meta( $post_id, 'soundshares_meta', true );
     $twitter_meta = array(); // Clear array.
-
-    // Get post excerpt for og:descritpion value.
-    if ( $excerpt = $post->post_excerpt ) {
-        $excerpt = wp_strip_all_tags( $post->post_excerpt );
-        $excerpt = str_replace( "", "'", $excerpt );
-    } else {
-        $excerpt = get_bloginfo( 'description' );
-    }
 
     // Get post excerpt for og:description value.
     if ( $excerpt = $post->post_excerpt ) {
@@ -289,47 +281,62 @@ function soundshares_get_image_alt( $image_id ) {
 
 
 /**
- * Adjust social meta tags added by other plugins.
+ * Set or remove social meta tags inserted by other plugins.
  *
  * Called by soundshares_add_meta_tags().
  *
  * @since   0.1.0
  *
  */
-function soundshares_change_og_type() {
-    // Check for Jetpack og:type tag:
+function soundshares_tags_filters() {
+    // Check for Jetpack social meta tag:
     if ( has_filter( 'jetpack_open_graph_tags' ) ) {
-        add_filter( 'jetpack_open_graph_tags', 'soundshares_change_jetpack_og_type' );
+        add_filter( 'jetpack_open_graph_tags', 'soundshares_jetpack_tags' );
     }
 
-    // Check for Jetpack og:type tag:
+    // Remove Yoast SEO og:type meta tag:
     if ( has_filter( 'wpseo_opengraph_type' ) ) {
         add_filter( 'wpseo_opengraph_type', '__return_false' );
-        // add_filter( 'wpseo_opengraph_type', 'soundshares_change_yoast_og_type', 10, 1 );
+    }
+
+    // Remove Yoast SEO twitter:card mata tag:
+    if ( has_filter( 'wpseo_output_twitter_card' ) ) {
+        add_filter( 'wpseo_output_twitter_card', '__return_false' );
+    }
+
+    // Check for All in One SEO social meta tags.
+    if ( has_filter( 'aiosp_opengraph_meta' ) ) {
+        add_filter('aiosp_opengraph_meta','soundshare_aiosp_tags', 10, 3);
     }
 }
 
+
 /**
- * Change OG type tag value set by Jetpack plugin.
+ * Remove OG type and Twitter card tags set by Jetpack plugin.
  *
- * Called by: soundshares_change_og_type.
+ * Called by: soundshares_tags_filters.
  *
- * @since   0.1.0
+ * @since  0.1.0
  *
+ * @param  array  $tags  Array of meta tag data
  * @return void
  */
-function soundshares_change_jetpack_og_type( $type ) {
+function soundshares_jetpack_tags( $tags ) {
     // Remove the default tag added by Jetpack
     unset( $tags['og:type'] );
+    unset( $tags['twitter:card'] );
 
     // Set Open Graph type tag to video for Facebook .
-    $tags['og:type'] = 'video-movie';
+    // $tags['og:type']      = 'video-movie';
+    // $tags['twitter:card'] = 'player';
+
+    return $tags;
 }
 
 /**
- * Change OG type tag value set by Yoast SEO plugin..
+ * Change OG type tag value set by Yoast SEO plugin.
  *
- * Called by: soundshares_change_og_type.
+ * Called by: soundshares_tags_filters.
  *
  * @since   0.1.0
  *
@@ -340,6 +347,23 @@ function soundshares_change_yoast_og_type( $type ) {
     return 'video';
 }
 
+/**
+ * Change OG type and Twitter card values set by All in One SEO.
+ *
+ * @param  [type] $value [description]
+ * @param  [type] $type  [description]
+ * @param  [type] $field [description]
+ * @return [type]        [description]
+ */
+function soundshare_aiosp_tags ( $value, $type, $field ){
+	if ( $field == 'type' ) {
+	 	$value = 'video.movie';
+		return $value;
+  } elseif ( $field == 'card' ) {
+	 	$value = 'player';
+		return $value;
+  }
+}
 
 /**
  * Add Open Graph video tags.
