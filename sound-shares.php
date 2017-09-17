@@ -30,7 +30,22 @@ if ( defined( 'SOUNDSHARES_VERSION' ) ) {
     return;
 }
 
+ /* ------------------------------------------------------------------------ *
+  * Constants: plugin path, URI, dir, filename, and version.
+  *
+  * SOUNDSHARES_BASENAME 			sound-shares/sound-shares.php
+	* SOUNDSHARES_DIR 					/path/to/wp-content/plugins/sound-shares/
+	* SOUNDSHARES_DIR_BASENAME 	sound-shares/
+	* SOUNDSHARES_URI		https://example.com/wp-content/plugins/sound-shares/
+  * ------------------------------------------------------------------------ */
 define( 'SOUNDSHARES_VERSION', '0.1.0' );
+define( 'SOUNDSHARES_BASENAME', plugin_basename( __FILE__ ) );
+define( 'SOUNDSHARES_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'SOUNDSHARES_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+define(
+	'SOUNDSHARES_DIR_BASENAME',
+	trailingslashit( dirname( plugin_basename( __FILE__ ) ) )
+);
 
 /* ------------------------------------------------------------------------ *
  * Required Plugin Files
@@ -44,12 +59,51 @@ include_once( dirname( __FILE__ ) . '/includes/social-meta.php' );
  * Load the plugin text domain for translation.
  *
  * @since   0.1.0
+ *
+ * @return void
  */
 function soundshares_load_textdomain() {
-    load_plugin_textdomain( 'soundshares', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+    load_plugin_textdomain(
+			'soundshares',
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+		);
 }
 add_action( 'plugins_loaded', 'soundshares_load_textdomain' );
 
+/**
+ * Redirect upon plugin activation to Settings screen.
+ *
+ * @param  string $plugin Plugin basename (e.g., "my-plugin/my-plugin.php")
+ * @return void
+ */
+function soundshares_activation_redirect( $plugin ) {
+	if ( $plugin === SOUNDSHARES_BASENAME ) {
+		$redirect_uri = add_query_arg(
+			array(
+				'page' => 'soundshares' ),
+				admin_url( 'options-general.php' )
+			);
+		wp_safe_redirect( $redirect_uri );
+		exit;
+	}
+
+/*
+if ( $plugin === SOUNDSHARES_BASENAME ) {
+	exit( wp_redirect(
+		add_query_arg(
+			array(
+				'page' => 'soundshares' ),
+				admin_url( 'options-general.php' )
+			)
+		)
+	);
+}
+*/
+
+
+}
+add_action( 'activated_plugin', 'soundshares_activation_redirect' );
 
 /**
  * Validate URL.
