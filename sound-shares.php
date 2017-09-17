@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name:       Sound Shares
-Plugin URI:        https://hearingvoices.com/tools/sound-shares
+Plugin URI:        http://hearingvoices.com/tools/sound-shares
 Description:       NOT READY. DO NOT USE YET. Embed audio and video in your social posts (using Facebook's Open Graph protocol and Twitter's player card). To use: 1) Go to Edit Post's box for Custom Fields. 2) Click the Add New Custom Field form's link labeled "Enter New", 3) Enter the name: "soundshares" in the Name field. 4) Enter the full URL of the audiofile (or video) in the Value field. 5) Click the form's Add Custom Field button. Done.
 Version:           0.1.0
 Author:            Barrett Golding
-Author URI:        https://hearingvoices.com/bg/
+Author URI:        http://hearingvoices.com/bg/
 License:           GPL-2.0+
 License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
 Text Domain:       soundshares
