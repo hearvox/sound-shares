@@ -67,7 +67,7 @@ function soundshares_add_meta_box() {
             esc_html__( 'Sound Shares', 'soundshares' ),
             'soundshares_meta_box_callback',
             $options['post_types'],
-            'side',
+            'advanced',
             'default',
             $options
         );
@@ -106,11 +106,9 @@ function soundshares_meta_box_callback( $post, $box ) {
         <label for="soundshares-file"><?php _e( 'Audio URL:', 'soundshares' ); ?></label><br />
         <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Required: Must be https://)', 'soundshares' ); ?>" />
         <?php if ( ! empty( $file ) ) { ?>
-            <audio controls preload="metadata">
-                <source src="<?php echo esc_url_raw( $file ); ?>" type="audio/mpeg">
-            </audio>
-        <div><?php echo wp_audio_shortcode( array( 'src' => esc_url_raw( $file ), 'preload' => 'metadata' ) ); ?></div>
-      <?php } ?>
+        <audio controls src="<?php echo esc_url_raw( $file ); ?>" controlsList="nodownload" preload="metadata">
+        </audio>
+        <?php } ?>
     </p>
     <p>
         <label for="soundshares-title"><?php _e( 'Audio title:', 'soundshares' ); ?></label><br />

@@ -4,6 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_i
 Tags: social, facebook, twitter, embed, player, audio, video
 Author URI: http://hearingvoices.com/tools/sound-shares/
 Plugin URI: http://hearingvoices.com/
+GitHub Plugin URI: https://github.com/hearvox/sound-shares
 Requires at least: 4.5
 Tested up to: 4.8
 Stable tag: 0.1.0
@@ -87,5 +88,3 @@ This plugin was developed as part of a [Reynolds Journalism Institute](https://w
 
 = 0.1.0 =
 Secure public release version is 0.2.0.
-
-
