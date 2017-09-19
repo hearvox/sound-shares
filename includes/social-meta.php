@@ -117,7 +117,7 @@ function soundshares_add_meta_tags() {
 add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
 
 /**
- * Add Facebook Open Graph meta tags data.
+ * Build array of data for Facebook Open Graph meta tags.
  *
  * Called by soundshares_add_meta_tags().
  *
@@ -133,31 +133,26 @@ function soundshares_facebook_tags() {
     $post_meta = get_post_meta( $post_id, 'soundshares_meta', true );
     $og_meta   = array(); // Clear var.
 
+    // Option to add all social tags (not just media tags)
+    $meta_all  = ( $options['meta_all'] === 'on' ) ? 1 : 0;
+
     // Change meta tag set by other plugins.
     soundshares_tags_filters();
 
-    // Get post excerpt for description value.
-    if ( $excerpt = $post->post_excerpt ) {
-        $excerpt = wp_strip_all_tags( $post->post_excerpt );
-        $excerpt = str_replace( "", "'", $excerpt );
-    } else {
-        $excerpt = get_bloginfo( 'description' );
-    }
-
-    // Set meta tag for title.
+    // Data for title meta tag.
     if ( $options['meta_all'] === 'on' || isset( $post_meta['title'] ) ) {
         $og_meta['og:title'] = ( isset( $post_meta['title'] ) ) ? $post_meta['title'] : get_the_title();;
     }
 
-    // Set other non-media meta tags.
-    if ( $options['meta_all'] === 'on' ) {
+    // Data for other non-media meta tags.
+    if ( $meta_all ) {
         $og_meta['og:description'] = $excerpt;
         $og_meta['og:url']         = get_permalink();
         $og_meta['og:site_name']   = get_bloginfo( 'name' );
     }
 
-    // Set meta tags for image, if either featured or meta box image is set.
-    if ( ( $options['meta_all'] === 'on' && has_post_thumbnail( $post_id ) ) || isset( $post_meta['image'] ) ) {
+    // Data for image meta tags, if featured or meta box image is set.
+    if ( ( $meta_all && has_post_thumbnail( $post_id ) ) || isset( $post_meta['image'] ) ) {
         // Use post meta image ID; if none use thumb ID.
         $image_id = ( isset( $post_meta['image'] ) ) ? $post_meta['image'] : get_post_thumbnail_id( $post_id );
 
@@ -165,7 +160,7 @@ function soundshares_facebook_tags() {
         $og_meta['og:image:alt'] = soundshares_get_image_alt( $image_id );
     }
 
-    // Set media meta tags.
+    // Data for media meta tags.
     $og_meta['og:type']             = 'video.movie';
     $og_meta['og:video']            = $post_meta['file'];
     $og_meta['og:video:secure_url'] = $post_meta['file'];
@@ -183,7 +178,7 @@ function soundshares_facebook_tags() {
 }
 
 /**
- * Add Facebook Open Graph meta tags data.
+ * Build array of data for Twitter meta tags.
  *
  * Called by soundshares_add_meta_tags().
  *
@@ -246,6 +241,25 @@ function soundshares_twitter_tags() {
     }
 
     return $twitter_meta;
+}
+
+/**
+ * Get post excerpt, strip HTML.
+ *
+ * @param  integer $post_id [description]
+ * @return string  $excerpt Post excerpt or site description.
+ */
+function soundshares_get_excerpt( $post_id= 0 ) {
+    //
+    $excerpt = get_the_excerpt( $post_id );
+    if ( $excerpt ) {
+        $excerpt = wp_strip_all_tags( $post->post_excerpt );
+        $excerpt = str_replace( "", "'", $excerpt );
+    } else {
+        $excerpt = get_bloginfo( 'description' );
+    }
+
+    return $excerpt;
 }
 
 /**

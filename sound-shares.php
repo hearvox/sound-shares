@@ -213,19 +213,10 @@ function soundshares_get_html_meta( $html ) {
 }
 
 /*
-~ Get option, check for vars.
-~ Define setting vars, inc. fb_app_id, fb_admins.
-~ Save setting vars to option.
-    If plugin file  vars are empty, check option:
-    if option vars empty, use file vars;
-    if option vars not empty, use option vars;
-    if file vars and option vars  don't match, save file vars to option.
-~ If singular and metadata:
-    Check xml namespace.
-    Add ns to lang_attr hook.
-    Build basic og (if option enabled).
-    Change og type to video.movie, via filters, in:
-        Yoast, Jetpack, Allin1, Facebook, FB Google+
+
+
+
+
     Build HTML meta tags for og video, type: video.movie,
         url: plugin post meta, w&h: pligin vars.
     IF video URL is HTTPS:
@@ -246,6 +237,7 @@ function soundshares_get_html_meta( $html ) {
 */
 
 /**
+ * @todo Document interaction with Yoast, Jetpack, Allin1.
  * @todo Twitter player URL must be HTTPS.
  * @todo Fix Jetpack replaced meta tags.
  * @todo Default author is site name.
