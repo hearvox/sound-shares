@@ -12,15 +12,9 @@ Text Domain:       soundshares
 Prefix:            soundshares
 */
 
-/**
- *
- */
-
-
 /* ------------------------------------------------------------------------ *
  * Plugin init and uninstall
  * ------------------------------------------------------------------------ */
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -30,14 +24,14 @@ if ( defined( 'SOUNDSHARES_VERSION' ) ) {
     return;
 }
 
- /* ------------------------------------------------------------------------ *
-  * Constants: plugin path, URI, dir, filename, and version.
-  *
-  * SOUNDSHARES_BASENAME 			sound-shares/sound-shares.php
-	* SOUNDSHARES_DIR 					/path/to/wp-content/plugins/sound-shares/
-	* SOUNDSHARES_DIR_BASENAME 	sound-shares/
-	* SOUNDSHARES_URI		https://example.com/wp-content/plugins/sound-shares/
-  * ------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------ *
+ * Constants: plugin path, URI, dir, filename, and version.
+ *
+ * SOUNDSHARES_BASENAME 	sound-shares/sound-shares.php
+ * SOUNDSHARES_DIR 			/path/to/wp-content/plugins/sound-shares/
+ * SOUNDSHARES_DIR_BASENAME sound-shares/
+ * SOUNDSHARES_URI https://example.com/wp-content/plugins/sound-shares/
+ * ------------------------------------------------------------------------ */
 define( 'SOUNDSHARES_VERSION', '0.1.0' );
 define( 'SOUNDSHARES_BASENAME', plugin_basename( __FILE__ ) );
 define( 'SOUNDSHARES_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -87,40 +81,8 @@ function soundshares_activation_redirect( $plugin ) {
 		wp_safe_redirect( $redirect_uri );
 		exit;
 	}
-
-/*
-if ( $plugin === SOUNDSHARES_BASENAME ) {
-	exit( wp_redirect(
-		add_query_arg(
-			array(
-				'page' => 'soundshares' ),
-				admin_url( 'options-general.php' )
-			)
-		)
-	);
-}
-*/
-
-
 }
 add_action( 'activated_plugin', 'soundshares_activation_redirect' );
-
-/**
- * Validate URL.
- *
- * For future use.
- *
- * @since   0.1.0
- */
-// Validate URL.
-function soundshares_check_url() {
-    if ( filter_var( $sse_url, FILTER_VALIDATE_URL ) === false ) {
-        $sse_url  = "URL Not Valid: $sse_url";
-        update_post_meta( get_the_ID(), 'sse_url', $meta_value, $prev_value );
-    } else {
-
-    }
-}
 
 /**
  * Get IDs of all posts using plugin's custom field.
@@ -133,7 +95,7 @@ function soundshares_check_url() {
  */
 function soundshares_post_ids() {
 	$query_args = array(
-		'meta_key' => 'soundshares',
+		'meta_key' => 'soundshares_meta',
 		'fields'   => 'ids',
 	);
 	$query = new WP_Query( $query_args );
@@ -152,33 +114,12 @@ function soundshares_post_ids() {
  *
  * @since   0.1.0
  *
- * @return  string       wp_head() HTML output
+ * @return  string  wp_head() HTML output
  */
 function soundshares_wp_head() {
     ob_start();
     wp_head();
     return ob_get_clean();
-}
-// $wp_head = soundshares_wp_head();
-// echo htmlentities( $wp_head ); // Print meta tags.
-
-$repsonse = wp_remote_get( 'https://headwaterseconomics.org/public-lands/protected-lands/national-monuments/' );
-$body = wp_remote_retrieve_body( $repsonse );
-
-/**
- * Get HTML of an URL.
- *
- * For future use.
- *
- * @since   0.1.0
- *
- * @return  string       wp_head() HTML output
- */
-function soundshares_get_url_html( $url ) {
-    $repsonse = wp_remote_get( $url );
-    $html = wp_remote_retrieve_body( $repsonse );
-
-    return $html;
 }
 
 /**
@@ -227,16 +168,12 @@ function soundshares_get_html_meta( $html ) {
 */
 
 /**
- * @todo Document item above.
- * @todo Twitter player URL must be HTTPS.
+ * @todo Document above items.
  * @todo Fix Jetpack replaced meta tags.
- * @todo Default author is site name.
- * @todo Default title is post title (shortened for player).
+ * @todo Twitter player URL must be HTTPS.
  * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
- * @todo Use Preview media to meta-box.
  * @todo Add video duration tag using WP functions to read ID3.
- *
  * Duration info:
  * <meta property="video:duration" content="120"/>
  * @link https://codex.wordpress.org/Function_Reference/wp_read_audio_metadata
