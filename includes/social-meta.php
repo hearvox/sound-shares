@@ -140,13 +140,13 @@ function soundshares_facebook_tags() {
     soundshares_tags_filters();
 
     // Data for title meta tag.
-    if ( $options['meta_all'] === 'on' || isset( $post_meta['title'] ) ) {
+    if ( $meta_all || isset( $post_meta['title'] ) ) {
         $og_meta['og:title'] = ( isset( $post_meta['title'] ) ) ? $post_meta['title'] : get_the_title();;
     }
 
     // Data for other non-media meta tags.
     if ( $meta_all ) {
-        $og_meta['og:description'] = $excerpt;
+        $og_meta['og:description'] = soundshares_get_excerpt( $post );
         $og_meta['og:url']         = get_permalink();
         $og_meta['og:site_name']   = get_bloginfo( 'name' );
     }
@@ -192,28 +192,23 @@ function soundshares_twitter_tags() {
     $post_meta = get_post_meta( $post_id, 'soundshares_meta', true );
     $twitter_meta = array(); // Clear array.
 
-    // Get post excerpt for og:description value.
-    if ( $excerpt = $post->post_excerpt ) {
-        $excerpt = wp_strip_all_tags( $post->post_excerpt );
-        $excerpt = str_replace( "", "'", $excerpt );
-    } else {
-        $excerpt = get_bloginfo( 'description' );
-    }
+    // Option to add all social tags (not just media tags)
+    $meta_all  = ( $options['meta_all'] === 'on' ) ? 1 : 0;
 
-    // Set meta tag for title.
-    if ( $options['meta_all'] === 'on' || isset( $post_meta['title'] ) ) {
+    // Data for title meta tag.
+    if ( $meta_all || isset( $post_meta['title'] ) ) {
         $title = ( isset( $post_meta['title'] ) ) ? $post_meta['title'] : get_the_title();;
         $twitter_meta['twitter:title'] = $title;
     }
 
-    // Set other non-media meta tags.
-    if ( $options['meta_all'] === 'on' ) {
-        $twitter_meta['twitter:description'] = $excerpt;
+    // Data for other non-media meta tags.
+    if ( $meta_all ) {
+        $twitter_meta['twitter:description'] = soundshares_get_excerpt( $post );
         $twitter_meta['twitter:url']         = get_permalink();
     }
 
-    // Set meta tags for image, if either featured or meta box image is set.
-    if ( ( $options['meta_all'] === 'on' && has_post_thumbnail( $post_id ) ) || isset( $post_meta['image'] ) ) {
+    // Data for image meta tags (if featured or meta box image set).
+    if ( ( $meta_all && has_post_thumbnail( $post_id ) ) || isset( $post_meta['image'] ) ) {
         // Use post meta image ID; if none use thumb ID.
         $image_id = ( isset( $post_meta['image'] ) ) ? $post_meta['image'] : get_post_thumbnail_id( $post_id );
 
@@ -231,7 +226,7 @@ function soundshares_twitter_tags() {
     $meta_str = $file . $title . $author;
     $play_url = plugin_dir_url( __FILE__ ) . 'player.php' . $meta_str;
 
-    // Set media meta tags.
+    // Data for media meta tags.
     $twitter_meta['twitter:card']          = 'player';
     $twitter_meta['twitter:player']        = $play_url;
     $twitter_meta['twitter:player:width']  = ( isset( $options['video_w'] ) ) ? $options['video_w'] : '480';
@@ -244,23 +239,36 @@ function soundshares_twitter_tags() {
 }
 
 /**
- * Get post excerpt, strip HTML.
+ * Get post excerpt for meta tag attribute ('description').
  *
- * @param  integer $post_id [description]
- * @return string  $excerpt Post excerpt or site description.
+ * Based on Jetpack code for generating 'og:description':
+ * @link https://github.com/Automattic/jetpack/blob/master/functions.opengraph.php'
+ *
+ * @param  integer $post         Post object
+ * @return string  $description  Post excerpt without HTML, URLs, shortcodes.
  */
-function soundshares_get_excerpt( $post_id= 0 ) {
-    //
-    $excerpt = get_the_excerpt( $post_id );
-    if ( $excerpt ) {
-        $excerpt = wp_strip_all_tags( $post->post_excerpt );
-        $excerpt = str_replace( "", "'", $excerpt );
-    } else {
-        $excerpt = get_bloginfo( 'description' );
+ function soundshares_get_excerpt( $post ) {
+    if ( ! post_password_required() ) {
+        if ( ! empty( $post->post_excerpt ) ) {
+            $description = $post->post_excerpt;
+        } else {
+            $content_excerpt = explode( '<!--more-->', $post->post_content);
+            $description     = $content_excerpt[0];
+        }
     }
 
-    return $excerpt;
-}
+    // Prepapre text for meta tag attribute (no URLs, HTML, or quotes).
+    $description = strip_shortcodes( wp_strip_all_tags( $description ) );
+    $description = preg_replace( '@https?://[\S]+@', '', $description );
+    $description = str_replace( '"', "'", $description );
+
+    // Twiiter validator requires a description.
+    if ( empty( $description ) ) {
+        $description = __('Media by ', 'soundshshares') . get_bloginfo( 'name' ) . '.';
+    }
+
+     return $description;
+ }
 
 /**
  * Get image source URL.
@@ -444,33 +452,7 @@ function soundshares_add_og_meta_tags( $type ) {
  *    [author] =>
  *    [image] =>
  * )
- * /
-
-/*
-Facebook Open Graph, Google+ and Twitter Card Tags
-$fb_type = apply_filters('fb_og_type', $fb_type);
-https://wordpress.org/plugins/wonderm00ns-simple-facebook-open-graph-tags/
-
-Facebook
-$og_type = apply_filters( 'facebook_og_type', $og_type, $post );
-
-Jetpack:
-if ( class_exists( 'Jetpack' ) ) {
-    if ( in_array( 'publicize', Jetpack::get_active_modules() ) || in_array( 'sharedaddy', Jetpack::get_active_modules() ) ) {
-        echo 'yo';
-    } else {
-        echo 'no';
-    }
-}
-
-if ( class_exists( 'WPSEO_Options' ) ) {
-    if ( WPSEO_Options::get_option( 'wpseo_social' ); ) {
-        echo 'yo';
-    } else {
-        echo 'no';
-    }
-}
-*/
+ */
 
 /*
     $excerpt = strip_tags( $post->post_content );

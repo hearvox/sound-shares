@@ -213,16 +213,6 @@ function soundshares_get_html_meta( $html ) {
 }
 
 /*
-
-
-
-
-    Build HTML meta tags for og video, type: video.movie,
-        url: plugin post meta, w&h: pligin vars.
-    IF video URL is HTTPS:
-         Add od:video:secure_url.
-    Surround meta tags w/ HTML comment identifying plugin?
-    Add meta tags via wp_head hook.
 ~ Docs (ReadMe.md and inline docs):
     Lists debug URLs: FB and Twit.
     List OG, FB-OG, and Twitter Card doc URLs.
@@ -237,7 +227,7 @@ function soundshares_get_html_meta( $html ) {
 */
 
 /**
- * @todo Document interaction with Yoast, Jetpack, Allin1.
+ * @todo Document item above.
  * @todo Twitter player URL must be HTTPS.
  * @todo Fix Jetpack replaced meta tags.
  * @todo Default author is site name.
