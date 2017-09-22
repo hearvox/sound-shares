@@ -170,7 +170,7 @@ function soundshares_facebook_tags() {
     $og_meta['og:video:width']      = ( ! empty( $options['video_w'] ) )
         ? $options['video_w'] : '480';
     $og_meta['og:video:height']     = ( ! empty( $options['video_h'] ) )
-        ? $options['video_h'] : '50';
+        ? $options['video_h'] : '160';
     if ( ! empty( $options['fb_app_id'] ) ) {
         $og_meta['fb:app_id']       = $options['fb_app_id'];
     }
@@ -241,7 +241,7 @@ function soundshares_twitter_tags() {
     $twitter_meta['twitter:player:width']  = ( ! empty( $options['video_w'] ) )
         ? $options['video_w'] : '480';
     $twitter_meta['twitter:player:height'] = ( ! empty( $options['video_h'] ) )
-        ? $options['video_h'] : '50';
+        ? $options['video_h'] : '160';
      if ( ! empty( $options['twit_user'] ) ) {
         $twitter_meta['twitter:site'] = $options['twit_user'];
     }
