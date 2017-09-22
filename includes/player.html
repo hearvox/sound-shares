@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="UTF-8">
+<title>Sound Shares: <?php echo filter_var( $title, FILTER_SANITIZE_STRING ); ?></title>
+
+<style media="screen">
+@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+@-webkit-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@-moz-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@-ms-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@-o-keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 40px 0;
+  }
+}
+
+body {
+  background-color:#000;
+}
+#container {
+  margin:20px auto;
+  width:480px;
+  height:75px;
+}
+#player {
+  background-color:#000;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  font-size:0;
+  background-color:#111;
+  position:relative;
+  width:100%;
+  height:100%;
+}
+#info {
+  position:absolute;
+  bottom:50px;
+  left:10px;
+  font-family: Verdana, Helvetica, Arial, sans-serif;
+  text-shadow:
+   -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+     1px 1px 0 #000;
+}
+#info h1 {
+  font-size:15px;
+  line-height:15px;
+  color:#FFF;
+  display:inline;
+  margin-right:6px;
+}
+#info h2 {
+  font-size:11px;
+  line-height:11px;
+  color:#cbcbcb;
+  display:inline;
+}
+#player a {
+  text-decoration:none;
+}
+#controls {
+  padding:0 10px;
+     -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position:absolute;
+  display:table;
+  bottom:10px;
+  width:100%;
+  height:35px;
+  color:#FFF;
+  border-spacing:0;
+}
+td, tr {
+  padding:0;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+.last {
+  -webkit-border-radius: 0px 5px 5px 0px;
+  border-radius: 0px 5px 5px 0px;
+  margin-right:0;
+}
+.buttonGroup {
+  height:30px;
+  border-bottom:5px solid rgba(0, 0,0,0.6);
+  margin-right:1px;
+  padding:0;
+  position:relative;
+  top:0;
+}
+.static {
+  margin-bottom:0;
+  margin-top:6px;
+  height:23px;
+  line-height:23px;
+  background-color:rgba(0,0,0,0.6);
+  text-align:center;
+  position:relative;
+  bottom:0;
+  margin-right:1px;
+  font-size:0;
+  padding:0;
+}
+.static span {
+  font-size:10px;
+}
+a {
+  font-size:15px;
+  display:inline-block;
+  color:#EEB211;
+  margin-bottom:0;
+  margin-top:6px;
+  height:23px;
+  line-height:23px;
+  position:relative;
+  background-color:rgba(0,0,0,0.6);
+  text-align:center;
+  margin-right:1px;
+  padding:0;
+}
+a:hover {
+  color:#000;
+  background-color:#EEB211;
+}
+a.big {
+  height:35px;
+  line-height:35px;
+  font-size:20px;
+  margin-top:0;
+  margin-bottom:0;
+  display:block;
+}
+label {
+  display:block;
+  position:absolute;
+  top:-6px;
+  left:0;
+  right:0;
+  height:0;
+  line-height:20px;
+  font-size:10px;
+  color:#FFF;
+  width:100%;
+  padding-top:5px;
+  padding-bottom:0;
+  background-color:rgba(0,0,0,0.6);
+  overflow:hidden;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+a:hover label.expandable, label.expandable:hover {
+  -webkit-border-radius: 5px 5px 0px 0px;
+border-radius: 5px 5px 0px 0px;
+  margin-top:-20px;
+  padding-bottom:5px;
+  height:15px;
+}
+.rangeContainer {
+  padding:0 7px 0 5px;
+}
+.rangeHorizontal {
+  display:block;
+  height:10px;
+  position:relative;
+  top:6px;
+  padding:0;
+  background-color: rgba(185, 111, 16, 0.5);
+  border: 1px solid rgba(185, 111, 16, 0.5);
+  cursor:pointer;
+}
+#seekFill {
+  height:10px;
+  background-color:#EEB211;
+  border:1px solid #FFE544;
+  position:absolute;
+  top:6px;
+  cursor:pointer;
+  -webkit-box-shadow: 0px 0px 5px 1px rgba(255, 255, 150, 0.3);
+  box-shadow: 0px 0px 5px 1px rgba(255, 255, 150, 0.3);
+}
+#seekDrag {
+  height:14px;
+  width:4px;
+  background-color:#999;
+  position:absolute;
+  top:4px;
+  margin-left:2px;
+  border:1px solid #000;
+  cursor:pointer;
+  opacity:0;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  cursor:pointer;
+}
+#seekHolder:hover #seekDrag {
+  opacity:1;
+}
+#timeLabel {
+  height:0;
+  top:-6px;
+  margin-top:6px;
+  text-align:center;
+  width:50px;
+  line-height:15px;
+  padding-top:0;
+  color:#FFF;
+  font-size:10px;
+  overflow:hidden;
+  background-color:rgba(0, 0, 0, 0.6);
+  -webkit-border-radius: 5px 5px 0px 0px;
+  border-radius: 5px 5px 0px 0px;
+  position:absolute;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#seekHolder:hover #timeLabel {
+  height:15px;
+  top:-26px;
+  padding-top:5px;
+}
+.stripes {
+  background-image: -webkit-gradient(linear, 0 100%, 100% 0, color-stop(0.25, rgba(0, 0, 0, 0.1)), color-stop(0.25, transparent), color-stop(0.5, transparent), color-stop(0.5, rgba(0, 0, 0, 0.1)), color-stop(0.75, rgba(0, 0, 0, 0.1)), color-stop(0.75, transparent), to(transparent));
+  background-image: -webkit-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  background-image: -moz-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  background-image: -o-linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  background-image: linear-gradient(-45deg, rgba(0, 0, 0, 0.1) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1) 75%, transparent 75%, transparent);
+  -webkit-animation: progress-bar-stripes 3s linear infinite;
+     -moz-animation: progress-bar-stripes 3s linear infinite;
+      -ms-animation: progress-bar-stripes 3s linear infinite;
+       -o-animation: progress-bar-stripes 3s linear infinite;
+          animation: progress-bar-stripes 3s linear infinite;
+  -webkit-background-size: 40px 40px;
+     -moz-background-size: 40px 40px;
+       -o-background-size: 40px 40px;
+          background-size: 40px 40px;
+}
+.group {
+  display:table-cell;
+  position:relative;
+  vertical-align:top;
+}
+.group:after {
+  content:" ";
+  display:block;
+  height:5px;
+  background-color:rgba(0, 0,0,0.6);
+  margin-top:1px;
+  margin-right:1px;
+}
+.group:first-child:after {
+  display:none;
+}
+.group:last-child:after {
+  -webkit-border-radius: 0 0 5px 0;
+  border-radius: 0 0 5px 0;
+}
+.group:last-child a:last-child {
+  margin-right:0;
+}
+.group:first-child > * {
+  -webkit-border-radius: 5px 0px 0px 5px;
+  border-radius: 5px 0px 0px 5px;
+}
+
+#play, #r1 {
+  width:50px;
+}
+#time {
+  font-size:10px;
+  width:90px;
+}
+#r2 {
+  width:90px;
+}
+#currentTime {
+  border-right:2px solid #7D7575;
+  padding-right:4px;
+}
+#totalTime {
+  color:#B96F10;
+  padding-left:4px;
+}
+#seekHolder {
+  width:auto;
+  position:relative;
+}
+#seek {
+  width:100%;;
+}
+#mute, #loop {
+  width:40px;
+}
+#mute:hover #volumeFill, #mute:hover #volumeOverlay {
+  bottom:7px;
+}
+#volumeFill {
+  height:70px
+}
+#volumeLabel {
+  font-size:0;
+}
+#volumeLabel span {
+  font-size:9px;
+}
+#right {
+  width:82px;
+}
+</style>
+
+<!--
+/**
+ * Audio player for the Sound Shares plugin
+ *
+ * Public HTML page used in Tweets as an embedded Player Card widget.
+ *
+ * Audio Player: Copyright (c) 2017 by Dave Pagurek (license below).
+ * @link https://codepen.io/davepvm/pen/DgwlJ
+
+ * @link    https://hearingvoices.com/tools/sound-shares
+ * @since   0.1.0
+ *
+ * @package    Sound Shares
+ * @subpackage sound-shares/includes
+ */
+-->
+</head>
+<body>
+<div id="container">
+
+    <div id="player">
+
+        <audio id="song" class="song" preload="metadata" src="">
+        </audio>
+
+        <div id="info">
+          <h1>h1a</h1>
+          <h2>h2a</h2>
+        </div>
+
+        <div id="controls">
+          <div class="group" id="r1">
+            <a class="big" id="play" href="" title="">
+              <i class="icon-play"></i>
+            </a>
+          </div>
+
+          <div class="group" id="time">
+            <div class="static">
+              <label></label>
+              <span id="currentTime">00:00</span>
+              <span id="totalTime">00:00</span>
+            </div>
+          </div>
+
+          <div class="group" id="seekHolder">
+            <div id="timeLabel">00:00</div>
+            <div class="static rangeContainer">
+              <label></label>
+              <div class="rangeHorizontal stripes" id="seek"></div>
+              <div id="seekFill" class="stripes"></div>
+              <div id="seekDrag"></div>
+            </div>
+          </div>
+
+          <div class="group" id="right">
+            <a id="mute" href="" title="">
+              <label class="expandable">VOL</label>
+              <i class="icon-volume-up" id="volumeIcon"></i>
+            </a>
+            <a id="loop" href="" title="">
+              <label class="expandable">LOOP</label>
+              <i class="icon-ban-circle" id="loopIcon"></i>
+            </a>
+          </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script type="text/javascript">
+var AudioModel = function (_song) {
+    var isPlaying = false;
+    var song = _song;
+
+    var a = {};
+
+    a.getSong = function() {
+        return song;
+    };
+
+    a.currentTime = function() {
+        return song.currentTime;
+    };
+
+    a.duration = function() {
+        return song.duration;
+    };
+
+    a.setTime = function(time) {
+        song.currentTime = time;
+    };
+
+    a.play = function() {
+        isPlaying = true;
+        song.play();
+    };
+
+    a.pause = function() {
+        isPlaying = false;
+        song.pause();
+    };
+
+    a.playing = function() {
+        return isPlaying;
+    };
+
+    a.getLoop = function() {
+        return song.loop;
+    };
+
+    a.setLoop = function(loop) {
+        song.loop = loop;
+    };
+
+    a.setVolume = function(vol) {
+        song.volume = vol;
+    };
+
+    a.getVolume = function() {
+        return song.volume;
+    };
+
+    a.seekTo = function(time) {
+        song.currentTime = time;
+    };
+
+    var reset = function() {
+        if (!song.loop) {
+            a.seekTo(0);
+            a.pause();
+        }
+    };
+
+    song.addEventListener("ended", function(event) { reset() }, false);
+
+    return a;
+}(document.getElementById("song"));
+
+var AudioView = function(model) {
+    var playBtn = document.getElementById("play");
+    var pauseBtn = document.getElementById("play");
+    var currentTime = document.getElementById("currentTime");
+    var totalTime = document.getElementById("totalTime");
+    var seekBg = document.getElementById("seek");
+    var seekHolder = document.getElementById("seekHolder");
+    var seekFill = document.getElementById("seekFill");
+    var seekDrag = document.getElementById("seekDrag");
+    var volumeIcon = document.getElementById("volumeIcon");
+    var loopIcon = document.getElementById("loopIcon");
+    var timeLabel = document.getElementById("timeLabel");
+
+    var formatTime = function(i) {
+        var minutes = Math.floor(i/60);
+        var seconds = Math.floor(i%60);
+        return ((minutes < 10) ? ("0" + minutes) : minutes) + ":" + ((seconds < 10) ? ("0" + seconds) : seconds);
+    };
+
+    var play = function() {
+        playBtn.innerHTML = "<i class='icon-pause'></i>";
+    };
+
+    var pause = function() {
+        pauseBtn.innerHTML = "<i class='icon-play'></i>";
+    };
+
+    var updateTime = function() {
+        currentTime.innerHTML = formatTime(model.currentTime());
+        timeLabel.innerHTML = currentTime.innerHTML;
+        if (Math.round((1-(model.currentTime()/model.duration()))*(seekBg.offsetWidth))+3<timeLabel.offsetWidth/2) {
+          timeLabel.style.left = (seekHolder.offsetWidth-timeLabel.offsetWidth) + "px";
+        } else if (Math.round(((model.currentTime()/model.duration()))*(seekBg.offsetWidth)+3)<timeLabel.offsetWidth/2) {
+          timeLabel.style.left="0px";
+        } else {
+          timeLabel.style.left = Math.round(((model.currentTime()/model.duration()))*(seekBg.offsetWidth)+3-timeLabel.offsetWidth/2) + "px";
+        }
+        seekFill.style.width = Math.round((model.currentTime()/model.duration())*(seekBg.offsetWidth-2))+"px";
+        seekDrag.style.left = Math.round((model.currentTime()/model.duration())*(seekBg.offsetWidth-2))+"px";
+    };
+
+    var updateVolume = function() {
+        if (model.getVolume() === 0) {
+          volumeIcon.className = "icon-volume-off";
+        } else if (Math.round(model.getVolume()) === 0) {
+          volumeIcon.className = "icon-volume-down";
+        } else {
+          volumeIcon.className = "icon-volume-up";
+        }
+    };
+
+    var a = {};
+
+    var timeProxy = function(event) {
+        updateTime(this);
+    }
+
+    a.updateLoop = function() {
+        if (model.getLoop()) {
+            loopIcon.className = "icon-refresh icon-flip-horizontal";
+        } else {
+            loopIcon.className = "icon-ban-circle";
+        }
+    };
+
+    a.listen = function() {
+        model.getSong().addEventListener("timeupdate", timeProxy, false);
+    };
+
+    a.stopListening = function() {
+        model.getSong().removeEventListener("timeupdate", timeProxy, false);
+    }
+
+    a.dragSeek = function(mousePos) {
+        var dragTime = (mousePos.x/seekBg.offsetWidth)*model.duration();
+        timeLabel.innerHTML = formatTime(dragTime);
+        if (Math.round((1-(dragTime/model.duration()))*(seekBg.offsetWidth))+3<timeLabel.offsetWidth/2) {
+            timeLabel.style.left = (seekHolder.offsetWidth-timeLabel.offsetWidth) + "px";
+        } else if (Math.round(((dragTime/model.duration()))*(seekBg.offsetWidth)+3)<timeLabel.offsetWidth/2) {
+            timeLabel.style.left="0px";
+        } else {
+        timeLabel.style.left = Math.round(((dragTime/model.duration()))*(seekBg.offsetWidth)+3-timeLabel.offsetWidth/2) + "px";
+        }
+        seekFill.style.width = Math.round((dragTime/model.duration())*(seekBg.offsetWidth-2))+"px";
+        seekDrag.style.left = Math.round((dragTime/model.duration())*(seekBg.offsetWidth-2))+"px";
+    };
+
+    var init = function() {
+        totalTime.innerHTML = formatTime(song.duration);
+
+        if (this.autoPlay) {
+            this.play();
+        }
+        model.getSong().addEventListener("play", function(event) { play(); }, false);
+        model.getSong().addEventListener("pause", function(event) { pause(); }, false);
+        model.getSong().addEventListener("ended", function(event) { if (!model.loop()) pause(); }, false);
+        model.getSong().addEventListener("volumechange", function(event) { updateVolume(); }, false);
+        a.listen();
+    };
+
+    model.getSong().addEventListener("canplaythrough", function(event) { init(); }, false);
+
+    return a;
+}(AudioModel);
+
+var AudioControl = function(model, view) {
+    var playBtn = document.getElementById("play");
+    var seekBg = document.getElementById("seek");
+    var seekHolder = document.getElementById("seekHolder");
+    var seekFill = document.getElementById("seekFill");
+    var seekDrag = document.getElementById("seekDrag");
+    var muteBtn = document.getElementById("mute");
+    var volumeIcon = document.getElementById("volumeIcon");
+    var loopBtn = document.getElementById("loop");
+    var loopIcon = document.getElementById("loopIcon");
+    var timeLabel = document.getElementById("timeLabel");
+
+    var togglePlay = function(event) {
+        event.preventDefault();
+        if (model.playing()) {
+            model.pause();
+        } else {
+            model.play();
+        }
+    };
+
+    var toggleLoop = function(event) {
+        event.preventDefault();
+        model.setLoop(!model.getLoop());
+        view.updateLoop();
+    };
+
+    var toggleVolume = function(event) {
+        event.preventDefault();
+        if (model.getVolume()==1) {
+            model.setVolume(0.49);
+        } else if (model.getVolume()==0.49) {
+            model.setVolume(0);
+        } else {
+        model.setVolume(1);
+        }
+    };
+
+    var getMousePos = function(evt, element) {
+        var rect = element.getBoundingClientRect();
+        var root = document.documentElement;
+
+        var mouseX = evt.clientX - rect.left - root.scrollLeft;
+        var mouseY = evt.clientY - rect.top - root.scrollTop;
+
+        return {x:mouseX, y:mouseY};
+    };
+
+    var startSeek = function(event) {
+        event.preventDefault();
+        view.stopListening();
+        document.addEventListener("mousemove", seekProxy, false);
+        document.addEventListener("mouseup", endSeekProxy, false);
+    };
+
+    var seekProxy = function(event) {
+        seek(event);
+    };
+
+    var endSeekProxy = function(event) {
+        endSeek(event);
+    };
+
+    var seek = function(event) {
+        event.preventDefault();
+        view.dragSeek(getMousePos(event, seekBg));
+    };
+
+    var endSeek = function(event) {
+        event.preventDefault();
+        view.listen();
+        document.removeEventListener("mousemove", seekProxy, false);
+        document.removeEventListener("mouseup", endSeekProxy, false);
+        var mousePos = getMousePos(event, seekBg);
+        model.seekTo((mousePos.x/seekBg.offsetWidth)*model.duration());
+    };
+
+    playBtn.addEventListener("click", function(event) { togglePlay(event); }, false);
+    loopBtn.addEventListener("click", function(event) { toggleLoop(event); }, false);
+    muteBtn.addEventListener("click", function(event) { toggleVolume(event); }, false);
+    seekBg.addEventListener("mousedown", function(event) { startSeek(event); }, false);
+    seekFill.addEventListener("mousedown", function(event) { startSeek(event); }, false);
+    seekDrag.addEventListener("mousedown", function(event) { startSeek(event); }, false);
+
+  return {};
+}(AudioModel, AudioView);
+
+/* Get values from URL query string */
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+/* Print values in HTML */
+document.getElementsByTagName("audio")[0].setAttribute("src", getUrlParameter('file'));
+document.getElementsByTagName("h1")[0].innerHTML = getUrlParameter('title');
+document.getElementsByTagName("h2")[0].innerHTML = getUrlParameter('author');
+
+</script>
+<script type="text/javascript">
+
+    // window.onload = audio_load();
+
+    function audio_load() {
+        audio = document.getElementsByTagName('audio');
+        console.log( audio[0].readyState );
+    }
+
+</script>
+
+<!--
+http://rji.local/wp-content/plugins/sound-shares/player.php?file=http%3A%2F%2Fhearingvoices.com%2Fnews%2Fwp-content%2Fuploads%2F2012%2F09%2F1Solidod_Billboard.mp3&title=HV142+Solidod+%28promo%29&author=Hearing+Voices
+
+$audiodata = array( 'https://hearingvoices.com/news/wp-content/uploads/2012/09/1Solidod_Billboard.mp3', 'HV142 Solidod (promo)', 'Hearing Voices', 'https://hearingvoices.com/2012/09/hv142-solidod/' );
+ -->
+
+<!--
+Audio Player:
+Copyright (c) 2017 by Dave Pagurek (https://codepen.io/davepvm/pen/DgwlJ)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+( Music: https://pahgawks.bandcamp.com/ )
+-->
+</body>
+</html>

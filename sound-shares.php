@@ -169,6 +169,9 @@ function soundshares_get_html_meta( $html ) {
 
 /**
  * @todo Document above items.
+ * @todo is_ssl()
+ * @todo Inline player css.
+ * @todo Player.html
  * @todo Fix Jetpack replaced meta tags.
  * @todo Twitter player URL must be HTTPS.
  * @todo Default image is site logo (if fn exists).
