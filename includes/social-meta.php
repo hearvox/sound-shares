@@ -223,14 +223,14 @@ function soundshares_twitter_tags() {
 
 
     // Append player URL with query string of audio meta -- URL, title, and author; e.g.:
-    // .../player.php?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
+    // .../player.html?file=https%3A%2F%2Fexample.com%2Faudio.mp3&title=Title&author=Author
     // urlencode( wp_trim_words( get_the_title( $post_id ), 5 ) );
     $media_file   = $post_meta['file'];
     $media_title  = ( ! empty( $post_meta['title'] ) )
         ? $post_meta['title'] : wp_trim_words( get_the_title(), 5 );
     $media_author = ( ! empty( $post_meta['author'] ) )
         ? $post_meta['author'] : get_bloginfo( 'name' );
-    $player_url  = plugin_dir_url( __FILE__ ) . 'player.php';
+    $player_url  = plugin_dir_url( __FILE__ ) . 'player.html';
     $player_url .= '?file=' . urlencode( $media_file );
     $player_url .= '&title=' . urlencode( $media_title );
     $player_url .= '&author=' . urlencode( $media_author );
@@ -241,7 +241,7 @@ function soundshares_twitter_tags() {
     $twitter_meta['twitter:player:width']  = ( ! empty( $options['video_w'] ) )
         ? $options['video_w'] : '480';
     $twitter_meta['twitter:player:height'] = ( ! empty( $options['video_h'] ) )
-        ? $options['video_h'] : '75';
+        ? $options['video_h'] : '50';
      if ( ! empty( $options['twit_user'] ) ) {
         $twitter_meta['twitter:site'] = $options['twit_user'];
     }

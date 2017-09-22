@@ -172,8 +172,13 @@ function soundshares_get_html_meta( $html ) {
  * @todo is_ssl()
  * @todo Inline player css.
  * @todo Player.html
+ * @todo Save/Rm player.php
  * @todo Fix Jetpack replaced meta tags.
  * @todo Twitter player URL must be HTTPS.
+ *
+ * Next version
+ * @todo Rm loop (from js, css, hrml)
+ * @todo User sets own player.
  * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
  * @todo Add video duration tag using WP functions to read ID3.

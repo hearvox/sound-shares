@@ -355,6 +355,10 @@ border-radius: 5px 5px 0px 0px;
 }
 </style>
 
+</head>
+<body>
+<div id="container">
+
 <!--
 /**
  * Audio player for the Sound Shares plugin
@@ -371,18 +375,14 @@ border-radius: 5px 5px 0px 0px;
  * @subpackage sound-shares/includes
  */
 -->
-</head>
-<body>
-<div id="container">
-
     <div id="player">
 
         <audio id="song" class="song" preload="metadata" src="">
         </audio>
 
         <div id="info">
-          <h1>h1a</h1>
-          <h2>h2a</h2>
+          <h1></h1>
+          <h2></h2>
         </div>
 
         <div id="controls">
@@ -427,6 +427,33 @@ border-radius: 5px 5px 0px 0px;
 </div>
 
 <script type="text/javascript">
+
+/* Get values from URL query string */
+function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+
+/* Print values in HTML */
+document.getElementsByTagName("audio")[0].setAttribute("src", getUrlParameter('file'));
+document.getElementsByTagName("h1")[0].innerHTML = getUrlParameter('title');
+document.getElementsByTagName("h2")[0].innerHTML = getUrlParameter('author');
+
+/**
+ * Audio Player:
+ * Copyright (c) 2017 by Dave Pagurek (https://codepen.io/davepvm/pen/DgwlJ)
+ * ( Music: https://pahgawks.bandcamp.com/ )
+ */
+/*
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
 var AudioModel = function (_song) {
     var isPlaying = false;
     var song = _song;
@@ -687,48 +714,7 @@ var AudioControl = function(model, view) {
   return {};
 }(AudioModel, AudioView);
 
-/* Get values from URL query string */
-function getUrlParameter(name) {
-    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-    var results = regex.exec(location.search);
-    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
-
-/* Print values in HTML */
-document.getElementsByTagName("audio")[0].setAttribute("src", getUrlParameter('file'));
-document.getElementsByTagName("h1")[0].innerHTML = getUrlParameter('title');
-document.getElementsByTagName("h2")[0].innerHTML = getUrlParameter('author');
-
-</script>
-<script type="text/javascript">
-
-    // window.onload = audio_load();
-
-    function audio_load() {
-        audio = document.getElementsByTagName('audio');
-        console.log( audio[0].readyState );
-    }
-
 </script>
 
-<!--
-http://rji.local/wp-content/plugins/sound-shares/player.php?file=http%3A%2F%2Fhearingvoices.com%2Fnews%2Fwp-content%2Fuploads%2F2012%2F09%2F1Solidod_Billboard.mp3&title=HV142+Solidod+%28promo%29&author=Hearing+Voices
-
-$audiodata = array( 'https://hearingvoices.com/news/wp-content/uploads/2012/09/1Solidod_Billboard.mp3', 'HV142 Solidod (promo)', 'Hearing Voices', 'https://hearingvoices.com/2012/09/hv142-solidod/' );
- -->
-
-<!--
-Audio Player:
-Copyright (c) 2017 by Dave Pagurek (https://codepen.io/davepvm/pen/DgwlJ)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-( Music: https://pahgawks.bandcamp.com/ )
--->
 </body>
 </html>
