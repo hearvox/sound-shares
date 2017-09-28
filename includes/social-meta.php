@@ -167,10 +167,8 @@ function soundshares_facebook_tags() {
     $og_meta['og:video']            = $post_meta['file'];
     $og_meta['og:video:secure_url'] = $post_meta['file'];
     $og_meta['og:video:type']       = 'video/mp4';
-    $og_meta['og:video:width']      = ( ! empty( $options['video_w'] ) )
-        ? $options['video_w'] : '480';
-    $og_meta['og:video:height']     = ( ! empty( $options['video_h'] ) )
-        ? $options['video_h'] : '160';
+    $og_meta['og:video:width']      = '480';
+    $og_meta['og:video:height']     = '60';
     if ( ! empty( $options['fb_app_id'] ) ) {
         $og_meta['fb:app_id']       = $options['fb_app_id'];
     }
@@ -238,10 +236,8 @@ function soundshares_twitter_tags() {
     // Data for media meta tags.
     $twitter_meta['twitter:card']          = 'player';
     $twitter_meta['twitter:player']        = $player_url;
-    $twitter_meta['twitter:player:width']  = ( ! empty( $options['video_w'] ) )
-        ? $options['video_w'] : '480';
-    $twitter_meta['twitter:player:height'] = ( ! empty( $options['video_h'] ) )
-        ? $options['video_h'] : '160';
+    $twitter_meta['twitter:player:width']  = '440';
+    $twitter_meta['twitter:player:height'] = '140';
      if ( ! empty( $options['twit_user'] ) ) {
         $twitter_meta['twitter:site'] = $options['twit_user'];
     }
@@ -286,7 +282,7 @@ function soundshares_twitter_tags() {
  * @since   0.1.0
  *
  * @param  int           $image_id   Attachment ID
- * @return false|string  $image_src  Attachment URL, or false if  no image available
+ * @return false|string  $image_src  Attachment URL, or false if no image.
  *
  */
 function soundshares_get_image_src( $image_id ) {
