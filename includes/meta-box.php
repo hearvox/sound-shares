@@ -103,8 +103,8 @@ function soundshares_meta_box_callback( $post, $box ) {
     $image  = ( isset( $soundshares_meta['image'] ) ) ? $soundshares_meta['image'] : '';
     ?>
     <p>
-        <label for="soundshares-file"><?php _e( 'Audio URL (requires: <strong>https://</strong>):', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Must be secure HTTPS)', 'soundshares' ); ?>" pattern="https://.+" />
+        <label for="soundshares-file"><?php _e( 'Audio URL (must be secure: <strong>https://</strong>):', 'soundshares' ); ?></label><br />
+        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Requires HTTPS)', 'soundshares' ); ?>" pattern="https://.+" />
         <?php if ( ! empty( $file ) ) { ?>
         <audio controls src="<?php echo esc_url_raw( $file ); ?>" controlsList="nodownload" preload="metadata">
         </audio>
