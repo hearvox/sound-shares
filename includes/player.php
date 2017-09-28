@@ -5,10 +5,10 @@
  * Public HTML page used in Tweets as an embedded Player Card widget.
  *
  * Audio Player: Copyright (c) 2017 by Dave Pagurek (license below).
- * @link https://codepen.io/davepvm/pen/DgwlJ
+ * @link   https://codepen.io/davepvm/pen/DgwlJ
 
- * @link    https://hearingvoices.com/tools/sound-shares
- * @since   0.1.0
+ * @see   https://hearingvoices.com/tools/sound-shares
+ * @since 0.1.0
  *
  * @package    Sound Shares
  * @subpackage sound-shares/includes

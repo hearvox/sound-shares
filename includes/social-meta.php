@@ -2,8 +2,8 @@
 /**
  * Add HTML meta tags to posts for social sites
  *
- * @link    https://hearingvoices.com/tools/sound-shares
- * @since   0.1.0
+ * @see   https://hearingvoices.com/tools/sound-shares
+ * @since 0.1.0
  *
  * @package    Sound Shares
  * @subpackage sound-shares/includes
@@ -249,7 +249,7 @@ function soundshares_twitter_tags() {
  * Get post excerpt for meta tag attribute ('description').
  *
  * Based on Jetpack code for generating 'og:description':
- * @link https://github.com/Automattic/jetpack/blob/master/functions.opengraph.php'
+ * @see https://github.com/Automattic/jetpack/blob/master/functions.opengraph.php'
  *
  * @param  integer $post         Post object
  * @return string  $description  Post excerpt without HTML, URLs, shortcodes.

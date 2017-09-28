@@ -2,8 +2,8 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @link    http://hearingvoices.com/tools/sound-shares
- * @since   0.1.0
+ * @see   https://hearingvoices.com/tools/sound-shares
+ * @since 0.1.0
  *
  * @package    Sound Shares
  * @subpackage sound-shares/includes

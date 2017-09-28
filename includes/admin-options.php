@@ -2,8 +2,8 @@
 /**
  * Admin Settings Page (Dashboard> Settings> Sound Shares)
  *
- * @link    http://hearingvoices.com/tools/sound-shares
- * @since   0.1.0
+ * @see   https://hearingvoices.com/tools/sound-shares
+ * @since 0.1.0
  *
  * @package    Sound Shares
  * @subpackage sound-shares/includes
@@ -448,4 +448,3 @@ Twitter User name
 <html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
 
 */
-

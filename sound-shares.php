@@ -170,10 +170,8 @@ function soundshares_get_html_meta( $html ) {
 /**
  * @todo Document above items.
  * @todo is_ssl()
- * @todo Inline player css.
- * @todo Player.html
  * @todo Save/Rm player.php
- * @todo Fix Jetpack replaced meta tags.
+ * @todo Sanitize player.html text and URL.
  * @todo Twitter player URL must be HTTPS.
  *
  * Next version

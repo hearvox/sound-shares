@@ -2,8 +2,8 @@
 /**
  * Meta box for the Edit Post screen
  *
- * @link    http://hearingvoices.com/tools/sound-shares
- * @since   0.1.0
+ * @see   https://hearingvoices.com/tools/sound-shares
+ * @since 0.1.0
  *
  * @package    Sound Shares
  * @subpackage sound-shares/includes
@@ -103,8 +103,8 @@ function soundshares_meta_box_callback( $post, $box ) {
     $image  = ( isset( $soundshares_meta['image'] ) ) ? $soundshares_meta['image'] : '';
     ?>
     <p>
-        <label for="soundshares-file"><?php _e( 'Audio URL:', 'soundshares' ); ?></label><br />
-        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Required: Must be https://)', 'soundshares' ); ?>" />
+        <label for="soundshares-file"><?php _e( 'Audio URL (requires: <strong>https://</strong>):', 'soundshares' ); ?></label><br />
+        <input class="widefat" type="url" name="soundshares_meta[file]" id="soundshares-file"  size="30" value="<?php if ( ! empty( $file ) ) { echo esc_url_raw( $file ); } ?>" placeholder="<?php _e( '(Must be secure HTTPS)', 'soundshares' ); ?>" pattern="https://.+" />
         <?php if ( ! empty( $file ) ) { ?>
         <audio controls src="<?php echo esc_url_raw( $file ); ?>" controlsList="nodownload" preload="metadata">
         </audio>
@@ -136,7 +136,7 @@ function soundshares_meta_box_callback( $post, $box ) {
  * Based on Featured Image button.
  * If no image chosen, plugin uses featured image.
  *
- * @link https://hugh.blog/2015/12/18/create-a-custom-featured-image-box/
+ * @see https://hugh.blog/2015/12/18/create-a-custom-featured-image-box/
  *
  * @since 0.1.0
  *

@@ -2,8 +2,8 @@
 /**
  * Functions for getting/setting plugin option.
  *
- * @link    http://hearingvoices.com/tools/sound-shares
- * @since   0.1.0
+ * @see   https://hearingvoices.com/tools/sound-shares
+ * @since 0.1.0
  *
  * @package    Sound Shares
  * @subpackage sound-shares/includes
@@ -17,7 +17,7 @@
  * Retrieves an option, and array of plugin settings, from database.
  *
  * Option functions based on Jetpack Stats:
- * @link https://github.com/Automattic/jetpack/blob/master/modules/stats.php
+ * @see https://github.com/Automattic/jetpack/blob/master/modules/stats.php
  *
  * @since   0.1.0
  *
@@ -93,7 +93,7 @@ function soundshares_set_options( $options ) {
  * Used by post meta-box form before writing post-meta to database
  * and by Settings API before writing option to database.
  *
- * @link https://tommcfarlin.com/input-sanitization-with-the-wordpress-settings-api/
+ * @see https://tommcfarlin.com/input-sanitization-with-the-wordpress-settings-api/
  *
  * @since    0.4.0
  *
@@ -133,7 +133,7 @@ function soundshares_sanitize_data( $data = array() ) {
  * Sanitizes values in an one-dimensional array.
  * (Used by post meta-box form before writing post-meta to database.)
  *
- * @link https://tommcfarlin.com/input-sanitization-with-the-wordpress-settings-api/
+ * @see https://tommcfarlin.com/input-sanitization-with-the-wordpress-settings-api/
  *
  * @since    0.4.0
  *
