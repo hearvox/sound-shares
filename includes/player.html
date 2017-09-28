@@ -440,7 +440,7 @@ function getUrlParameter(name) {
 /* Print values in HTML */
 document.getElementsByTagName("audio")[0].setAttribute("src", getUrlParameter('file'));
 document.getElementsByTagName("h1")[0].innerHTML = getUrlParameter('title');
-document.getElementsByTagName("h2")[0].innerHTML = getUrlParameter('author');
+document.getElementsByTagName("h2")[0].innerHTML = 'by ' + getUrlParameter('author');
 
 /**
  * Audio Player:
