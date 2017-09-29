@@ -174,16 +174,16 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
 /**
  * @todo Document above items.
  * @todo is_ssl()
- * @todo Save/Rm player.php
  * @todo Sanitize player.html text and URL.
- * @todo Twitter player URL must be HTTPS.
  * @todo Check FB/Tw w/ SEO plugins on.
+ * @todo Add link to FB/Twit checker (if published)
  *
  * Next version
  * @todo Rm loop (from js, css, hrml)
  * @todo User sets own player.
  * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
+ * @todo Check drafts in FB/Twitter debug tools.
  * @todo Add video duration tag using WP functions to read ID3.
  * Duration info:
  * <meta property="video:duration" content="120"/>

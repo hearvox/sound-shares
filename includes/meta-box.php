@@ -119,8 +119,17 @@ function soundshares_meta_box_callback( $post, $box ) {
         <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" size="30" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_textarea_field( $soundshares_meta['author'] ); } ?>" placeholder="(<?php _e( 'default: post author', 'soundshares' ); ?>)" />
     </p>
 
-    <?php soundshares_image_metabox( $post, $soundshares_meta ) ?>
+    <?php
+    soundshares_image_metabox( $post, $soundshares_meta );
 
+    // Link to social site debug tools (if post public).
+    if ( 'publish' === get_post_status( $post->ID ) ) {
+        $fb_debug  = 'https://developers.facebook.com/tools/debug/sharing/?q=';
+        $fb_debug .= urlencode( get_the_permalink( $post->ID ) );
+        $tw_debug  = 'https://cards-dev.twitter.com/validator';
+    ?>
+    <p><?php _e('Debug:', 'soundshares' ); ?> <a href="<?php echo $fb_debug ?>" target="_blank">Facebook</a> | <a href="<?php echo $tw_debug ?>" target="_blank">Twitter</a></p>
+    <?php } ?>
      <pre style="font-size: 0.7em;">
         <?php print_r( $soundshares_meta ); ?>
     </pre>

@@ -102,13 +102,9 @@ function soundshares_add_meta_tags() {
         echo '<!-- Sound Shares social tags (embeds media player) -->' . "\n";
         foreach ($meta_tags as $property => $content ) {
             if ( in_array( $property, $meta_urls ) ) { // If an URL.
-        ?>
-        <meta property="<?php echo esc_attr( $property ); ?>" content="<?php echo esc_url_raw( $content ); ?>">
-        <?php
+                echo '<meta property="' . esc_attr( $property ) . '" content="' . esc_url_raw( $content ) . '">' . "\n";
             } else {
-        ?>
-        <meta property="<?php echo esc_attr( $property ); ?>" content="<?php echo esc_attr( $content ); ?>">
-        <?php
+                echo '<meta property="' . esc_attr( $property ). '" content="' . esc_attr( $content ) . '">' . "\n";
             }
         }
         echo '<!-- / Sound Shares tags -->' . "\n";

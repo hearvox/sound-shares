@@ -342,16 +342,16 @@ function soundshares_settings_footer() {
     <p>
         <?php _e('Your settings above display the meta box on the Edit screen <em>only</em> for:', 'soundshares' ); ?>
         <ul style="list-style: disc; list-style-position: inside; margin-left: 1em;">
-            <li><?php _e('User-roles: ', 'soundshares' ); ?><?php echo implode( $options['user_roles'], ', ' ); ?></li>
-            <li><?php _e('Post-types: ', 'soundshares' ); ?><?php echo implode( $options['post_types'], ', ' ); ?></li>
+            <li><?php _e('User-roles:', 'soundshares' ); ?> <?php echo implode( $options['user_roles'], ', ' ); ?></li>
+            <li><?php _e('Post-types:', 'soundshares' ); ?> <?php echo implode( $options['post_types'], ', ' ); ?></li>
             <?php if ( in_array( 0, $options['categories'] ) ) { ?>
             <li><?php _e('Categories: (all)', 'soundshares' ); ?></li>
             <?php } else { ?>
-            <li><?php _e('Categories: ', 'soundshares' ); ?><?php echo implode( soundshares_get_cat_names( $options['categories'] ), ', ' ); ?></li>
+            <li><?php _e('Categories:', 'soundshares' ); ?> <?php echo implode( soundshares_get_cat_names( $options['categories'] ), ', ' ); ?></li>
             <?php } ?>
         </ul>
     <p>
-
+    <p><?php _e('Debug tools (link preview):', 'soundshares' ); ?> <a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Facebook</a> | <a href="https://cards-dev.twitter.com/validator" target="_blank">Twitter</a></p>
     <p><?php _e( 'This plugin created as part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship.', 'soundshares' ); ?></p>
 
     <!-- <?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript', 'soundshares'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript', 'soundshares'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript', 'soundshares'); ?>.) -->
