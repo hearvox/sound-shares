@@ -165,6 +165,10 @@ function soundshares_get_html_meta( $html ) {
     Detail FB and Twit image specs.
     Link to current article.
     Link to an FB post using Sound Shares audio embed.
+
+http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https%3A%2F%2Fpubmedia.us%2Fwip%2Fcurrent%2Fembeds%2FKGLT-ID_Bass-Roberti.mp3&title=Jazz+Bass&author=Kelly+Roberti
+
+
 */
 
 /**
@@ -173,6 +177,7 @@ function soundshares_get_html_meta( $html ) {
  * @todo Save/Rm player.php
  * @todo Sanitize player.html text and URL.
  * @todo Twitter player URL must be HTTPS.
+ * @todo Check FB/Tw w/ SEO plugins on.
  *
  * Next version
  * @todo Rm loop (from js, css, hrml)

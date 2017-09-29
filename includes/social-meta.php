@@ -101,7 +101,7 @@ function soundshares_add_meta_tags() {
         // Output meta tags, sanitize URLs and atributes.
         echo '<!-- Sound Shares social tags (embeds media player) -->' . "\n";
         foreach ($meta_tags as $property => $content ) {
-            if ( in_array( $property, $meta_urls ) ) {
+            if ( in_array( $property, $meta_urls ) ) { // If an URL.
         ?>
         <meta property="<?php echo esc_attr( $property ); ?>" content="<?php echo esc_url_raw( $content ); ?>">
         <?php
@@ -111,7 +111,7 @@ function soundshares_add_meta_tags() {
         <?php
             }
         }
-        echo '<!-- End: Sound Shares tags -->' . "\n";
+        echo '<!-- / Sound Shares tags -->' . "\n";
     }
 }
 add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
@@ -318,24 +318,16 @@ function soundshares_get_image_alt( $image_id ) {
  */
 function soundshares_tags_filters() {
     // Check for Jetpack social meta tag:
-    if ( has_filter( 'jetpack_open_graph_tags' ) ) {
-        add_filter( 'jetpack_open_graph_tags', 'soundshares_jetpack_tags' );
-    }
+    add_filter( 'jetpack_open_graph_tags', 'soundshares_jetpack_tags' );
 
     // Remove Yoast SEO og:type meta tag:
-    if ( has_filter( 'wpseo_opengraph_type' ) ) {
-        add_filter( 'wpseo_opengraph_type', '__return_false' );
-    }
+    add_filter( 'wpseo_opengraph_type', '__return_false' );
 
     // Remove Yoast SEO twitter:card mata tag:
-    if ( has_filter( 'wpseo_output_twitter_card' ) ) {
-        add_filter( 'wpseo_output_twitter_card', '__return_false' );
-    }
+    add_filter( 'wpseo_output_twitter_card', '__return_false' );
 
     // Check for All in One SEO social meta tags.
-    if ( has_filter( 'aiosp_opengraph_meta' ) ) {
-        add_filter('aiosp_opengraph_meta','soundshare_aiosp_tags', 10, 3);
-    }
+    add_filter('aiosp_opengraph_meta','soundshare_aiosp_tags', 10, 3);
 }
 
 
@@ -389,10 +381,12 @@ function soundshare_aiosp_tags ( $value, $type, $field ){
 	if ( $field == 'type' ) {
 	 	$value = 'video.movie';
 		return $value;
-  } elseif ( $field == 'card' ) {
+    } elseif ( $field == 'card' ) {
 	 	$value = 'player';
 		return $value;
-  }
+    } else {
+        return $value;
+    }
 }
 
 /**

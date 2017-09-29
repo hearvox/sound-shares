@@ -422,7 +422,7 @@ border-radius: 5px 5px 0px 0px;
             </a>
           </div>
         </div>
-
+        <h3></h3>
     </div>
 
 </div>
@@ -430,7 +430,7 @@ border-radius: 5px 5px 0px 0px;
 <script type="text/javascript">
 
 /* Get values from URL query string */
-function getUrlParameter(name) {
+function ss_get_url_param(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     var results = regex.exec(location.search);
@@ -438,9 +438,21 @@ function getUrlParameter(name) {
 };
 
 /* Print values in HTML */
-document.getElementsByTagName("audio")[0].setAttribute("src", getUrlParameter('file'));
-document.getElementsByTagName("h1")[0].innerHTML = getUrlParameter('title');
-document.getElementsByTagName("h2")[0].innerHTML = 'by ' + getUrlParameter('author');
+document.getElementsByTagName("audio")[0].setAttribute("src", ss_get_url_param('file'));
+document.getElementsByTagName("h1")[0].textContent = ss_get_url_param('title');
+document.getElementsByTagName("h2")[0].textContent = 'by ' + ss_get_url_param('author');
+
+/**
+ * Returns "safe" URL, stripping anything outside normal charsets.
+ *
+ * @see https://stackoverflow.com/questions/205923/best-way-to-handle-security-and-avoid-xss-with-user-entered-urls
+ *
+ * @param url
+ * @return
+ */
+function sanitize_url( url ) {
+    return Regex.Replace(url, "[^-A-Za-z0-9+&@#/%?=~_|!:,.;\(\)]", "");
+}
 
 /**
  * Audio Player:
