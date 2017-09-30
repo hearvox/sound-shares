@@ -336,6 +336,12 @@ function soundshares_categories_callback( $options ) {
  */
 function soundshares_settings_footer() {
     $options = soundshares_get_options();
+
+    // URL and query string for example player.
+    $player_url  = plugin_dir_url( __FILE__ ) . 'player.html';
+    $player_url .= '?file=' . urlencode( plugin_dir_url( __FILE__ ) . 'Wolves-West-15sec.mp3' );
+    $player_url .= '&title=' . urlencode( 'Wolves in West Yellowstone' );
+    $player_url .= '&author=' . urlencode( 'Hearing Voices' );
     ?>
     <hr />
     <h2 id="metabox"><?php _e('Sound Shares information', 'postscript', 'soundshares' ); ?> (v <?php echo SOUNDSHARES_VERSION; ?>)</h2>
@@ -350,9 +356,11 @@ function soundshares_settings_footer() {
             <li><?php _e('Categories:', 'soundshares' ); ?> <?php echo implode( soundshares_get_cat_names( $options['categories'] ), ', ' ); ?></li>
             <?php } ?>
         </ul>
-    <p>
-    <p><?php _e('Debug tools (link preview):', 'soundshares' ); ?> <a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Facebook</a> | <a href="https://cards-dev.twitter.com/validator" target="_blank">Twitter</a></p>
-    <p><?php _e( 'This plugin created as part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship.', 'soundshares' ); ?></p>
+    <p><?php _e('Debug tools (link preview):', 'soundshares' ); ?> <a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Facebook</a> | <a href="https://cards-dev.twitter.com/validator" target="_blank">Twitter</a>.
+    <p><a href="<?php echo $player_url; ?>" target="_blank"><?php _e('The Sound Shares player', 'soundshares' ); ?></a> <?php _e('embed like this in a tweet:', 'soundshares' ); ?><br>
+        <iframe src="<?php echo $player_url; ?>" width="480" height="140"></iframe></p>
+    </p>
+    <p><?php _e('Player design by', 'soundshares' ); ?> <a href="https://codepen.io/davepvm/pen/DgwlJ">Dave Pagurek</a>. <?php _e( 'This plugin is part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship and an article in <a href="https://current.org/author/bgolding/">Current</a>.', 'soundshares' ); ?></p>
 
     <!-- <?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript', 'soundshares'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript', 'soundshares'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript', 'soundshares'); ?>.) -->
     <pre>
@@ -411,40 +419,3 @@ function soundshares_get_cat_names( $cat_ids ) {
  *    [image] =>
  * )
  * /
-
-/*
-Use Sound Shares to add Facebook OG title, description, image, and url HTML meta tags to audio pages.
-
-fb:app_id" content="1234567890987654321">
-<meta property="fb:admins
-
-FB app ID3
-FB user IDs
-Twitter User name
-
-
-<meta property="og:title" content="Program Title">
-<meta property="og:description" content="Program description for the link preview.">
-<meta property="og:image" content="https://example.org/program-image.jpg">
-<meta property="og:url" content="https://example.org/program-page/">
-<meta property="og:site_name" content="WNYC" />
-<meta property="og:type" content="video.movie">
-<meta property="og:video" content="https://example.org/program-audio.mp3">
-<meta property="og:video:secure_url" content="https://example.org/program-audio.mp3">
-<meta property="og:video:type" content="video/mp4">
-<meta property="og:video:width" content="480">
-<meta property="og:video:height" content="50">
-<meta property="fb:app_id" content="1234567890987654321">
-<meta property="fb:admins" content="9876543210,1234567">
-<meta property="twitter:card" content="player" />
-<meta property="twitter:player" content="https://www.wnyc.org/widgets/ondemand_player/#file=https%3A%2F%2Faudio3.wnyc.org%2Fbl%2Fbl040213cpod.mp3&amp;containerClass=wnyc" />
-<meta property="twitter:player:width" content="280" />
-<meta property="twitter:player:height" content="54" />
-<meta property="twitter:image:src" content = "http://www.wnyc.org/i/200/200/80/1/wnyc-logo200.png" />
-<meta name="twitter:image" content="https://media2.wnyc.org/i/1200/627/c/80/1/Maya.JPG" />
-<meta name="twitter:image:alt" content="Alternative test describing image for non-visual users" />
-<meta name="twitter:site" content="@twitter_username">
-
-<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-
-*/

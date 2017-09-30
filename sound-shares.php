@@ -176,7 +176,6 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
  * @todo is_ssl()
  * @todo Sanitize player.html text and URL.
  * @todo Check FB/Tw w/ SEO plugins on.
- * @todo Add link to FB/Twit checker (if published)
  *
  * Next version
  * @todo Rm loop (from js, css, hrml)

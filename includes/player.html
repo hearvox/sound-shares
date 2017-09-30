@@ -438,7 +438,7 @@ function ss_get_url_param(name) {
 };
 
 /* Print values in HTML */
-document.getElementsByTagName("audio")[0].setAttribute("src", ss_get_url_param('file'));
+document.getElementsByTagName("audio")[0].setAttribute("src", encodeURI(ss_get_url_param('file')));
 document.getElementsByTagName("h1")[0].textContent = ss_get_url_param('title');
 document.getElementsByTagName("h2")[0].textContent = 'by ' + ss_get_url_param('author');
 
