@@ -128,10 +128,10 @@ function soundshares_meta_box_callback( $post, $box ) {
         $fb_debug .= urlencode( get_the_permalink( $post->ID ) );
         $tw_debug  = 'https://cards-dev.twitter.com/validator';
     ?>
-    <p><?php _e('Debug:', 'soundshares' ); ?> <a href="<?php echo $fb_debug ?>" target="_blank">Facebook</a> | <a href="<?php echo $tw_debug ?>" target="_blank">Twitter</a></p>
+    <p class="description"><?php _e('Debug:', 'soundshares' ); ?> <a href="<?php echo $fb_debug ?>" target="_blank">Facebook</a> | <a href="<?php echo $tw_debug ?>" target="_blank">Twitter</a></p>
     <?php } ?>
      <pre style="font-size: 0.7em;">
-        <?php print_r( $soundshares_meta ); ?>
+        <?php // print_r( $soundshares_meta ); ?>
     </pre>
 
     <?php

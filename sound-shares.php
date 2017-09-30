@@ -176,8 +176,9 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
  * @todo is_ssl()
  * @todo Sanitize player.html text and URL.
  * @todo Check FB/Tw w/ SEO plugins on.
+ * @todo RM timers, print_r, commmented out code.
  *
- * Next version
+ * TODO for next version:
  * @todo Rm loop (from js, css, hrml)
  * @todo User sets own player.
  * @todo Default image is site logo (if fn exists).

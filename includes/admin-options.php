@@ -339,7 +339,7 @@ function soundshares_settings_footer() {
 
     // URL and query string for example player.
     $player_url  = plugin_dir_url( __FILE__ ) . 'player.html';
-    $player_url .= '?file=' . urlencode( plugin_dir_url( __FILE__ ) . 'Wolves-West-15sec.mp3' );
+    $player_url .= '?file=' . urlencode( plugin_dir_url( __FILE__ ) . 'wolves-west-soundshares.mp3' );
     $player_url .= '&title=' . urlencode( 'Wolves in West Yellowstone' );
     $player_url .= '&author=' . urlencode( 'Hearing Voices' );
     ?>
@@ -364,7 +364,7 @@ function soundshares_settings_footer() {
 
     <!-- <?php echo get_num_queries(); ?><?php _e(" queries in ", 'postscript', 'soundshares'); ?><?php timer_stop( 1 ); ?><?php _e(" seconds uses ", 'postscript', 'soundshares'); ?><?php echo size_format( memory_get_peak_usage(), 2); ?> <?php _e(" peak memory", 'postscript', 'soundshares'); ?>.) -->
     <pre>
-        <?php print_r( soundshares_get_options() ) ?>
+        <?php // print_r( soundshares_get_options() ) ?>
     </pre>
     <?php
 }
