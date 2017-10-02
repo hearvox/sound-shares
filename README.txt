@@ -6,7 +6,7 @@ Author URI: http://hearingvoices.com/tools/sound-shares/
 Plugin URI: http://hearingvoices.com/
 GitHub Plugin URI: https://github.com/hearvox/sound-shares
 Requires at least: 4.5
-Tested up to: 4.8
+Tested up to: 4.8.2
 Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,11 +15,15 @@ Embed an audio player in social sites when users share your posts.
 
 == Description ==
 
-Add an audio player into Facebook posts and Twitter tweets of your posts. Sound Shares adds meta tags into your HTML if you specify an audio file, like an MP3 (must be a secure HTTPS URL). Social sites uses these tags to embed a player. You can also set the audio's title, author, and image to be different than those of the post.
+Add an audio player into Facebook posts and Twitter tweets of your posts. When you enter an audio file URL in a post's Sound Shares box, Sound Shares adds HTML tags which Social sites uses to your audio.
+
+*Note: Works only is you site is secure HTTPS.*
+
+You can also set the audio's title, author, and image to be different than those of the post.
 
 = Settings and Security =
 
-The Settings screen lets you control which user-roles, post-types, and categories display the Sound Shares meta box.
+The Settings screen controls which user-roles, post-types, and categories display the Sound Shares meta box.
 
 == Installation ==
 
@@ -70,26 +74,23 @@ This plugin is internationalized (default: English). Please contribute a transla
 The WordPress.org Polyglots Team maintains a comprehensive [Translator’s Handbook](https://make.wordpress.org/polyglots/handbook/). All text strings in this plugin are localized, following the guidelines of the Wordpress.org Plugin Handbook's [Internationalization section](https://developer.wordpress.org/plugins/internationalization/).
 
 = Credits =
-This plugin was developed as part of a [Reynolds Journalism Institute](https://www.rjionline.org) fellowship and an article for [Current](https://current.org) public media news.
+This is part of a [Reynolds Journalism Institute](https://www.rjionline.org) fellowship and an article for [Current](https://current.org/author/bgolding/) public media news. The audio player was made by <a href="https://codepen.io/davepvm/pen/DgwlJ">Dave Pagurek</a>.
 
 == Screenshots ==
 
-1. Edit Post screen *Sound Shares** meta box
-2. Settings Page: User Roles, Post Types, URls, and Classes
-3. Embedded Player at Facebook
-4. Embedded Player at Twitter
+1. Settings screen for user roles, post types, and categories/
+2. Sound Shares meta box in the Edit Post screen.
+3. Facebook post with audio play button.
+4. Facebook post playing embedded audio.
+5. Twitter post with audio play button.
+6. Twitter post playing embedded audio.
 
 == Changelog ==
 
-= 0.4.5 =
-### 0.2.0
-* Beta version.
-* Test upgrade option function based on version number.
-
 ### 0.1.0
-* Initial test version.
+* Beta version.
 
 == Upgrade Notice ==
 
-= 0.1.0 =
-Secure public release version is 0.2.0.
+= 0.0.9 =
+Secure public release version is 0.1.0.
