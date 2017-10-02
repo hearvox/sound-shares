@@ -6,7 +6,7 @@
 **Plugin URI:** http://hearingvoices.com/  
 **GitHub Plugin URI:** https://github.com/hearvox/sound-shares  
 **Requires at least:** 4.5  
-**Tested up to:** 4.8  
+**Tested up to:** 4.8.2  
 **Stable tag:** 0.1.0  
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
@@ -15,11 +15,21 @@ Embed an audio player in social sites when users share your posts.
 
 ## Description ##
 
-Add an audio player into Facebook posts and Twitter tweets of your posts. Sound Shares adds meta tags into your HTML if you specify an audio file, like an MP3 (must be a secure HTTPS URL). Social sites uses these tags to embed a player. You can also set the audio's title, author, and image to be different than those of the post.
+Add an audio player into Facebook posts and Twitter tweets of your posts.
 
-### Settings and Security ###
+When you enter an audio file URL in a post's Sound Shares box, this plugin adds the HTML tags so social sites embed audio in their link previews.
 
-The Settings screen lets you control which user-roles, post-types, and categories display the Sound Shares meta box.
+*Note: Works only for secure HTTPS sites.*
+
+### Settings screen ###
+
+The Sound Shares screen in your Dashboard (under Settings) lets you restrict the use of Sound Shares by user roles, post types, and category (defaults: admin, 'post', and all categories). This is also where you enter your Twitter handle and your Facebook App and ID number to track usage in Facebook Sharing Insights.
+
+### Post box ###
+
+The Sound Shares box in the Edit Post screen has a field for the audio URL (internal or external, must be HTTPS) to embed at social sites. You can make the audio's title, author, and image different than the post's.
+
+Once published you will see links to the debug tools at Facebook and Twitter, which show you how your post displays in their link previews.
 
 ## Installation ##
 
@@ -27,7 +37,16 @@ To install the use the Postscript plugin:
 
 1. Upload the `sound-shares` directory and content to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to the Setting: Postscript options screen.
+3. Go to the Setting: Sound Shares options screen.
+
+## Screenshots ##
+
+1. Settings screen for user roles, post types, and categories/
+2. Sound Shares meta box in the Edit Post screen.
+3. Facebook post with audio play button.
+4. Facebook post playing embedded audio.
+5. Twitter post with audio play button.
+6. Twitter post playing embedded audio.
 
 ## Frequently Asked Questions ##
 
@@ -35,24 +54,9 @@ To install the use the Postscript plugin:
 Sound Shares works with Jetpack, Yoast SEO, and All in One SEO Pack. It changes their Facebook Open Graph and Twitter Card types so social-site link preview embed your audio.
 
 ### Can this plugin insert all the social meta tags? ###
-If you not using an SEO plugin to insert social meta tags for Facebook and Twitter link previews, Sound Shares can do that for you. Use the Settings page.
-### How do add registered script/style handles to the Postscript meta box? ###
-The Settings &gt; Postscript screen lists all available handles, those registered via the [`wp_enqueue_scripts` hook])https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/} in your active theme and plugins and the defaults registered by WordPress itself.
-
-You can add any registered script or stylesheet handle to the checkboxes in the Postscript meta box. The [GitHub Dev Notes](https://github.com/hearvox/postscript#dev-notes) details on the inner workings of this plugin, including custom fields and taxonomies, transients, options, and filters.
-
-### How do I register scripts? ###
-**Your Scripts and Styles:** You can register your own CSS/JS file *handles* with the [wp_register_script()](https://developer.wordpress.org/reference/functions/wp_register_script/) and [wp_register_style()](https://developer.wordpress.org/reference/functions/wp_register_style/) functions.
-
-**Default Scripts and Styles:** WordPress auto-registers numerous styles and scripts via its core functions: [wp_default_scripts()](https://developer.wordpress.org/reference/functions/wp_default_scripts/) and [wp_default_styles()](https://developer.wordpress.org/reference/functions/wp_default_styles/). Each file gets its own unique handle: see the [list of defaults](https://developer.wordpress.org/reference/functions/wp_enqueue_script/#defaults).
-
-### What is a use case for this plugin? ###
-Adding Thickbox to a post is an example of what this plugin does. WordPress ships with a modified [ThickBox jQuery library](https://codex.wordpress.org/Javascript_Reference/ThickBox), used to make modal lightbox windows. The [add_thickbox()](https://developer.wordpress.org/reference/functions/add_thickbox/) function enables this feature. When enabled, though, Thickbox's CSS and JS files load on every Post, whether the post needs it or not.
-
-This plugin improves site performance by enqueuing scripts only when specifically requested for an individual post, via the **Postscript** meta box. See [the screenshots](https://wordpress.org/plugins/postscript/screenshots/).
+If you are not using an SEO plugin to insert social meta tags for Facebook and Twitter, Sound Shares can do that for you. Use the Settings page.
 
 ### What might be some future features? ###
-
 Tell us in the [support fourm](https://wordpress.org/support/plugin/sound-shares) about new features you'd like in future releases. For instance:
 * Allow custom descriptions for link previews (rather than default post excerpt).
 * Use your own custom player for Twitter .
@@ -61,7 +65,6 @@ Tell us in the [support fourm](https://wordpress.org/support/plugin/sound-shares
 * Add filter for...?
 
 ### How can I contribute to Sound Shares? ###
-
 Sound Shares is now on [GitHub](https://github.com/hearvox/sound-shares). Pull Requests welcome.
 
 ### How can I translate Postscript? ###
@@ -70,26 +73,14 @@ This plugin is internationalized (default: English). Please contribute a transla
 The WordPress.org Polyglots Team maintains a comprehensive [Translator’s Handbook](https://make.wordpress.org/polyglots/handbook/). All text strings in this plugin are localized, following the guidelines of the Wordpress.org Plugin Handbook's [Internationalization section](https://developer.wordpress.org/plugins/internationalization/).
 
 ### Credits ###
-This plugin was developed as part of a [Reynolds Journalism Institute](https://www.rjionline.org) fellowship and an article for [Current](https://current.org) public media news.
-
-## Screenshots ##
-
-1. Edit Post screen *Sound Shares** meta box
-2. Settings Page: User Roles, Post Types, URls, and Classes
-3. Embedded Player at Facebook
-4. Embedded Player at Twitter
+This is part of a [Reynolds Journalism Institute](https://www.rjionline.org) fellowship and an article for [Current](https://current.org/author/bgolding/) public media news. The audio player was made by <a href="https://codepen.io/davepvm/pen/DgwlJ">Dave Pagurek</a>.
 
 ## Changelog ##
 
-### 0.4.5 ###
-### 0.2.0
-* Beta version.
-* Test upgrade option function based on version number.
-
 ### 0.1.0
-* Initial test version.
+* Beta version.
 
 ## Upgrade Notice ##
 
-### 0.1.0 ###
-Secure public release version is 0.2.0.
+### 0.0.9 ###
+Secure public release version is 0.1.0.
