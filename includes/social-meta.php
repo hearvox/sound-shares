@@ -266,7 +266,7 @@ function soundshares_twitter_tags() {
 
     // Twiiter validator requires a description.
     if ( empty( $description ) ) {
-        $description = __('Media by ', 'soundshshares') . get_bloginfo( 'name' ) . '.';
+        $description = __('Media by ', 'soundshshares', 'soundshares') . get_bloginfo( 'name' ) . '.';
     }
 
      return $description;

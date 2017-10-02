@@ -184,6 +184,7 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
  * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
  * @todo Check drafts in FB/Twitter debug tools.
+ * @todo List posts with plugin meta data.
  * @todo Add video duration tag using WP functions to read ID3.
  * Duration info:
  * <meta property="video:duration" content="120"/>

@@ -151,8 +151,8 @@ add_action('admin_init', 'soundshares_options_init');
  */
 function soundshares_section_callback() {
     ?>
-    <p><?php _e('Sound Shares embeds an audio (or video) player in the link preview of your socially shared posts.', 'soundshares' ); ?></p>
-    <p><?php _e('This plugin inserts <code>twitter:</code> and <code>og:</code> HTML meta tags for Twitter and Facebook players.', 'soundshares' ); ?></p>
+    <p><?php _e('Sound Shares puts an audio player in the link preview of your socially shared posts.', 'soundshares' ); ?></p>
+    <p><?php _e('This plugin inserts <code>twitter:</code> and <code>og:</code> HTML meta tags to embed audio at Twitter and Facebook.', 'soundshares' ); ?></p>
     <?php
 }
 
@@ -172,7 +172,7 @@ function soundshares_fields_facebook_callback( $options ) {
                 <label><input type="text" id="soundshares-fb-app-id" name="soundshares[fb_app_id]" value="<?php if ( isset ( $options['fb_app_id'] ) ) { echo esc_attr( $options['fb_app_id'] ); } ?>" /> <?php _e( 'App ID', 'soundshares' ); ?></label></li>
             <li>
                 <label><input type="text" id="soundshares-fb-admins" name="soundshares[fb_admins]" value="<?php if ( isset ( $options['fb_admins'] ) ) { echo esc_attr( $options['fb_admins'] ); } ?>" /> <?php _e( 'Admin(s)', 'soundshares' ); ?></label>
-                <p class="wp-ui-text-icon"><?php _e( 'To track <a href="https://developers.facebook.com/docs/sharing/insights">Facebook Sharing Insights</a>, enter an App ID (from your <a href="https://developers.facebook.com/apps/redirect/dashboard">Facebook App Dashboard</a>). To allow users access to Insights, enter their Facebook user IDs (separated by a comma; find IDs via the <a href="https://developers.facebook.com/tools/explorer/?method=GET&amp;path=me%3Ffields%3Did%2Cname">Graph Explorer</a>).', 'postscript', 'soundshares' ); ?></p>
+                <p class="wp-ui-text-icon"><?php _e( 'Enter your App ID (from your <a href="https://developers.facebook.com/apps/redirect/dashboard">Facebook App Dashboard</a>) to track <a href="https://developers.facebook.com/docs/sharing/insights">Facebook Sharing Insights</a>, viewable by admins whose Facebook users IDs you list here (comma-separated; find IDs at the <a href="https://developers.facebook.com/tools/explorer/?method=GET&amp;path=me%3Ffields%3Did%2Cname">Graph Explorer</a>).', 'soundshares' ); ?></p>
             </li>
         </ul>
     </fieldset>
@@ -191,7 +191,7 @@ function soundshares_fields_facebook_callback( $options ) {
 function soundshares_fields_twitter_callback( $options ) {
     ?>
     <fieldset>
-        <legend><?php _e( 'Enter your twitter settings:', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Enter your Twitter handle:', 'soundshares' ); ?></legend>
         <ul class="inside">
             <li>
                 <label><input type="text" id="soundshares-facebook-app-id" name="soundshares[twit_user]" value="<?php if ( isset ( $options['twit_user'] ) ) { echo esc_attr( $options['twit_user'] ); } ?>" /> <?php _e( 'Site name', 'soundshares' ); ?></label>
@@ -216,11 +216,11 @@ function soundshares_fields_twitter_callback( $options ) {
 function soundshares_fields_meta_tags_callback( $options ) {
     ?>
     <fieldset>
-        <legend><?php _e( '<strong>Check this box only if you are not using another plugin to add social tags</strong> (e.g., via an SEO plugin).', 'soundshares' ); ?></legend>
+        <legend><?php _e( '<strong>Check this only if your site has no social tags.</strong>', 'soundshares' ); ?></legend>
         <ul class="inside">
             <li>
                 <label><input type="checkbox" id="soundshares-meta-all" name="soundshares[meta_all]" value="on"<?php checked( 'on', isset( $options['meta_all'] ) ? $options['meta_all'] : 'off' ); ?>/> <?php _e( 'Add all social tags', 'soundshares' ); ?></label>
-                <p class="wp-ui-text-icon"><?php _e( 'Inspect your site\'s source code for <code>twitter:</code> and <code>og:</code> tags. If those are already there, do not check this box.', 'soundshares' ); ?></p>
+                <p class="wp-ui-text-icon"><?php _e( 'Many sites you an SEO plugin for social meta tags. If you see <code>twitter:url</code> and <code>og:url</code> tags in your source code, do <em>not</em> check this box.', 'soundshares' ); ?></p>
             </li>
         </ul>
     </fieldset>
@@ -298,7 +298,7 @@ function soundshares_categories_callback( $options ) {
     // $checked_cats = ( in_array( 0, $cats ) ) ? 'false' : $cats; // If "All Cats" checked, uncheck all cats.
     ?>
     <fieldset style="max-width: 30em;">
-        <legend><?php _e( 'Allow Sound Shares for posts only in selected categories:', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Allow Sound Shares for all categories (default) or only these:', 'soundshares' ); ?></legend>
         <div class="categorydiv">
             <div class="tabs-panel">
                 <ul class="categorychecklist form">
@@ -357,7 +357,7 @@ function soundshares_settings_footer() {
             <?php } ?>
         </ul>
     <p><?php _e('Debug tools (link preview):', 'soundshares' ); ?> <a href="https://developers.facebook.com/tools/debug/sharing/" target="_blank">Facebook</a> | <a href="https://cards-dev.twitter.com/validator" target="_blank">Twitter</a>.
-    <p><a href="<?php echo $player_url; ?>" target="_blank"><?php _e('The Sound Shares player', 'soundshares' ); ?></a> <?php _e('embed like this in a tweet:', 'soundshares' ); ?><br>
+    <p>Facebook embeds the default HTML audio player. Twitter embeds this <a href="<?php echo $player_url; ?>" target="_blank"><?php _e('Sound Shares player:', 'soundshares' ); ?></a><br>
         <iframe src="<?php echo $player_url; ?>" width="480" height="140"></iframe></p>
     </p>
     <p><?php _e('Player design by', 'soundshares' ); ?> <a href="https://codepen.io/davepvm/pen/DgwlJ">Dave Pagurek</a>. <?php _e( 'This plugin is part of a <a href="https://www.rjionline.org/stories/series/storytelling-tools/">Reynold Journalism Institute</a> fellowship and an article in <a href="https://current.org/author/bgolding/">Current</a>.', 'soundshares' ); ?></p>

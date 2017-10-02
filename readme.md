@@ -1,10 +1,21 @@
 # Sound Shares #
+**Contributors:** [hearvox](https://profiles.wordpress.org/hearvox)  
+**Donate link:** https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3546QM2HAEKXW  
+**Tags:** social, facebook, twitter, embed, player, audio, video  
+**Author URI:** http://hearingvoices.com/tools/sound-shares/  
+**Plugin URI:** http://hearingvoices.com/  
+**GitHub Plugin URI:** https://github.com/hearvox/sound-shares  
+**Requires at least:** 4.5  
+**Tested up to:** 4.8  
+**Stable tag:** 0.1.0  
+**License:** GPLv2 or later  
+**License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-**NOT READY YET:** SOON. Embed media player in social sites when users share your link in a social sites.
+Embed an audio player in social sites when users share your posts.
 
 ## Description ##
 
-Add an audio (or video) player into Facebook posts and Twitter tweets of your posts.
+Add an audio player into Facebook posts and Twitter tweets of your posts. Sound Shares adds meta tags into your HTML if you specify an audio file, like an MP3 (must be a secure HTTPS URL). Social sites uses these tags to embed a player. You can also set the audio's title, author, and image to be different than those of the post.
 
 ### Settings and Security ###
 
@@ -20,6 +31,11 @@ To install the use the Postscript plugin:
 
 ## Frequently Asked Questions ##
 
+### Does this work with tags inserted by SEO plugins? ###
+Sound Shares works with Jetpack, Yoast SEO, and All in One SEO Pack. It changes their Facebook Open Graph and Twitter Card types so social-site link preview embed your audio.
+
+### Can this plugin insert all the social meta tags? ###
+If you not using an SEO plugin to insert social meta tags for Facebook and Twitter link previews, Sound Shares can do that for you. Use the Settings page.
 ### How do add registered script/style handles to the Postscript meta box? ###
 The Settings &gt; Postscript screen lists all available handles, those registered via the [`wp_enqueue_scripts` hook])https://developer.wordpress.org/reference/hooks/wp_enqueue_scripts/} in your active theme and plugins and the defaults registered by WordPress itself.
 
@@ -38,13 +54,13 @@ This plugin improves site performance by enqueuing scripts only when specificall
 ### What might be some future features? ###
 
 Tell us in the [support fourm](https://wordpress.org/support/plugin/sound-shares) about new features you'd like in future releases. For instance:
-
-* Custom descriptions for embedded link preview (rather than default post excerpt).
-* Custom size for embedded player.
-* Different images for Facebook and Twitter.
+* Allow custom descriptions for link previews (rather than default post excerpt).
+* Use your own custom player for Twitter .
+* Use different images for Facebook and Twitter.
+* List posts using Sound Shares in an admin screen.
 * Add filter for...?
 
-### How can I contribute to Postscript? ###
+### How can I contribute to Sound Shares? ###
 
 Sound Shares is now on [GitHub](https://github.com/hearvox/sound-shares). Pull Requests welcome.
 
@@ -77,5 +93,3 @@ This plugin was developed as part of a [Reynolds Journalism Institute](https://w
 
 ### 0.1.0 ###
 Secure public release version is 0.2.0.
-
-

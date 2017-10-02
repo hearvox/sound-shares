@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sound Shares 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sound-shares\n"
-"POT-Creation-Date: 2017-09-17 20:14:03+00:00\n"
+"POT-Creation-Date: 2017-10-02 14:08:11+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -55,14 +55,14 @@ msgstr ""
 
 #: includes/admin-options.php:154
 msgid ""
-"Sound Shares embeds an audio (or video) player in the link preview of your "
-"socially shared posts."
+"Sound Shares puts an audio player in the link preview of your socially "
+"shared posts."
 msgstr ""
 
 #: includes/admin-options.php:155
 msgid ""
 "This plugin inserts <code>twitter:</code> and <code>og:</code> HTML meta "
-"tags for Twitter and Facebook players."
+"tags to embed audio at Twitter and Facebook."
 msgstr ""
 
 #: includes/admin-options.php:169
@@ -79,18 +79,18 @@ msgstr ""
 
 #: includes/admin-options.php:175
 msgid ""
-"To track <a "
-"href=\"https://developers.facebook.com/docs/sharing/insights\">Facebook "
-"Sharing Insights</a>, enter an App ID (from your <a "
+"Enter your App ID (from your <a "
 "href=\"https://developers.facebook.com/apps/redirect/dashboard\">Facebook "
-"App Dashboard</a>). To allow users access to Insights, enter their Facebook "
-"user IDs (separated by a comma; find IDs via the <a "
+"App Dashboard</a>) to track <a "
+"href=\"https://developers.facebook.com/docs/sharing/insights\">Facebook "
+"Sharing Insights</a>, viewable by admins whose Facebook users IDs you list "
+"here (comma-separated; find IDs at the <a "
 "href=\"https://developers.facebook.com/tools/explorer/?method=GET&amp;path="
 "me%3Ffields%3Did%2Cname\">Graph Explorer</a>)."
 msgstr ""
 
 #: includes/admin-options.php:194
-msgid "Enter your twitter settings:"
+msgid "Enter your Twitter handle:"
 msgstr ""
 
 #: includes/admin-options.php:197
@@ -104,9 +104,7 @@ msgid ""
 msgstr ""
 
 #: includes/admin-options.php:219
-msgid ""
-"<strong>Check this box only if you are not using another plugin to add "
-"social tags</strong> (e.g., via an SEO plugin)."
+msgid "<strong>Check this only if your site has no social tags.</strong>"
 msgstr ""
 
 #: includes/admin-options.php:222
@@ -115,8 +113,9 @@ msgstr ""
 
 #: includes/admin-options.php:223
 msgid ""
-"Inspect your site's source code for <code>twitter:</code> and "
-"<code>og:</code> tags. If those are already there, do not check this box."
+"Many sites you an SEO plugin for social meta tags. If you see "
+"<code>twitter:url</code> and <code>og:url</code> tags in your source code, "
+"do <em>not</em> check this box."
 msgstr ""
 
 #: includes/admin-options.php:247
@@ -128,51 +127,64 @@ msgid "Allow Sound Shares only for selected post types:"
 msgstr ""
 
 #: includes/admin-options.php:301
-msgid "Allow Sound Shares for posts only in selected categories:"
+msgid "Allow Sound Shares for all categories (default) or only these:"
 msgstr ""
 
-#: includes/admin-options.php:341
+#: includes/admin-options.php:347
 msgid "Sound Shares information"
 msgstr ""
 
-#: includes/admin-options.php:343
+#: includes/admin-options.php:349
 msgid ""
 "Your settings above display the meta box on the Edit screen <em>only</em> "
 "for:"
 msgstr ""
 
-#: includes/admin-options.php:345
-msgid "User-roles: "
+#: includes/admin-options.php:351
+msgid "User-roles:"
 msgstr ""
 
-#: includes/admin-options.php:346
-msgid "Post-types: "
+#: includes/admin-options.php:352
+msgid "Post-types:"
 msgstr ""
 
-#: includes/admin-options.php:348
+#: includes/admin-options.php:354
 msgid "Categories: (all)"
 msgstr ""
 
-#: includes/admin-options.php:350
-msgid "Categories: "
+#: includes/admin-options.php:356
+msgid "Categories:"
 msgstr ""
 
-#: includes/admin-options.php:355
+#: includes/admin-options.php:359
+msgid "Debug tools (link preview):"
+msgstr ""
+
+#: includes/admin-options.php:360
+msgid "Sound Shares player:"
+msgstr ""
+
+#: includes/admin-options.php:363
+msgid "Player design by"
+msgstr ""
+
+#: includes/admin-options.php:363
 msgid ""
-"This plugin created as part of a <a "
+"This plugin is part of a <a "
 "href=\"https://www.rjionline.org/stories/series/storytelling-tools/\">"
-"Reynold Journalism Institute</a> fellowship."
+"Reynold Journalism Institute</a> fellowship and an article in <a "
+"href=\"https://current.org/author/bgolding/\">Current</a>."
 msgstr ""
 
-#: includes/admin-options.php:357
+#: includes/admin-options.php:365
 msgid " queries in "
 msgstr ""
 
-#: includes/admin-options.php:357
+#: includes/admin-options.php:365
 msgid " seconds uses "
 msgstr ""
 
-#: includes/admin-options.php:357
+#: includes/admin-options.php:365
 msgid " peak memory"
 msgstr ""
 
@@ -181,55 +193,63 @@ msgid "Error!"
 msgstr ""
 
 #: includes/meta-box.php:106
-msgid "Audio URL:"
+msgid "Audio URL (must be secure: <strong>https://</strong>):"
 msgstr ""
 
 #: includes/meta-box.php:107
-msgid "(Required: Must be https://)"
-msgstr ""
-
-#: includes/meta-box.php:110
-msgid "Audio title:"
-msgstr ""
-
-#: includes/meta-box.php:111
-msgid "default: post title"
+msgid "(Requires HTTPS)"
 msgstr ""
 
 #: includes/meta-box.php:114
-msgid "Audio author:"
+msgid "Audio title:"
 msgstr ""
 
 #: includes/meta-box.php:115
+msgid "default: post title"
+msgstr ""
+
+#: includes/meta-box.php:118
+msgid "Audio author:"
+msgstr ""
+
+#: includes/meta-box.php:119
 msgid "default: post author"
 msgstr ""
 
-#: includes/meta-box.php:156
+#: includes/meta-box.php:131
+msgid "Debug:"
+msgstr ""
+
+#: includes/meta-box.php:169
 msgid "Remove social-site image"
 msgstr ""
 
-#: includes/meta-box.php:162
+#: includes/meta-box.php:175
 msgid "Image:"
 msgstr ""
 
-#: includes/meta-box.php:163
+#: includes/meta-box.php:176
 msgid "Set social-site image"
 msgstr ""
 
-#: includes/meta-box.php:163
+#: includes/meta-box.php:176
 msgid "Select image for social sites"
 msgstr ""
 
-#: includes/meta-box.php:163
+#: includes/meta-box.php:176
 msgid "Use image"
 msgstr ""
 
-#: includes/meta-box.php:165
+#: includes/meta-box.php:178
 msgid "(default: featured image)"
 msgstr ""
 
-#: includes/meta-box.php:350
+#: includes/meta-box.php:363
 msgid "Social-site Image"
+msgstr ""
+
+#: includes/social-meta.php:269
+msgid "Media by "
 msgstr ""
 
 #. Plugin URI of the plugin/theme
