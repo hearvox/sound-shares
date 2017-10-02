@@ -77,9 +77,13 @@ function soundshares_add_meta_tags() {
         /**
          * Filter the array of data for HTML meta tags.
          *
+         * The tag's property is the array item's key, the content is its value.
          * Example:
          * unset( $meta_tags['og:video:height'] ); // Remove item with data.
          * $meta_tags['og:video:height'] = '100'; // Add new tag data.
+         *
+         * Prints (via 'wp_head' filter):
+         * <meta property="og:video:height" value="100" />
          *
          * @since   0.1.0
          *
@@ -102,9 +106,9 @@ function soundshares_add_meta_tags() {
         echo '<!-- Sound Shares social tags (embeds media player) -->' . "\n";
         foreach ($meta_tags as $property => $content ) {
             if ( in_array( $property, $meta_urls ) ) { // If an URL.
-                echo '<meta property="' . esc_attr( $property ) . '" content="' . esc_url_raw( $content ) . '">' . "\n";
+                echo '<meta property="' . esc_attr( $property ) . '" content="' . esc_url_raw( $content ) . '" />' . "\n";
             } else {
-                echo '<meta property="' . esc_attr( $property ). '" content="' . esc_attr( $content ) . '">' . "\n";
+                echo '<meta property="' . esc_attr( $property ). '" content="' . esc_attr( $content ) . '" />' . "\n";
             }
         }
         echo '<!-- / Sound Shares tags -->' . "\n";

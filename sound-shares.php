@@ -24,6 +24,18 @@ if ( defined( 'SOUNDSHARES_VERSION' ) ) {
     return;
 }
 
+if ( ! is_ssl() ) {
+	add_action( 'admin_notices', 'soundshares_admin_notice_ssl' );
+}
+
+function soundshares_admin_notice_ssl() {
+?>
+<div class="notice notice-warning is-dismissible">
+	<p><?php _e( 'Your site may not be secure HTTPS so will not embed audio in social sites (which require secure URLs).', 'soundshares' ); ?></p>
+</div>
+<?php
+}
+
 /* ------------------------------------------------------------------------ *
  * Constants: plugin path, URI, dir, filename, and version.
  *
@@ -155,11 +167,6 @@ function soundshares_get_html_meta( $html ) {
 
 /*
 ~ Docs (ReadMe.md and inline docs):
-    Lists debug URLs: FB and Twit.
-    List OG, FB-OG, and Twitter Card doc URLs.
-    Print example OG output, basic and video.
-    List TODOs: Twitter, different image, filters.
-    List filters in Sound Shares, with examples.
     List other plugins that Sound Shares filters og:type.
     Link to Jetpack list of plugins that manage OG.
     Detail FB and Twit image specs.
@@ -173,13 +180,13 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
 
 /**
  * @todo Document above items.
- * @todo is_ssl()
  * @todo Sanitize player.html text and URL.
  * @todo Check FB/Tw w/ SEO plugins on.
  * @todo RM timers, print_r, commmented out code.
  *
  * TODO for next version:
- * @todo Rm loop (from js, css, hrml)
+ * @todo Print wp_head() output.
+ * @todo Rm loop (from js, css, html)
  * @todo User sets own player.
  * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
