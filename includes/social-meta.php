@@ -158,8 +158,13 @@ function soundshares_facebook_tags() {
         $image_id = ( ! empty( $post_meta['image'] ) )
             ? $post_meta['image'] : get_post_thumbnail_id( $post_id );
 
-        $og_meta['og:image']     = soundshares_get_image_src( $image_id );
-        $og_meta['og:image:alt'] = soundshares_get_image_alt( $image_id );
+        $og_meta['og:image']        = soundshares_get_image_src( $image_id );
+        $og_meta['og:image:alt']    = soundshares_get_image_alt( $image_id );
+
+        // Get image dimensions.
+        $image_meta                 = soundshares_get_image_meta( $image_id );
+        $og_meta['og:image:width']  = $img_meta['width'];
+        $og_meta['og:image:height'] = $img_meta['height'];
     }
 
     // Data for media meta tags.
@@ -307,6 +312,20 @@ function soundshares_get_image_alt( $image_id ) {
     return $image_alt;
 }
 
+/**
+ * Get alt text of image from attachment meta data.
+ *
+ * @since   0.1.0
+ *
+ * @param  int           $image_id    Attachment ID
+ * @return false|string  $image_dems  Attachment alt text, or false is no meta
+ *
+ */
+function soundshares_get_image_meta( $image_id ) {
+    $image_meta = wp_get_attachment_metadata( $image_id );
+
+    return $image_meta;
+}
 
 /**
  * Set or remove social meta tags inserted by other plugins.
@@ -388,39 +407,6 @@ function soundshare_aiosp_tags ( $value, $type, $field ){
         return $value;
     }
 }
-
-/**
- * Add Open Graph video tags.
- *
- * Callback for filter: wp_head.
- *
- * @todo Add video duration tag using WP functions to read ID3.
- * <meta property="video:duration" content="120"/>
- * @link https://codex.wordpress.org/Function_Reference/wp_read_audio_metadata
- * @link https://codex.wordpress.org/Function_Reference/wp_read_video_metadata
- *
- * @since   0.1.0
- */
-function soundshares_add_og_meta_tags( $type ) {
-    $options = soundshares_get_options();
-    ?>
-    <meta property="fb:app_id" content="<?php echo esc_attr( $options['fb_app_id'] ); ?>" />
-    <meta property="fb:admins" content="<?php echo esc_attr( $options['fb_admins'] ); ?>"/>
-    <meta property="og:type" content="video.movie"/>
-    <meta property="og:video:height" content="<?php echo esc_attr( $options['video_h'] ); ?>" />
-    <meta property="og:video:width" content="<?php echo esc_attr( $options['video_w'] ); ?>" />
-    <meta property="og:video:type" content="video/mp4"/>
-    <meta property='og:video'content='<?php // echo esc_url( $sse_url ); ?>'>
-    <meta property="twitter:card" content="player" />
-    <meta property="twitter:player" content="https://www.wnyc.org/widgets/ondemand_player/#file=https%3A%2F%2Faudio3.wnyc.org%2Fbl%2Fbl040213cpod.mp3&amp;containerClass=wnyc" />
-    <meta property="twitter:player:width" content="280" />
-    <meta property="twitter:player:height" content="54" />
-    <meta property="twitter:image:src" content = "http://www.wnyc.org/i/200/200/80/1/wnyc-logo200.png" />
-    <meta property="twitter:image" content="https://media2.wnyc.org/i/1200/627/c/80/1/Maya.JPG" />
-    <meta property="twitter:site" content="<?php echo esc_attr( $options['twit_user'] ); ?>">
-    <?php
-}
-// add_filter( 'wp_head', 'soundshares_add_og_meta_tags' );
 
 /**
  * References and notes.
