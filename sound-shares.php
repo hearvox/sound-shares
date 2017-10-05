@@ -185,7 +185,7 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
  * @todo RM timers, print_r, commmented out code.
  *
  * TODO for next version:
- * @todo Print wp_head() output.
+ * @todo Print wp_head() front-end output.
  * @todo Rm loop (from js, css, html)
  * @todo User sets own player.
  * @todo Default image is site logo (if fn exists).
@@ -195,6 +195,9 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
  * @todo Add video duration tag using WP functions to read ID3.
  * Duration info:
  * <meta property="video:duration" content="120"/>
- * @link https://codex.wordpress.org/Function_Reference/wp_read_audio_metadata
- * @link https://codex.wordpress.org/Function_Reference/wp_read_video_metadata
+ * https://codex.wordpress.org/Function_Reference/wp_read_audio_metadata
+ * https://codex.wordpress.org/Function_Reference/wp_read_video_metadata
+ *
+ * @todo Link to Jetpack's list of SEO plugins
+ * https://plugins.trac.wordpress.org/browser/jetpack/trunk/class.jetpack.php#L218
  */

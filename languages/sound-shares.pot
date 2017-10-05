@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sound Shares 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sound-shares\n"
-"POT-Creation-Date: 2017-10-02 14:08:11+00:00\n"
+"POT-Creation-Date: 2017-10-05 14:17:57+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -248,8 +248,14 @@ msgstr ""
 msgid "Social-site Image"
 msgstr ""
 
-#: includes/social-meta.php:269
+#: includes/social-meta.php:273
 msgid "Media by "
+msgstr ""
+
+#: sound-shares.php:34
+msgid ""
+"Your site may not be secure HTTPS so will not embed audio in social sites "
+"(which require secure URLs)."
 msgstr ""
 
 #. Plugin URI of the plugin/theme
