@@ -31,6 +31,12 @@ The Sound Shares box in the Edit Post screen has a field for the audio URL (inte
 
 Once published you will see links to the debug tools at Facebook and Twitter, which show you how your post displays in their link previews.
 
+= Facebook App and Admin IDs =
+Facebook requires an App ID (get one from your <a href="https://developers.facebook.com/apps/redirect/dashboard">Facebook App Dashboard</a>) to track <a href="https://developers.facebook.com/docs/sharing/insights">Facebook Sharing Insights</a>. You control who can view these Insights with Facebook users IDs (find IDs at the <a href="https://developers.facebook.com/tools/explorer/?method=GET&amp;path=me%3Ffields%3Did%2Cname">Graph Explorer</a>). Enter Facebook App and User IDs in the Settings: Sound Shares screen. You can check your posts' meta tags and link-previews with Facebook's [Sharing Debugger](https://developers.facebook.com/tools/debug/sharing/).
+
+= Twitter whitelist =
+Twitter must approve ("whitelist") your site before it embeds an audio player. The quickest way to get [Player Card Approval](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/player-card-approval) is to enter the URL of an audio post (one with an audio file in its Sound Shares box) into Twitter's [Card Validator](https://cards-dev.twitter.com/validator). If your site is not whitelisted, use the "Request Approval" button to begin the process -- which will take a day or more.
+
 == Installation ==
 
 To install the use the Postscript plugin:
@@ -47,6 +53,7 @@ To install the use the Postscript plugin:
 4. Facebook post playing embedded audio.
 5. Twitter post with audio play button.
 6. Twitter post playing embedded audio.
+6. Twitter card validator's Request Approval button.
 
 == Frequently Asked Questions ==
 
