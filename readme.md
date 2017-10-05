@@ -75,7 +75,7 @@ The WordPress.org Polyglots Team maintains a comprehensive [Translator’s Handb
 ### Dev notes ###
 This plugin has one filter: `'soundshares_meta_tags'`, an array of values for the HTML meta tags -- `includes/admin-options.php` has a usage example. See Twitter's [Player Card](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/player-card) and Facebook's [Open Graph protocol](https://developers.facebook.com/docs/sharing/webmasters) references.
 
-Sound Shares filters of the Jetpack, Yoast SEO, and All in One SEO Pack meta tags so that `og:type` and `twitter:card` values will embed media. Facebook audio embeds in the default HTML audio player. For Twitter this plugin provides a custom player (`includes/player.html`). The meta box displays links to social-site link-preview debuggers after the post is published.
+Sound Shares filters of the Jetpack, Yoast SEO, and All in One SEO Pack meta tags so that `og:type` and `twitter:card` values will embed media. Facebook audio embeds in the default HTML audio player. For Twitter this plugin provides a custom player (`includes/player.html`). The meta box displays links to social-site link-preview debuggers after the post is published. (Try Facebook's "Scrape Again" button if your post's link-preview does not display a play button.)
 
 ### Credits ###
 This is part of a [Reynolds Journalism Institute](https://www.rjionline.org) fellowship and an article for [Current](https://current.org/author/bgolding/) public media news. The audio player was made by <a href="https://codepen.io/davepvm/pen/DgwlJ">Dave Pagurek</a>.
