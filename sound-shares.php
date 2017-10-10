@@ -2,7 +2,7 @@
 /*
 Plugin Name:       Sound Shares
 Plugin URI:        https://hearingvoices.com/tools/sound-shares
-Description:       NOT READY. DO NOT USE YET. Embed audio and video in your social posts (using Facebook's Open Graph protocol and Twitter's player card). To use: 1) Go to Edit Post's box for Custom Fields. 2) Click the Add New Custom Field form's link labeled "Enter New", 3) Enter the name: "soundshares" in the Name field. 4) Enter the full URL of the audiofile (or video) in the Value field. 5) Click the form's Add Custom Field button. Done.
+Description:       Embed audio in your social posts by entering an audio URL in a post's Sound Shares box. (Uses Facebook's Open Graph protocol and Twitter's player card.)
 Version:           0.1.0
 Author:            Barrett Golding
 Author URI:        https://hearingvoices.com/bg/
@@ -25,6 +25,29 @@ if ( defined( 'SOUNDSHARES_VERSION' ) ) {
 }
 
 /* ------------------------------------------------------------------------ *
+ * Required Plugin Files
+ * ------------------------------------------------------------------------ */
+include_once( dirname( __FILE__ ) . '/includes/admin-options.php' );
+include_once( dirname( __FILE__ ) . '/includes/functions.php' );
+include_once( dirname( __FILE__ ) . '/includes/meta-box.php' );
+include_once( dirname( __FILE__ ) . '/includes/social-meta.php' );
+
+/**
+ * Adds "Settings" link on Plugins screen (next to "Activate").
+
+ * @since  0.1.0
+ *
+ * @param   string  $links HTML links for Plugins screen.
+ * @return  string  $links HTML links for Plugins screen.
+ */
+function soundshares_plugin_settings_link( $links ) {
+  $settings_link = '<a href="' . esc_url( admin_url( 'options-general.php?page=soundshares' ) ) . '">' . __( 'Settings', 'soundshares' ) . '</a>';
+  array_unshift( $links, $settings_link );
+  return $links;
+}
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'soundshares_plugin_settings_link' );
+
+/* ------------------------------------------------------------------------ *
  * Constants: plugin path, URI, dir, filename, and version.
  *
  * SOUNDSHARES_BASENAME 	sound-shares/sound-shares.php
@@ -40,14 +63,6 @@ define(
 	'SOUNDSHARES_DIR_BASENAME',
 	trailingslashit( dirname( plugin_basename( __FILE__ ) ) )
 );
-
-/* ------------------------------------------------------------------------ *
- * Required Plugin Files
- * ------------------------------------------------------------------------ */
-include_once( dirname( __FILE__ ) . '/includes/admin-options.php' );
-include_once( dirname( __FILE__ ) . '/includes/functions.php' );
-include_once( dirname( __FILE__ ) . '/includes/meta-box.php' );
-include_once( dirname( __FILE__ ) . '/includes/social-meta.php' );
 
 /**
  * Load the plugin text domain for translation.
