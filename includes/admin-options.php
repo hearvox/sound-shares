@@ -313,7 +313,7 @@ function soundshares_categories_callback( $options ) {
     // $checked_cats = ( in_array( 0, $cats ) ) ? 'false' : $cats; // If "All Cats" checked, uncheck all cats.
     ?>
     <fieldset style="max-width: 30em;">
-        <legend><?php _e( 'Allow Sound Shares for all categories (default) or only these:', 'soundshares' ); ?></legend>
+        <legend><?php _e( 'Allow Sound Shares for all categories (default) or only these selections:', 'soundshares' ); ?></legend>
         <div class="categorydiv">
             <div class="tabs-panel">
                 <ul class="categorychecklist form">
