@@ -13,6 +13,25 @@
 http://rji.local/wp-content/plugins/sound-shares/player.php
 */
 
+/**
+ * Dispaly admin notice action if site is not HTTPS.
+ *
+ * @since   0.1.0
+ *
+ * Sets Settings screen ID: 'settings_page_soundshares'.
+ */
+function soundshares_admin_notice_ssl() {
+    $screen = get_current_screen();
+    if ( ! is_ssl() && $screen->id === 'settings_page_soundshares' ) {
+    ?>
+    <div class="notice notice-warning is-dismissible">
+    	<p><?php _e( 'Your site is not HTTPS. Social sites require secure audio URLs so Sound Shares may not work.', 'soundshares' ); ?></p>
+    </div>
+    <?php
+    }
+}
+add_action( 'admin_notices', 'soundshares_admin_notice_ssl' );
+
 /* ------------------------------------------------------------------------ *
  * Wordpress Settings API
  * ------------------------------------------------------------------------ */
@@ -22,7 +41,7 @@ http://rji.local/wp-content/plugins/sound-shares/player.php
  *
  * @since   0.1.0
  *
- * Sets Settings page screen ID: 'settings_page_postscript'.
+ * Sets Settings screen ID: 'settings_page_soundshares'.
  */
 function soundshares_settings_menu() {
     $soundshares_options_page = add_options_page(

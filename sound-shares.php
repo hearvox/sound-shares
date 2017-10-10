@@ -24,18 +24,6 @@ if ( defined( 'SOUNDSHARES_VERSION' ) ) {
     return;
 }
 
-if ( ! is_ssl() ) {
-	add_action( 'admin_notices', 'soundshares_admin_notice_ssl' );
-}
-
-function soundshares_admin_notice_ssl() {
-?>
-<div class="notice notice-warning is-dismissible">
-	<p><?php _e( 'Your site may not be secure HTTPS so will not embed audio in social sites (which require secure URLs).', 'soundshares' ); ?></p>
-</div>
-<?php
-}
-
 /* ------------------------------------------------------------------------ *
  * Constants: plugin path, URI, dir, filename, and version.
  *
@@ -174,7 +162,6 @@ function soundshares_get_html_meta( $html ) {
     Link to an FB post using Sound Shares audio embed.
 
 http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https%3A%2F%2Fpubmedia.us%2Fwip%2Fcurrent%2Fembeds%2FKGLT-ID_Bass-Roberti.mp3&title=Jazz+Bass&author=Kelly+Roberti
-
 
 */
 
