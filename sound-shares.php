@@ -91,7 +91,7 @@ add_action( 'activated_plugin', 'soundshares_activation_redirect' );
  *
  * @since   0.1.0
  *
- * @return  array   $query->posts    Array of post IDs
+ * @return  array  $query->posts  Array of post IDs
  */
 function soundshares_post_ids() {
 	$query_args = array(
@@ -129,7 +129,7 @@ function soundshares_wp_head() {
  *
  * @since   0.1.0
  *
- * @return  string       wp_head() HTML output
+ * @return  string  wp_head() HTML output
  */
 function soundshares_get_html_meta( $html ) {
     $metatags = '';
@@ -153,20 +153,9 @@ function soundshares_get_html_meta( $html ) {
     }
 }
 
-/*
-~ Docs (ReadMe.md and inline docs):
-    List other plugins that Sound Shares filters og:type.
-    Link to Jetpack list of plugins that manage OG.
-    Detail FB and Twit image specs.
-    Link to current article.
-    Link to an FB post using Sound Shares audio embed.
-
-http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https%3A%2F%2Fpubmedia.us%2Fwip%2Fcurrent%2Fembeds%2FKGLT-ID_Bass-Roberti.mp3&title=Jazz+Bass&author=Kelly+Roberti
-
-*/
-
 /**
  * @todo Document above items.
+ * @todo Link to an FB post using Sound Shares audio embed.
  * @todo Sanitize player.html text and URL.
  * @todo Check FB/Tw w/ SEO plugins on.
  * @todo RM timers, print_r, commmented out code.
@@ -175,10 +164,12 @@ http://rji.local/wp-content/plugins/sound-shares/includes/player.html?file=https
  * @todo Print wp_head() front-end output.
  * @todo Rm loop (from js, css, html)
  * @todo User sets own player.
+ * @todo Document FB and Twitter image specs.
  * @todo Default image is site logo (if fn exists).
  * @todo Use WP Inline Link Checker in meta-box.
  * @todo Check drafts in FB/Twitter debug tools.
  * @todo List posts with plugin meta data.
+ * @todo FB warnings: article:published_time, article:modified_time
  * @todo Add video duration tag using WP functions to read ID3.
  * Duration info:
  * <meta property="video:duration" content="120"/>

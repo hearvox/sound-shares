@@ -417,7 +417,7 @@ function soundshare_aiosp_tags ( $value, $type, $field ){
  *     [fb_app_id] => 0
  *     [fb_admins] => 0
  *     [twit_user] => 0
- *     [meta_all] => 0
+ *     [meta_all] => off
  *     [video_h] => 50
  *     [video_w] => 480
  *     [version] => 0.1.0
@@ -428,6 +428,10 @@ function soundshare_aiosp_tags ( $value, $type, $field ){
  *     [post_types] => Array
  *          (
  *               [0] => post
+ *          )
+ *     [categories] => Array
+ *          (
+ *               [0] => 0
  *          )
  *     [version] => 0.1.0
  * )
@@ -441,26 +445,3 @@ function soundshare_aiosp_tags ( $value, $type, $field ){
  *    [image] =>
  * )
  */
-
-/*
-    $excerpt = strip_tags( $post->post_content );
-    $excerpt_more = '';
-    if ( strlen( $excerpt ) > 155 ) {
-        $excerpt = substr( $excerpt, 0, 155 );
-        $excerpt_more = '...';
-    }
-    $excerpt = str_replace( '"', '', $excerpt );
-    $excerpt = str_replace( "'", '', $excerpt );
-    $excerptwords = preg_split( '/[\n\r\t ]+/', $excerpt, -1, PREG_SPLIT_NO_EMPTY );
-    array_pop( $excerptwords );
-    $excerpt = implode( ' ', $excerptwords ) . $excerpt_more;
-
-<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-website: http://ogp.me/ns/website# video: http://ogp.me/ns/video#
-xmlns:fb="http://ogp.me/ns/fb#"
-
-Theme logo WP v4.5
-$custom_logo_id = get_theme_mod( 'custom_logo' );
-$image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
-$image[0];
-*/

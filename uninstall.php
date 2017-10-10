@@ -2,6 +2,8 @@
 /**
  * Fired when the plugin is uninstalled.
  *
+ * Removes plugin options and post meta (arrays).
+ *
  * @see   https://hearingvoices.com/tools/sound-shares
  * @since 0.1.0
  *

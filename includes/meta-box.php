@@ -318,12 +318,6 @@ function soundshares_save_post_meta( $post_id, $post ) {
 
 }
 
-/*
-http://rji.local/wp-content/plugins/sound-shares/js/media-button.js?ver=1.0
-http://rji.local/wp-content/plugins/sound-shares/js/media_button.js?ver=1.0
-
-*/
-
 /**
  * References and notes.
  *
@@ -357,16 +351,3 @@ http://rji.local/wp-content/plugins/sound-shares/js/media_button.js?ver=1.0
  *    [image] =>
  * )
  */
-
-// rm:
-function soundshares_image_add_metabox () {
-    add_meta_box( 'soundsharesimagediv', __( 'Social-site Image', 'text-domain', 'soundshares' ), 'soundshares_image_metabox', 'post', 'side', 'low');
-}
-// add_action( 'add_meta_boxes', 'soundshares_image_add_metabox' );
-function soundshares_image_save ( $post_id ) {
-    if( isset( $_POST['_soundshares_cover_image'] ) ) {
-        $image_id = (int) $_POST['_soundshares_cover_image'];
-        update_post_meta( $post_id, '_soundshares_image_id', $image_id );
-    }
-}
-// add_action( 'save_post', 'soundshares_image_save', 10, 1 );

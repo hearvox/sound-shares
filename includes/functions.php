@@ -199,22 +199,3 @@ function soundshares_set_option( $option, $value ) {
 
     soundshares_set_options( $options );
 }
-
-
-/**
- * Check for plugin post meta.
- *
- * @since   0.1.0
- */
-function soundshares_check_postmeta() {
-    if ( is_singular() && metadata_exists( 'post', get_the_ID(), 'soundshares' ) ) {
-
-        $soundshares_url = get_post_meta( get_the_ID(), 'soundshares', true );
-
-        // Print XML Namespaces as attributes of post's <html> tag.
-        add_filter( 'language_attributes', 'soundshares_xml_namespaces' );
-
-        // Print Open Graph video (HTML <meta>) tags in post's <head>.
-        add_action( 'wp_head', 'soundshares_add_og_meta_tags', 9 );
-    }
-}

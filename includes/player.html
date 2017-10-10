@@ -4,6 +4,22 @@
 <meta charset="UTF-8">
 <title>Sound Shares: <?php echo filter_var( $title, FILTER_SANITIZE_STRING ); ?></title>
 
+<!--
+/**
+ * Audio player for the Sound Shares plugin
+ *
+ * Public HTML page used in Tweets as an embedded Player Card widget.
+ *
+ * Audio Player: Copyright (c) 2017 by Dave Pagurek (license below).
+ * @link    https://codepen.io/davepvm/pen/DgwlJ
+
+ * @see   https://hearingvoices.com/tools/sound-shares
+ * @since 0.1.0
+ *
+ * @package    Sound Shares
+ * @subpackage sound-shares/includes
+ */
+-->
 <style media="screen">
 @import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
@@ -360,22 +376,6 @@ border-radius: 5px 5px 0px 0px;
 <body>
 <div id="container">
 
-<!--
-/**
- * Audio player for the Sound Shares plugin
- *
- * Public HTML page used in Tweets as an embedded Player Card widget.
- *
- * Audio Player: Copyright (c) 2017 by Dave Pagurek (license below).
- * @link    https://codepen.io/davepvm/pen/DgwlJ
-
- * @see   https://hearingvoices.com/tools/sound-shares
- * @since 0.1.0
- *
- * @package    Sound Shares
- * @subpackage sound-shares/includes
- */
--->
     <div id="player">
 
         <audio id="song" class="song" preload="metadata" src="">
@@ -466,7 +466,6 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-
 var AudioModel = function (_song) {
     var isPlaying = false;
     var song = _song;
