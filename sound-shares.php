@@ -169,14 +169,14 @@ function soundshares_get_html_meta( $html ) {
 }
 
 /**
- * @todo Document above items.
- * @todo Link to an FB post using Sound Shares audio embed.
+ * @todo Link to an FB/Tw post using Sound Shares audio embed.
  * @todo Sanitize player.html text and URL.
  * @todo Check FB/Tw w/ SEO plugins on.
- * @todo RM timers, print_r, commmented out code.
+ * @todo rm timers, print_r, commmented out code.
  *
  * TODO for next version:
  * @todo Print wp_head() front-end output.
+ * @todo Test onerror in audio tag for 404 URLs.
  * @todo Rm loop (from js, css, html)
  * @todo User sets own player.
  * @todo Document FB and Twitter image specs.
