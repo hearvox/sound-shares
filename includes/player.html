@@ -425,7 +425,6 @@ border-radius: 5px 5px 0px 0px;
     </div>
 
 </div>
-<h3 style="color:#fff;font-size:0.9rem;font-weight: 300;"></h3>
 <script type="text/javascript">
 
 /* Get values from URL query string */
@@ -441,11 +440,9 @@ if ( validate_url(ss_get_url_param('file')) ) {
     document.getElementsByTagName("audio")[0].setAttribute("src", encodeURI(ss_get_url_param('file')));
     document.getElementsByTagName("h1")[0].textContent = ss_get_url_param('title');
     document.getElementsByTagName("h2")[0].textContent = 'by ' + ss_get_url_param('author');
-    // document.getElementsByTagName("h3")[0].textContent = validate_url(ss_get_url_param('file'));
 } else {
     document.getElementsByTagName("h1")[0].textContent = 'Not a valid Audio URL!';
 }
-
 
 /**
  * Check for valid URL (allows protocol-relative).
