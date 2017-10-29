@@ -421,11 +421,11 @@ border-radius: 5px 5px 0px 0px;
             </a>
           </div>
         </div>
-        <h3></h3>
+
     </div>
 
 </div>
-
+<h3 style="color:#fff;font-size:0.9rem;font-weight: 300;"></h3>
 <script type="text/javascript">
 
 /* Get values from URL query string */
@@ -437,20 +437,29 @@ function ss_get_url_param(name) {
 };
 
 /* Print values in HTML */
-document.getElementsByTagName("audio")[0].setAttribute("src", encodeURI(ss_get_url_param('file')));
-document.getElementsByTagName("h1")[0].textContent = ss_get_url_param('title');
-document.getElementsByTagName("h2")[0].textContent = 'by ' + ss_get_url_param('author');
+if ( validate_url(ss_get_url_param('file')) ) {
+    document.getElementsByTagName("audio")[0].setAttribute("src", encodeURI(ss_get_url_param('file')));
+    document.getElementsByTagName("h1")[0].textContent = ss_get_url_param('title');
+    document.getElementsByTagName("h2")[0].textContent = 'by ' + ss_get_url_param('author');
+    // document.getElementsByTagName("h3")[0].textContent = validate_url(ss_get_url_param('file'));
+} else {
+    document.getElementsByTagName("h1")[0].textContent = 'Not a valid Audio URL!';
+}
+
 
 /**
- * Returns "safe" URL, stripping anything outside normal charsets.
+ * Check for valid URL (allows protocol-relative).
  *
- * @see https://stackoverflow.com/questions/205923/best-way-to-handle-security-and-avoid-xss-with-user-entered-urls
+ * Copyright (c) 2010-2013 Diego Perini, MIT licensed
+ * @see https://gist.github.com/dperini/729294
+ * @see https://mathiasbynens.be/demo/url-regex
+ * @see https://github.com/jquery-validation/jquery-validation/
  *
- * @param url
- * @return
+ * @param   string   URL
+ * @return  boolean  True if passed valid URL, else false.
  */
-function sanitize_url( url ) {
-    return Regex.Replace(url, "[^-A-Za-z0-9+&@#/%?=~_|!:,.;\(\)]", "");
+function validate_url( url ) {
+    return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( url );
 }
 
 /**
