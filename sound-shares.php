@@ -170,7 +170,6 @@ function soundshares_get_html_meta( $html ) {
 
 /**
  * @todo Link to an FB/Tw post using Sound Shares audio embed.
- * @todo Sanitize player.html text and URL.
  * @todo Check FB/Tw w/ SEO plugins on.
  * @todo rm timers, print_r, commmented out code.
  *

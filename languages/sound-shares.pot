@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sound Shares 0.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sound-shares\n"
-"POT-Creation-Date: 2017-10-05 14:17:57+00:00\n"
+"POT-Creation-Date: 2017-11-27 13:32:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,7 +13,13 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "X-Generator: grunt-wp-i18n1.0.0\n"
 
-#: includes/admin-options.php:29
+#: includes/admin-options.php:24
+msgid ""
+"Your site is not HTTPS. Social sites need secure audio URLs so Sound Shares "
+"may not work."
+msgstr ""
+
+#: includes/admin-options.php:44
 msgid "Sound Shares: Embed audio in social posts"
 msgstr ""
 
@@ -21,63 +27,63 @@ msgstr ""
 msgid "Sound Shares"
 msgstr ""
 
-#: includes/admin-options.php:46
+#: includes/admin-options.php:61 sound-shares.php:44
 msgid "Settings"
 msgstr ""
 
-#: includes/admin-options.php:75
+#: includes/admin-options.php:90
 msgid "Sound Shares meta box"
 msgstr ""
 
-#: includes/admin-options.php:82
+#: includes/admin-options.php:97
 msgid "Facebook"
 msgstr ""
 
-#: includes/admin-options.php:91
+#: includes/admin-options.php:106
 msgid "Twitter"
 msgstr ""
 
-#: includes/admin-options.php:100
+#: includes/admin-options.php:115
 msgid "HTML Meta Tags"
 msgstr ""
 
-#: includes/admin-options.php:109
+#: includes/admin-options.php:124
 msgid "User roles"
 msgstr ""
 
-#: includes/admin-options.php:118
+#: includes/admin-options.php:133
 msgid "Post types"
 msgstr ""
 
-#: includes/admin-options.php:127
+#: includes/admin-options.php:142
 msgid "Categories"
 msgstr ""
 
-#: includes/admin-options.php:154
+#: includes/admin-options.php:169
 msgid ""
 "Sound Shares puts an audio player in the link preview of your socially "
 "shared posts."
 msgstr ""
 
-#: includes/admin-options.php:155
+#: includes/admin-options.php:170
 msgid ""
 "This plugin inserts <code>twitter:</code> and <code>og:</code> HTML meta "
 "tags to embed audio at Twitter and Facebook."
 msgstr ""
 
-#: includes/admin-options.php:169
+#: includes/admin-options.php:184
 msgid "Enter your Facebook settings:"
 msgstr ""
 
-#: includes/admin-options.php:172
+#: includes/admin-options.php:187
 msgid "App ID"
 msgstr ""
 
-#: includes/admin-options.php:174
+#: includes/admin-options.php:189
 msgid "Admin(s)"
 msgstr ""
 
-#: includes/admin-options.php:175
+#: includes/admin-options.php:190
 msgid ""
 "Enter your App ID (from your <a "
 "href=\"https://developers.facebook.com/apps/redirect/dashboard\">Facebook "
@@ -89,86 +95,86 @@ msgid ""
 "me%3Ffields%3Did%2Cname\">Graph Explorer</a>)."
 msgstr ""
 
-#: includes/admin-options.php:194
+#: includes/admin-options.php:209
 msgid "Enter your Twitter handle:"
 msgstr ""
 
-#: includes/admin-options.php:197
+#: includes/admin-options.php:212
 msgid "Site name"
 msgstr ""
 
-#: includes/admin-options.php:198
+#: includes/admin-options.php:213
 msgid ""
 "Enter the username for the Twitter account associated with your site (e.g., "
 "@account_name)."
 msgstr ""
 
-#: includes/admin-options.php:219
+#: includes/admin-options.php:234
 msgid "<strong>Check this only if your site has no social tags.</strong>"
 msgstr ""
 
-#: includes/admin-options.php:222
+#: includes/admin-options.php:237
 msgid "Add all social tags"
 msgstr ""
 
-#: includes/admin-options.php:223
+#: includes/admin-options.php:238
 msgid ""
 "Many sites you an SEO plugin for social meta tags. If you see "
 "<code>twitter:url</code> and <code>og:url</code> tags in your source code, "
 "do <em>not</em> check this box."
 msgstr ""
 
-#: includes/admin-options.php:247
+#: includes/admin-options.php:262
 msgid "Allow Sound Shares only for these roles:"
 msgstr ""
 
-#: includes/admin-options.php:272
+#: includes/admin-options.php:287
 msgid "Allow Sound Shares only for selected post types:"
 msgstr ""
 
-#: includes/admin-options.php:301
-msgid "Allow Sound Shares for all categories (default) or only these:"
+#: includes/admin-options.php:316
+msgid "Allow Sound Shares for all categories (default) or only these selections:"
 msgstr ""
 
-#: includes/admin-options.php:347
+#: includes/admin-options.php:362
 msgid "Sound Shares information"
 msgstr ""
 
-#: includes/admin-options.php:349
+#: includes/admin-options.php:364
 msgid ""
 "Your settings above display the meta box on the Edit screen <em>only</em> "
 "for:"
 msgstr ""
 
-#: includes/admin-options.php:351
+#: includes/admin-options.php:366
 msgid "User-roles:"
 msgstr ""
 
-#: includes/admin-options.php:352
+#: includes/admin-options.php:367
 msgid "Post-types:"
 msgstr ""
 
-#: includes/admin-options.php:354
+#: includes/admin-options.php:369
 msgid "Categories: (all)"
 msgstr ""
 
-#: includes/admin-options.php:356
+#: includes/admin-options.php:371
 msgid "Categories:"
 msgstr ""
 
-#: includes/admin-options.php:359
+#: includes/admin-options.php:374
 msgid "Debug tools (link preview):"
 msgstr ""
 
-#: includes/admin-options.php:360
+#: includes/admin-options.php:375
 msgid "Sound Shares player:"
 msgstr ""
 
-#: includes/admin-options.php:363
+#: includes/admin-options.php:378
 msgid "Player design by"
 msgstr ""
 
-#: includes/admin-options.php:363
+#: includes/admin-options.php:378
 msgid ""
 "This plugin is part of a <a "
 "href=\"https://www.rjionline.org/stories/series/storytelling-tools/\">"
@@ -176,15 +182,15 @@ msgid ""
 "href=\"https://current.org/author/bgolding/\">Current</a>."
 msgstr ""
 
-#: includes/admin-options.php:365
+#: includes/admin-options.php:380
 msgid " queries in "
 msgstr ""
 
-#: includes/admin-options.php:365
+#: includes/admin-options.php:380
 msgid " seconds uses "
 msgstr ""
 
-#: includes/admin-options.php:365
+#: includes/admin-options.php:380
 msgid " peak memory"
 msgstr ""
 
@@ -244,18 +250,8 @@ msgstr ""
 msgid "(default: featured image)"
 msgstr ""
 
-#: includes/meta-box.php:363
-msgid "Social-site Image"
-msgstr ""
-
-#: includes/social-meta.php:273
+#: includes/social-meta.php:278
 msgid "Media by "
-msgstr ""
-
-#: sound-shares.php:34
-msgid ""
-"Your site may not be secure HTTPS so will not embed audio in social sites "
-"(which require secure URLs)."
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -264,12 +260,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"NOT READY. DO NOT USE YET. Embed audio and video in your social posts "
-"(using Facebook's Open Graph protocol and Twitter's player card). To use: "
-"1) Go to Edit Post's box for Custom Fields. 2) Click the Add New Custom "
-"Field form's link labeled \"Enter New\", 3) Enter the name: \"soundshares\" "
-"in the Name field. 4) Enter the full URL of the audiofile (or video) in the "
-"Value field. 5) Click the form's Add Custom Field button. Done."
+"Embed audio in your social posts by entering an audio URL in a post's Sound "
+"Shares box. (Uses Facebook's Open Graph protocol and Twitter's player card.)"
 msgstr ""
 
 #. Author of the plugin/theme

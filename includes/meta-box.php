@@ -115,7 +115,7 @@ function soundshares_meta_box_callback( $post, $box ) {
         <input class="widefat" type="text" name="soundshares_meta[title]" id="soundshares-title" size="30" value="<?php if ( isset ( $soundshares_meta['title'] ) ) { echo sanitize_textarea_field( $soundshares_meta['title'] ); } ?>" placeholder="(<?php _e( 'default: post title', 'soundshares' ); ?>)" />
     </p>
     <p>
-        <label for="soundshares-author"><?php _e( 'Audio author:', 'soundshares' ); ?> <?php the_author( $post_id ); ?></label><br />
+        <label for="soundshares-author"><?php _e( 'Audio author:', 'soundshares' ); ?></label><br />
         <input class="widefat" type="text" name="soundshares_meta[author]" id="soundshares-author" size="30" value="<?php if ( isset ( $soundshares_meta['author'] ) ) { echo sanitize_textarea_field( $soundshares_meta['author'] ); } ?>" placeholder="(<?php _e( 'default: post author', 'soundshares' ); ?>)" />
     </p>
 

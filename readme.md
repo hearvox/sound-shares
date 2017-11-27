@@ -11,13 +11,13 @@
 **License:** GPLv2 or later  
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html  
 
-Embed an audio player in social sites when users share your posts.
+Embed a player with your audio into Facebook posts and Twitter tweets.
 
 ## Description ##
 
-Add an audio player into Facebook posts and Twitter tweets of your posts.
+Sound Shares adds an audio player to social-site shares of your posts.
 
-When you enter an audio file URL in a post's Sound Shares box, this plugin adds the HTML tags so social sites embed audio in their link previews.
+Enter an audio-file URL into a post's Sound Shares box. This plugin then inserts tags into your post's HTML so social sites embed your audio in their link previews.
 
 *Note: Works only for secure HTTPS sites.*
 
@@ -82,7 +82,7 @@ The WordPress.org Polyglots Team maintains a comprehensive [Translator’s Handb
 ### Dev notes ###
 This plugin has one filter: `'soundshares_meta_tags'`, an array of values for the HTML meta tags -- `includes/admin-options.php` has a usage example. See Twitter's [Player Card](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/player-card) and Facebook's [Open Graph protocol](https://developers.facebook.com/docs/sharing/webmasters) references.
 
-Sound Shares filters of the Jetpack, Yoast SEO, and All in One SEO Pack meta tags so that `og:type` and `twitter:card` values will embed media. Facebook audio embeds in the default HTML audio player. For Twitter this plugin provides a custom player (`includes/player.html`). The meta box displays links to social-site link-preview debuggers after the post is published. (Try Facebook's "Scrape Again" button if your post's link-preview does not display a play button.)
+Sound Shares filters other plugins' tags (Jetpack, Yoast SEO, and All in One SEO Pack) so the link preview can will embed media (`og:type` = `video.movie`, `twitter:card` = `player`). Facebook audio embeds use the default HTML audio player. For Twitter this plugin provides a custom player (`includes/player.html`). The meta box displays links to social-site link-preview debuggers after the post is published. (Try Facebook's "Scrape Again" button if your post's link-preview does not display a play button.)
 
 ### Credits ###
 This is part of a [Reynolds Journalism Institute](https://www.rjionline.org) fellowship and an article for [Current](https://current.org/author/bgolding/) public media news. The audio player was made by <a href="https://codepen.io/davepvm/pen/DgwlJ">Dave Pagurek</a>.
