@@ -114,7 +114,10 @@ function soundshares_add_meta_tags() {
         echo '<!-- / Sound Shares tags -->' . "\n";
     }
 }
-add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
+if ( ! is_admin() && is_singular() ) {
+    add_action( 'wp_head', 'soundshares_add_meta_tags', 1 );
+}
+
 
 /**
  * Build array of data for Facebook Open Graph meta tags.

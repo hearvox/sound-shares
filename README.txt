@@ -11,9 +11,11 @@ Stable tag: 0.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Embed a player with your audio into Facebook posts and Twitter tweets.
+Embed a player with your audio into your social site posts.
 
 == Description ==
+
+*Notice: This plugin works only for Twitter right now. As of December 2017, Facebook no longer allows embedded videos to play in link previews (including those from YouTube and Videos). You can still embed audio players in tweets using this plugin.*
 
 Sound Shares adds an audio player to social-site shares of your posts.
 
