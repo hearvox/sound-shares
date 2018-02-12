@@ -15,7 +15,7 @@ Embed a player with your audio into your social site posts.
 
 ## Description ##
 
-<em>Notice: This plugin works only for Twitter right now. As of December 2017, <a href="https://developers.facebook.com/bugs/1963535797258090/">Facebook no longer allows external videos</a> to play in link previews (including YouTube and Vimeo). You can still use Sound Shares to embed audio players in tweets.</em>
+<em>Update (2017-02): This plugin embeds audio players in tweets. But in Facebook, as of December 2017, it only works for link previews in comments not posts: <a href="https://developers.facebook.com/bugs/1963535797258090/">Facebook no longer allows external videos</a> (including YouTube and Vimeo) to play within posts.</em>
 
 Sound Shares adds an audio player to social-site shares of your posts.
 
