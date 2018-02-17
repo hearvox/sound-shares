@@ -55,7 +55,7 @@ To install the use the Postscript plugin:
 4. Facebook post playing embedded audio.
 5. Twitter post with audio play button.
 6. Twitter post playing embedded audio.
-6. Twitter card validator's Request Approval button.
+7. Twitter card validator's Request Approval button.
 
 == Frequently Asked Questions ==
 
