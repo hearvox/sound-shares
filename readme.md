@@ -15,7 +15,7 @@ Embed a player with your audio into your social site posts.
 
 ## Description ##
 
-<em>Update (2017-02): This plugin embeds audio players in tweets. But in Facebook, as of December 2017, it only works for link previews in comments not posts: <a href="https://developers.facebook.com/bugs/1963535797258090/">Facebook no longer allows external videos</a> (including YouTube and Vimeo) to play within posts.</em>
+<em>Notice: This plugin works only for Twitter right now. As of December 2017, <a href="https://developers.facebook.com/bugs/1963535797258090/">Facebook no longer allows external videos</a> to play in link previews (including YouTube and Vimeo). You can still use Sound Shares to embed audio players in tweets.</em>
 
 Sound Shares adds an audio player to social-site shares of your posts.
 
@@ -49,13 +49,27 @@ To install the use the Postscript plugin:
 
 ## Screenshots ##
 
-1. Settings screen for user roles, post types, and categories/
-2. Sound Shares meta box in the Edit Post screen.
-3. Facebook post with audio play button.
-4. Facebook post playing embedded audio.
-5. Twitter post with audio play button.
-6. Twitter post playing embedded audio.
-6. Twitter card validator's Request Approval button.
+### 1. Settings screen for user roles, post types, and categories/ ###
+![Settings screen for user roles, post types, and categories/](assets/screenshot-1.png)
+
+### 2. Sound Shares meta box in the Edit Post screen. ###
+![Sound Shares meta box in the Edit Post screen.](assets/screenshot-2.png)
+
+### 3. Facebook post with audio play button. ###
+![Facebook post with audio play button.](assets/screenshot-3.png)
+
+### 4. Facebook post playing embedded audio. ###
+![Facebook post playing embedded audio.](assets/screenshot-4.png)
+
+### 5. Twitter post with audio play button. ###
+![Twitter post with audio play button.](assets/screenshot-5.png)
+
+### 6. Twitter post playing embedded audio. ###
+![Twitter post playing embedded audio.](assets/screenshot-6.png)
+
+### 7. Twitter card validator's Request Approval button. ###
+![Twitter card validator's Request Approval button.](assets/screenshot-7.png)
+
 
 ## Frequently Asked Questions ##
 
